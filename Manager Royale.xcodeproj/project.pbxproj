@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6768D3FA21F7AAB100651B45 /* clashRoyaleWarlog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6768D3F921F7AAB100651B45 /* clashRoyaleWarlog.swift */; };
+		6768D3FC21F7D93100651B45 /* TheClan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6768D3FB21F7D93100651B45 /* TheClan.swift */; };
+		6768D426220EE58F00651B45 /* jsonReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6768D425220EE58F00651B45 /* jsonReader.swift */; };
+		6768D429221246ED00651B45 /* testMyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6768D428221246ED00651B45 /* testMyAPI.swift */; };
+		6768D42B2213646600651B45 /* myClanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6768D42A2213646600651B45 /* myClanViewController.swift */; };
 		6797D6A221F1228300C6B9D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6797D6A121F1228300C6B9D4 /* AppDelegate.swift */; };
 		6797D6A421F1228300C6B9D4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6797D6A321F1228300C6B9D4 /* ViewController.swift */; };
 		6797D6A721F1228300C6B9D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6797D6A521F1228300C6B9D4 /* Main.storyboard */; };
@@ -15,6 +20,8 @@
 		6797D6AF21F1228400C6B9D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6797D6AD21F1228400C6B9D4 /* LaunchScreen.storyboard */; };
 		6797D6BA21F1228400C6B9D4 /* Manager_RoyaleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6797D6B921F1228400C6B9D4 /* Manager_RoyaleTests.swift */; };
 		6797D6C521F1228400C6B9D4 /* Manager_RoyaleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6797D6C421F1228400C6B9D4 /* Manager_RoyaleUITests.swift */; };
+		6797D6D321F1242C00C6B9D4 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6797D6D221F1242C00C6B9D4 /* Weather.swift */; };
+		6797D6D521F275A000C6B9D4 /* clashRoyale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6797D6D421F275A000C6B9D4 /* clashRoyale.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +42,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6768D3F921F7AAB100651B45 /* clashRoyaleWarlog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = clashRoyaleWarlog.swift; sourceTree = "<group>"; };
+		6768D3FB21F7D93100651B45 /* TheClan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheClan.swift; sourceTree = "<group>"; };
+		6768D425220EE58F00651B45 /* jsonReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = jsonReader.swift; sourceTree = "<group>"; };
+		6768D428221246ED00651B45 /* testMyAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testMyAPI.swift; sourceTree = "<group>"; };
+		6768D42A2213646600651B45 /* myClanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myClanViewController.swift; sourceTree = "<group>"; };
 		6797D69E21F1228300C6B9D4 /* Manager Royale.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Manager Royale.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6797D6A121F1228300C6B9D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6797D6A321F1228300C6B9D4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -49,6 +61,8 @@
 		6797D6C021F1228400C6B9D4 /* Manager RoyaleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Manager RoyaleUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6797D6C421F1228400C6B9D4 /* Manager_RoyaleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manager_RoyaleUITests.swift; sourceTree = "<group>"; };
 		6797D6C621F1228400C6B9D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6797D6D221F1242C00C6B9D4 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
+		6797D6D421F275A000C6B9D4 /* clashRoyale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = clashRoyale.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,7 +114,14 @@
 			isa = PBXGroup;
 			children = (
 				6797D6A121F1228300C6B9D4 /* AppDelegate.swift */,
+				6797D6D221F1242C00C6B9D4 /* Weather.swift */,
+				6797D6D421F275A000C6B9D4 /* clashRoyale.swift */,
+				6768D3F921F7AAB100651B45 /* clashRoyaleWarlog.swift */,
+				6768D3FB21F7D93100651B45 /* TheClan.swift */,
+				6768D42A2213646600651B45 /* myClanViewController.swift */,
+				6768D425220EE58F00651B45 /* jsonReader.swift */,
 				6797D6A321F1228300C6B9D4 /* ViewController.swift */,
+				6768D428221246ED00651B45 /* testMyAPI.swift */,
 				6797D6A521F1228300C6B9D4 /* Main.storyboard */,
 				6797D6AB21F1228400C6B9D4 /* Assets.xcassets */,
 				6797D6AD21F1228400C6B9D4 /* LaunchScreen.storyboard */,
@@ -259,8 +280,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6768D426220EE58F00651B45 /* jsonReader.swift in Sources */,
+				6768D429221246ED00651B45 /* testMyAPI.swift in Sources */,
+				6768D3FC21F7D93100651B45 /* TheClan.swift in Sources */,
+				6797D6D321F1242C00C6B9D4 /* Weather.swift in Sources */,
 				6797D6AA21F1228300C6B9D4 /* Manager_Royale.xcdatamodeld in Sources */,
 				6797D6A421F1228300C6B9D4 /* ViewController.swift in Sources */,
+				6768D42B2213646600651B45 /* myClanViewController.swift in Sources */,
+				6768D3FA21F7AAB100651B45 /* clashRoyaleWarlog.swift in Sources */,
+				6797D6D521F275A000C6B9D4 /* clashRoyale.swift in Sources */,
 				6797D6A221F1228300C6B9D4 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
