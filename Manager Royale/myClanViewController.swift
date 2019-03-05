@@ -26,16 +26,14 @@ class myClanViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 isClickedOnArray.append(false)
             }
             activeClanTable = newClan
+            tableView.reloadData()
         }else{
-            activeClanTable = theClan()
+            activeClanTable = theClan() // Display "no clans added"
         }
     }
     // Outlets for the ranking drop down
     
     // Buttons for the ranking drop down
-    
-    
-    
     
     
     //@IBAction func byDonations(_ sender: Any) {
@@ -46,12 +44,14 @@ class myClanViewController: UIViewController, UITableViewDelegate, UITableViewDa
     //}
    
     @IBOutlet var tableView: myClanTableView! // Outlet for the table
-    // calls delegate function to build th table
+    
+    // Calls delegate function to build the table
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
     }
+    
     // creates the numer of rows in the cell
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return activeClanTable.playerArray.count
@@ -65,7 +65,16 @@ class myClanViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.cellMore.isHidden = false
         cell.cellName.text = activeClanTable.playerArray[indexPath.row].name
         cell.cellWorth.text = String(Int(activeClanTable.playerArray[indexPath.row].Worth))
+        
+        
         cell.cellCount.text = String(indexPath.row + 1)
+        
+        /*// cellCount contraints
+        cell.cellCount.translatesAutoresizingMaskIntoConstraints = false
+        
+        cell.cellCount.leftAnchor.constraint(equalTo: , constant: 5.0).isActive = false
+        cell.cellCount.topAnchor.constraint(equalTo: tableView.topAnchor, constant: 50.0)*/
+        
         cell.cellTrophies.text = String(activeClanTable.playerArray[indexPath.row].trophies)
         cell.cellDonations.text = String(activeClanTable.playerArray[indexPath.row].donations)
         cell.cellRole.text = activeClanTable.playerArray[indexPath.row].role
@@ -115,13 +124,16 @@ class myClanViewController: UIViewController, UITableViewDelegate, UITableViewDa
             return 250
         }else if isClickedOnArray[indexPath.row] == false{
   
-        return 70 //or whatever you need
+        return 100 //or whatever you need
+            
         }else{
             return 60
         }
     }
  
 }
+
+
 
 // The cell class, contains connections to the view
 class myClanTableViewCell: UITableViewCell {
@@ -154,9 +166,10 @@ func displayPastWars(whichCell:Int) {
     //print("This is the cell: ", theCell)
     
     
+    
 }
 
-// IDK
+// Class for the table
 class myClanTableView: UITableView {
     
 }

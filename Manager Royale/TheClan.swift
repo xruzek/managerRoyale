@@ -38,6 +38,7 @@ class players{
     }
     var warDayArray = [warDay]()  // is in reversed order rn...10th war is numer 0 in the array
     
+    //stuff for player
     var playerTag:String
     var name:String
     var role:String
@@ -54,6 +55,7 @@ class players{
     var warDaysNotPlayed:Int
     var warDayMissedStreak:Int
     var warDaysInvolvedIn:Int
+    var collectionBattelsMissed:Int
   
     var Worth:Double
     
@@ -75,6 +77,7 @@ class players{
         self.warDaysNotPlayed = 0
         self.warDayMissedStreak = 0
         self.warDaysInvolvedIn = 0
+        self.collectionBattelsMissed = 0
         
         self.Worth = 0
     }
@@ -97,6 +100,7 @@ class players{
         self.warDaysNotPlayed = 0
         self.warDayMissedStreak = 0
         self.warDaysInvolvedIn = 0
+        self.collectionBattelsMissed = 0
         
         self.Worth = 0
     }
@@ -110,10 +114,12 @@ class players{
         }
     }
     
+    // calculates war stats for player
     func calcWarlog(playerWarlog:playerWarlog){
         self.cardsEarned += playerWarlog.cardsEarned
         self.collectionBattlesPlayed += playerWarlog.collectionBattlesPlayed
         self.warDaysInvolvedIn += 1
+        self.collectionBattelsMissed += 3 - playerWarlog.collectionBattlesPlayed
         
         if playerWarlog.warDaysPlayed == 0{
             self.warDaysNotPlayed += 1
@@ -125,6 +131,7 @@ class players{
         }
     }
     
+    // calculates worth of member
     func calcWorth(averageDonations:Double) {
         var newWorth:Double = 0
         
@@ -155,9 +162,22 @@ class theClan {
     let clanName:String
     let clanTag:String
     var playerArray = [players]()
-    var totalDonations:Int
-    var numOfDonators:Int
-
+    var totalDonations:Int = 0
+    var numOfDonators:Int = 0
+    var totalTrophies:Int = 0
+    
+    var totalWarDayWins:Int = 0
+    var totalCardsCollected:Int = 0
+    var totalWarDaysMissed:Int = 0
+    var totalWarDaysPlayed:Int = 0
+    var totalWarDaysInvolvedIn:Int = 0
+    
+    var warDates = [String]()
+    // vvvvvvvv put that in there vvvvvvvv
+    // total war day array
+    var warDays = [[String:Any]]() // get whiteboard to do this part
+    
+    
     // Extra Variables: (just for curiosity) totalDonationsReceived:Int ???
  
     init() {
@@ -165,20 +185,21 @@ class theClan {
         self.clanTag = ""
         self.totalDonations = 0
         self.numOfDonators = 0
+        self.totalTrophies = 0
     }
     
-    init(clanTag: String, clanName:String, playerInfo: [playerInfo], playerWarlog: [[playerWarlog]])
+    init(clanTag: String, clanName:String, playerInfo: [playerInfo], playerWarlog: [[playerWarlog]], warDates: [String] )
     {
-        self.totalDonations = 0
         self.clanTag = clanTag
-        self.numOfDonators = 0
         self.clanName = clanName
+        self.warDates = warDates
         
         for player in playerInfo{
             var playerObject = try! players(playerInfo: player)
             if playerObject.donations != 0{
                 self.numOfDonators += 1
             }
+            totalTrophies += player.trophies
             playerArray.append(playerObject)
         }
         
@@ -199,29 +220,29 @@ class theClan {
        
         for player in playerArray{
             player.calcWorth(averageDonations: Double(totalDonations/numOfDonators))
+            
+            self.totalWarDayWins += player.warDaysWon
+            self.totalCardsCollected += player.cardsEarned
+            self.totalWarDaysMissed += player.warDaysNotPlayed
+            self.totalWarDaysPlayed += player.warDaysPlayed
+            self.totalWarDaysInvolvedIn += player.warDaysInvolvedIn
+            
         }
+        
     }
     
     func displayClanNames(){
         print("Total Donations = ", self.totalDonations, "\n")
         print("Average Donations = ", self.totalDonations/self.numOfDonators, "\n")
+        print("Total War Days Won = ", self.totalWarDayWins, "\n")
+        print("Total Cards Collected = ", self.totalCardsCollected, "\n")
+        print("Total War Days Missed = ", self.totalWarDaysMissed, "\n")
+        print("Total War Days Played = ", self.totalWarDaysPlayed, "\n")
+        
         for player in self.playerArray{
-            print(player.name, "\nDonations = ", player.donations, "\nWar Days not played = ", player.warDaysNotPlayed,"\nWar Days Played = ", player.warDaysPlayed, "\nWar Days Won = ", player.warDaysWon,"\nCollection Days = ", player.collectionBattlesPlayed, "\nW/L Ratio = ", player.warDaysWon, "/",player.warDaysPlayed + player.warDaysNotPlayed, "\nWar Days Missed In A Row = ", player.warDayMissedStreak, "\nWorth is: ",player.Worth, "\n" )
-            //print(player.name, "'s Worth is: ", player.Worth, "\n")
+            print(player.name, "\nDonations = ", player.donations, "    Donations Recieved", player.donationsReceived, "\nWar Days not played = ", player.warDaysNotPlayed,"\nWar Days Played = ", player.warDaysPlayed, "\nWar Days Won = ", player.warDaysWon,"\nCollection Days = ", player.collectionBattlesPlayed, "\nW/L Ratio = ", player.warDaysWon, "/",player.warDaysPlayed + player.warDaysNotPlayed, "\nWar Days Missed In A Row = ", player.warDayMissedStreak,"\nCollection Battles Missed: ", player.collectionBattelsMissed, "\nWorth is: ", player.Worth, "\n" )
+           
         }
-    }
-    
-    func displayInTextView() -> String {
-        var textForView:String = ""
-        for player in self.playerArray{
-            
-            textForView += player.name
-            textForView += "'s Worth: "
-            textForView += String(player.Worth)
-            textForView += "\n"
-            
-        }
-        return textForView
     }
     
     func sortArray(sortType:String){
@@ -244,3 +265,15 @@ class theClan {
 }
 
 
+
+/*func displayInTextView() -> String {
+ var textForView:String = ""
+ for player in self.playerArray{
+ 
+ textForView += player.name
+ textForView += "'s Worth: "
+ textForView += String(player.Worth)
+ textForView += "\n"
+ }
+ return textForView
+ }*/

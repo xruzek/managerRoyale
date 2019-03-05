@@ -8,28 +8,41 @@
 
 import UIKit
 
+// Variables needed for the table
+var myGlobalClansArray: [[String:Any]] = []
+var activeClanObject = theClan()
 
-class ViewController: UIViewController/*, UITextFieldDelegate*/ {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // clanTag = "9GCQYY0C"
     // Contains the text the user entered  for the clan tag
     @IBOutlet weak var clanTagTextField: UITextField!
     
+    
     // Trys to save the clan, returns messages if: wrong tag, already have tag saved, server down
     @IBAction func saveButton(_ sender: Any) {
-        
         if !alreadyHaveClan(Tag: clanTagTextField.text!) {
             myAPIWarlogGrab(withLocation: clanTagTextField.text!) { (didWorkAswell: String) in
             }
             myAPIClanGrab(withLocation: clanTagTextField.text!) { (didWork: String) in
-                // somthing aint right
                 DispatchQueue.main.async {
                     self.errorHandel(didWork: didWork)
+                    // Read Current clan User Default, save that to past UserDefault, then whatever you read in the to new one.
+                    if didWork == "worked" {
+                        if var clansArray = UserDefaults.standard.array(forKey: "myClans") as? [[String: Any]]  {
+                            clansArray.append(["tag": self.clanTagTextField.text!])
+                            UserDefaults.standard.set(clansArray, forKey: "myClans")
+                            myGlobalClansArray = clansArray
+                            self.allClansTable.reloadData()
+                        }
+                    }
                 }
+      
             }
         }else {
             self.errorView.isHidden = false
             self.errorLabel.text = "Already have that clan saved"
-            // highlight clan saved in the list
+            // highlight clan saved in the list, and reload clan info
+            
         }
     }
     
@@ -46,8 +59,6 @@ class ViewController: UIViewController/*, UITextFieldDelegate*/ {
         }else {
             return false
         }
-        
-        
     }
     
     // Error Handeling
@@ -63,8 +74,6 @@ class ViewController: UIViewController/*, UITextFieldDelegate*/ {
             // Everything worked fine
             self.errorView.isHidden = true
             self.errorAddedLabel.isHidden = false
-            // call function to update the myClans & active clan views
-            
         }else if didWork == "wrongKey" {
             // somthing aint right with the API key
         }else if didWork == "wrongTag" {
@@ -84,61 +93,159 @@ class ViewController: UIViewController/*, UITextFieldDelegate*/ {
     // Loads in the clan array of all the clans they have
     override func viewWillAppear(_ animated: Bool) {
         
-         if let activeClan = UserDefaults.standard.object(forKey: "activeClan") as? String{
-             // found a clan to display
-             var newClan = theClan()
-             newClan = loadClan(activeClan: activeClan)
-             newClan.sortArray(sortType: "byWorth")
-             // display active clan in active clans
+        if let activeClan = UserDefaults.standard.object(forKey: "activeClan") as? String{
+        
+            if activeClan != "none" {
+                print(activeClan)
+                // found a clan to display
+                var newClan = theClan()
+                newClan = loadClan(activeClan: activeClan)
+                newClan.sortArray(sortType: "byWorth")
+                
+                // display active clan in active clans
+                activeClanTag.text = newClan.clanTag
+                activeClanName.text = newClan.clanName
+                activeClanObject = newClan
+                
+                // display total clans in "myClans" (Table Stuff)
+                if let clansArray = UserDefaults.standard.array(forKey: "myClans") as? [[String: Any]] {
+                    myGlobalClansArray = clansArray
+                }
+            }
+                // update all clan's progress UserDefualt variables( updateClansProgress ) - or do this when they reload a selected clan
             
-             // display total clans in "myClans"
-         
          }else{
-            // ask for clan tag, treat like its their first time using the app, display home view controller
+            // create UserDefaults array's ( myClans, activeClan )
+            let newArray: [[String: Any]] = []
+            UserDefaults.standard.set(newArray, forKey: "myClans")
             
+            let activeClan = "none"
+            UserDefaults.standard.set(activeClan, forKey: "activeClan")
          }
     }
-    
+
+    // Use for debuging and building the table
     override func viewDidLoad() {
-        super.viewDidLoad()  // check the UserDefaults for availabtle clan
+        super.viewDidLoad()
+        allClansTable.delegate = self
+        allClansTable.dataSource = self
+        NotificationCenter.default.addObserver(self, selector: #selector(loadList), name: NSNotification.Name(rawValue: "load"), object: nil)
         errorView.isHidden = true
-        print("Loaded")
-        // let indexPath = IndexPath(item: 0, section: 0)
-        // tableView.deleteRows(at: [indexPath], with: .fade)
-       
         
-        // delegate shit nameTextField.delegate = self
-        // Use viewWillAppear() to consume from the API
-          // - also grab info from UserDefaults to see all the User's clans.
-          // - also grab data from User's clans and add to clan's total.
+        // Seeing the clan with print
+       // var newClan = theClan()
+       // newClan = loadClan(activeClan: "9GCQYY0C")
+       // newClan.sortArray(sortType: "byWorth")
+       // newClan.displayClanNames()
+        //dump(Array(UserDefaults.standard.dictionaryRepresentation().keys))
         
-        // dump(Array(UserDefaults.standard.dictionaryRepresentation().keys))  -- to clean up my UserDefaults
+
+    }
+    
+    
+    
+    //------------------------ My Clan's Table Code ------------------------\\
+    
+    @IBOutlet weak var allClansTable: UITableView!
+    var cellIdentifier = "cell"
+    
+    // Variables:myClansArray & aClan are above the viewWillApear
+    
+    // Creates the numer of rows in the cell
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
+        return myGlobalClansArray.count
+    }
+    
+    // Creates each cell of the table
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell:allClansCell = self.allClansTable.dequeueReusableCell(withIdentifier: cellIdentifier) as! allClansCell
+        
+        cell.cellClanTag.text = myGlobalClansArray[indexPath.row]["tag"] as? String
+        let aClan = loadClan(activeClan: cell.cellClanTag.text!)
+        cell.cellClanName.text = aClan.clanName
+        cell.count = indexPath.row
+        
+        if let activeClan = UserDefaults.standard.object(forKey: "activeClan") as? String {
+            
+            if activeClan != cell.cellClanTag.text! {
+                cell.cellActivateOutlet.setTitleColor(.gray, for: .normal)
+                cell.cellActivateOutlet.setTitle("Activate", for: .normal)
+                
+            } else {
+                cell.cellActivateOutlet.setTitleColor(.blue, for: .normal)
+                cell.cellActivateOutlet.setTitle("Activated", for: .normal)
+                
+                if myGlobalClansArray[0]["tag"] as! String != cell.cellClanTag.text! {
+                    let temp:[String:Any] = ["tag": cell.cellClanTag.text!]
+                    myGlobalClansArray.remove(at: cell.count)
+                    myGlobalClansArray.insert(temp, at: 0)
+                    UserDefaults.standard.set(myGlobalClansArray,forKey: "myClans")
+                    self.allClansTable.reloadData()
+                }
+                
+                
+                activeClanName.text = cell.cellClanName.text!
+                activeClanTag.text = cell.cellClanTag.text!
+                
+            }
+        }
+        return cell
+    }
+    
+    // Outlets for the active clan
+    @IBOutlet weak var activeClanName: UILabel!
+    @IBOutlet weak var activeClanTag: UILabel!
+    
+    // Edits the size of each cell
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        return 50
+    }
+    
+    // Reloads the table
+    @objc func loadList(){
+        //load data here
+        self.allClansTable.reloadData()
+    }
+}
+
+
+// Class for allClans cell
+class allClansCell: UITableViewCell {
+    var count = 0
+    @IBOutlet weak var cellClanName: UILabel!
+    @IBOutlet weak var cellClanTag: UILabel!
+    @IBOutlet weak var cellActivateOutlet: UIButton!
+    @IBAction func cellActivateButton(_ sender: Any) {
+        if cellActivateOutlet.titleLabel?.text! != "Activated"{
+            UserDefaults.standard.set(myGlobalClansArray[count]["tag"] as? String, forKey: "activeClan")
+            
+            cellActivateOutlet.setTitleColor(.blue, for: .normal)
+            cellActivateOutlet.setTitle("Activated", for: .normal)
+            
+            // reorder the myGlobalClansArray && myClans array
+            let temp:[String:Any] = ["tag": cellClanTag.text!]
+            myGlobalClansArray.remove(at: count)
+            myGlobalClansArray.insert(temp, at: 0)
+            UserDefaults.standard.set(myGlobalClansArray,forKey: "myClans")
+            
+            // Reload which clan is the active clan
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+        }
     }
     
 }
 
 
+// Class for the table
+class allClansTable: UITableView {
+    
+}
 
-// Code for seeInfo - reads in and displays the clan info
-/*
- if let activeClan = UserDefaults.standard.object(forKey: "activeClan") as? String{ // if active clan is not nil
- // creates and loads the clan that the user picked to be active
- var newClan = theClan()
- newClan = loadClan(activeClan: activeClan)
- 
- textView.text = newClan.displayInTextView()
- newClan.sortArray(sortType: "byWorth")
- newClan.displayClanNames()
- 
- }else{
- textView.text = "There is no clan to display"
- }*/
 
-//code for saveClan - saves the clan to the UserDefaults
-/*
- // Calls the API
- // possible error handling in these
+ /*   Calls the API
+ 
  myAPIClanGrab(withLocation: "9GCQYY0C") { (didWork: String) in
  print("didWork: ", didWork)
  }

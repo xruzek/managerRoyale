@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 func myAPIClanGrab (withLocation clanTag:String, completion: @escaping (String) -> ())
 {
     var didWork = "worked"
@@ -28,20 +27,7 @@ func myAPIClanGrab (withLocation clanTag:String, completion: @escaping (String) 
         if let data = data {  // if the data id found
             do {  // try and serialize the data into a dictionary
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:Any] {
-                        if let clanName:String = json["name"] as? String{
-                        
-                        // Read Current clan User Default, save that to past UserDefaul, then whatever you read in the to new one.
-                        if var clansArray = UserDefaults.standard.array(forKey: "myClans") as? [[String: Any]] {
-                            clansArray.append(["name": clanName, "tag": clanTag])
-                            UserDefaults.standard.set(clansArray, forKey: "myClans")
-                        }else {
-                            var newArray: [[String: Any]] = []
-                            newArray.append(["name": clanName, "tag": clanTag])
-                            UserDefaults.standard.set(newArray, forKey: "myClans")
-                        }
-                        UserDefaults.standard.set(json, forKey: clanTag + "myClan")
-                        UserDefaults.standard.set(clanTag, forKey: "activeClan")
-                    }
+                    
                     // if the program has trouble reading in from the API
                     if let reason = json["reason"] as? String{
                         if(reason == "accessDenied"){
@@ -54,6 +40,9 @@ func myAPIClanGrab (withLocation clanTag:String, completion: @escaping (String) 
                             // display message for user
                             // make it return a string that says what the error is
                         }
+                    } else {
+                        UserDefaults.standard.set(json, forKey: clanTag + "myClan")
+                        UserDefaults.standard.set(clanTag, forKey: "activeClan")
                     }
                 }
             }catch {  // if it doesn't work, print the error
@@ -92,9 +81,6 @@ func myAPIWarlogGrab (withLocation clanTag:String, completion: @escaping (String
             
             do {  // try and serialize the data into a dictionary
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:Any] {
-                
-                    UserDefaults.standard.set(json, forKey: clanTag + "myWarlog")
-                    
                     // if the program has trouble reading in from the API
                     if let reason = json["reason"] as? String{
                         if(reason == "accessDenied"){
@@ -107,6 +93,8 @@ func myAPIWarlogGrab (withLocation clanTag:String, completion: @escaping (String
                             // display message for user
                             // make it return a string that says what the error is
                         }
+                    } else {
+                        UserDefaults.standard.set(json, forKey: clanTag + "myWarlog")
                     }
                 }
             }catch {  // if it doesn't work, print the error

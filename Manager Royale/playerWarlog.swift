@@ -16,6 +16,7 @@ struct playerWarlog {
     let warDaysWon:Int
     let collectionBattlesPlayed:Int
     
+    
     // enum for chekcing to see if there is an error
     enum SeriliztionError:Error {
         case missing(String)
@@ -40,6 +41,7 @@ struct playerWarlog {
         self.collectionBattlesPlayed = collectionBattlesPlayed
         self.playerTag = playerTag
         self.name = name
+       
         
     }
     
