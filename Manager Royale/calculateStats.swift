@@ -12,14 +12,24 @@ import Foundation
  Clan:
  - Donation Average (Total Donations this week, num of donators)
  - Total Trophies
+ - War Trophies
+ - totalMembers
  - Total War Stats (WarDaysWon, CollectionBattles, CardsCollected, WarDaysMissed, WarDaysPlayed, WarDaysInvoledIn)
  Member:
  - Trophies
  - Donations (weekly)
  - DonationsReceived
  - War Stats (WarDaysWon, CollectionBattles, CardsCollected, WarDaysMissed, WarDaysPlayed, WarDaysInvolvedIn)
- - Activity *** would need to take in and iterate through battleLog ***
+ - timeSincePlayed
+ - dateDiscovered
  */
+
+// calculates how that member is doing compared to the clan
+func calcColors(clan: theClan, member: players) ->String {
+    var memberColor:String = ""
+    
+    return memberColor
+}
 
 func changeClanMemberWorth (clan: theClan, donationWeight: Double, activityWeight: Double, warWeight: Double) -> theClan{ // returns the standard of the clan.
     // var activityScore:Double // ***^X^***
@@ -68,6 +78,7 @@ func changeClanMemberWorth (clan: theClan, donationWeight: Double, activityWeigh
  }
  
  }*/
+
 
 
 func manageMembers (clan: theClan, order: String) ->[String] { // takes in wether or not to return array of who to premote/demote/kick(maybe also a reason):String

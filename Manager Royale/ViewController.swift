@@ -150,10 +150,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         
         // Seeing the clan with print, uncomment after running the program once to see the clan info
-        print("---------In view did load---------")
         var newClan = theClan()
         newClan = loadClan(activeClan: "9GCQYY0C") // need to add the new data I got from the member battle log to the members
-        
+        newClan.sortArray(sortType: "byWorth")
+        newClan.displayClanNames()
 
         // Prints the member's past wars
         /*

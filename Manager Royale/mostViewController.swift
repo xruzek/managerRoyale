@@ -43,31 +43,4 @@ class mostViewController: UIViewController {
         
     }
     
-    // fills the section that tells the user who to kick
-    func fillWhoToKick() {
-        var kickArray: [String:Any] = recommendMembersToKick()
-        
-        
-        
-    }
-    
-    
-    
-    // algorithm that returns an array of string/dics of people to kick
-    func recommendMembersToKick() -> [String:Any] {
-        var kickArray:[String:Any] = [:]
-        
-        if let activeClan = UserDefaults.standard.object(forKey: "activeClan") as? String{
-            var newClan = theClan()
-            newClan = loadClan(activeClan: activeClan)
-            
-           
-            
-            
-            
-            
-            
-        }
-        return kickArray
-    }
 }

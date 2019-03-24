@@ -187,7 +187,7 @@ class players{
             newWorth -= Double(50 * self.warDaysNotPlayed)
         }
         self.Worth = newWorth
-    }    
+    }
     
 }
 
