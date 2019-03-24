@@ -26,11 +26,13 @@ func changeClanMemberWorth (clan: theClan, donationWeight: Double, activityWeigh
     
     // Weight variables are between 0.0 && 1
                                    // Defualt Weighting:
-    var warWorth:Double = 0        // 700 : 0.7
-    var donationsWorth:Double = 0  // 300 : 0.3
-    let activityWorth:Double = 0   // 0   : 0.0
+      // 0   : 0.0
     
     for member in clan.playerArray {
+        var warWorth:Double = 0        // 700 : 0.7
+        var donationsWorth:Double = 0  // 300 : 0.3
+        let activityWorth:Double = 0
+        
         warWorth += Double(member.warDaysPlayed * 20)
         warWorth += (Double(member.collectionBattlesPlayed)/30) * 200
         warWorth += Double(30 * member.warDaysWon)
@@ -41,7 +43,7 @@ func changeClanMemberWorth (clan: theClan, donationWeight: Double, activityWeigh
             warWorth -= Double(50 * member.warDaysNotPlayed)
         }
         
-        donationsWorth = Double(member.donations - member.donationsReceived) * 2
+        donationsWorth += Double(member.donations - member.donationsReceived) * 2
         
         warWorth *= warWeight
         donationsWorth *= donationWeight

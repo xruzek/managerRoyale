@@ -31,17 +31,6 @@ class myClanViewController: UIViewController, UITableViewDelegate, UITableViewDa
             activeClanTable = theClan() // Display "no clans added"
         }
     }
-    // Outlets for the ranking drop down
-    
-    // Buttons for the ranking drop down
-    
-    
-    //@IBAction func byDonations(_ sender: Any) {
-        //activeClanTable.sortArray(sortType: "byDonations")
-        //tableView.reloadData()
-        //donationsOutlet.setTitle("my text here", for: .normal)
-        //donationsOutlet.isHidden = true
-    //}
    
     @IBOutlet var tableView: myClanTableView! // Outlet for the table
     
@@ -64,16 +53,19 @@ class myClanViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // When not tapped on
         cell.cellMore.isHidden = false
         cell.cellName.text = activeClanTable.playerArray[indexPath.row].name
+        cell.cellName.translatesAutoresizingMaskIntoConstraints = false
+        
+        
         cell.cellWorth.text = String(Int(activeClanTable.playerArray[indexPath.row].Worth))
         
         
         cell.cellCount.text = String(indexPath.row + 1)
-        
-        /*// cellCount contraints
         cell.cellCount.translatesAutoresizingMaskIntoConstraints = false
+        cell.cellCount.leadingAnchor.constraint(equalTo: cell.cellView.leadingAnchor, constant: 10).isActive = true
+        cell.cellCount.topAnchor.constraint(equalTo: cell.cellView.topAnchor, constant: 40).isActive = true
+        cell.cellCount.heightAnchor.constraint(equalToConstant : 20).isActive = true
+        cell.cellCount.widthAnchor.constraint(equalToConstant : 20).isActive = true
         
-        cell.cellCount.leftAnchor.constraint(equalTo: , constant: 5.0).isActive = false
-        cell.cellCount.topAnchor.constraint(equalTo: tableView.topAnchor, constant: 50.0)*/
         
         cell.cellTrophies.text = String(activeClanTable.playerArray[indexPath.row].trophies)
         cell.cellDonations.text = String(activeClanTable.playerArray[indexPath.row].donations)
@@ -137,6 +129,9 @@ class myClanViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
 // The cell class, contains connections to the view
 class myClanTableViewCell: UITableViewCell {
+    //view for contraints
+    @IBOutlet weak var cellView: UIView!
+    
     // When not tapped on
     @IBOutlet weak var cellMore: UILabel!
     @IBOutlet weak var cellCount: UILabel!
@@ -147,24 +142,12 @@ class myClanTableViewCell: UITableViewCell {
     @IBOutlet weak var cellWorth: UILabel!
     
     // When tapped on
-    @IBAction func cellPastWarButton(_ sender: UIButton) {
-        displayPastWars(whichCell: Int(cellCount.text!)!)
-    }
     @IBOutlet weak var cellCollectionBattles: UILabel!
     @IBOutlet weak var cellDonationsRecieved: UILabel!
     @IBOutlet weak var cellWarDaysPlayed: UILabel!
     @IBOutlet weak var cellWarDaysWon: UILabel!
     @IBOutlet weak var cellCardsEarned: UILabel!
     @IBOutlet weak var cellWarDaysMissed: UILabel!
-    
-    
-}
-
-// Will display the past 10 wars for the selected member
-func displayPastWars(whichCell:Int) {
-    let theCell = whichCell - 1 // cus players[] starts at 0
-    //print("This is the cell: ", theCell)
-    
     
     
 }

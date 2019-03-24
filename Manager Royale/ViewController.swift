@@ -30,6 +30,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     if didWork == "worked" {
                         if var clansArray = UserDefaults.standard.array(forKey: "myClans") as? [[String: Any]]  {
                             clansArray.append(["tag": self.clanTagTextField.text!])
+                            var newClan = theClan()
+                            newClan = loadClan(activeClan: self.clanTagTextField.text!)
+                            
+                            // creates the members array UserDefault
+                            let newClanBattleLogArray: [[String:Any]] = []
+                            UserDefaults.standard.set(newClanBattleLogArray, forKey: newClan.clanTag + "members")
+                            
+                            for member in newClan.playerArray {
+                                updateMemberList(withLocation: member) { (newDic: [String:Any]) in
+                                    var newMemberBattleLogArray = UserDefaults.standard.object(forKey: newClan.clanTag + "members") as! [[String:Any]]
+                                    newMemberBattleLogArray.append(newDic)
+                                    UserDefaults.standard.set(newMemberBattleLogArray, forKey: newClan.clanTag + "members")
+                                }
+                            }
+                            
                             UserDefaults.standard.set(clansArray, forKey: "myClans")
                             myGlobalClansArray = clansArray
                             self.allClansTable.reloadData()
@@ -96,7 +111,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if let activeClan = UserDefaults.standard.object(forKey: "activeClan") as? String{
         
             if activeClan != "none" {
-                print(activeClan)
                 // found a clan to display
                 var newClan = theClan()
                 newClan = loadClan(activeClan: activeClan)
@@ -113,7 +127,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
             }
                 // update all clan's progress UserDefualt variables( updateClansProgress ) - or do this when they reload a selected clan
-            
+           
          }else{
             // create UserDefaults array's ( myClans, activeClan )
             let newArray: [[String: Any]] = []
@@ -127,17 +141,86 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // Use for debuging and building the table
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Sets up the table for the First View
         allClansTable.delegate = self
         allClansTable.dataSource = self
         NotificationCenter.default.addObserver(self, selector: #selector(loadList), name: NSNotification.Name(rawValue: "load"), object: nil)
         errorView.isHidden = true
         
-        // Seeing the clan with print
-       // var newClan = theClan()
-       // newClan = loadClan(activeClan: "9GCQYY0C")
-       // newClan.sortArray(sortType: "byWorth")
-       // newClan.displayClanNames()
+        
+        // Seeing the clan with print, uncomment after running the program once to see the clan info
+        print("---------In view did load---------")
+        var newClan = theClan()
+        newClan = loadClan(activeClan: "9GCQYY0C") // need to add the new data I got from the member battle log to the members
+        
+        //refreshClanInfo(clanTag: newClan.clanTag)
+        
+        for each in newClan.playerArray  {
+            print("Name:              ", each.name)
+            print("Time Since played: ", each.timeSinceLastBattle!)
+        }
+        
+        //newClan.sortArray(sortType: "byTrophies")
+        //newClan.displayClanNames()
+        
+        
+        
+        
+    
+        // Prints the member's past wars
+        /*
+        var count = 1
+        for war in newClan.playerArray[14].warDayArray {
+            print(newClan.playerArray[14].name)
+            if war.collectionBattlesPlayed != 0 {
+                print("\n-------War ", count," -------\n", "Cards Collected: ", war.cardsCollected!, "\ncollection Days Played: ", war.collectionBattlesPlayed, "\nMissed War Day: ", war.missedTheWarDay!, "\nPlayed The War Day: ", war.playedTheWarDay!, "\nWon The War Day: ", war.wonTheWarDay!)
+            } else {
+                print("\n-------War ", count," -------\nNO PARTICIPATION")
+            }
+            count += 1
+        }
+         
+         // sees if member is new of not
+         for eachMember in newClan.playerArray {
+         // newMemberBattleLogArray.append(updateMemberList(member: eachMember))
+         updateMemberList(withLocation: eachMember) { (newDic: [String:Any]) in
+         var newMemberBattleLogArray = UserDefaults.standard.object(forKey: newClan.clanTag + "members") as! [[String:Any]]
+         var found = false
+         var count = 0
+         for eachBattleLog in newMemberBattleLogArray {
+         if eachBattleLog["tag"] as! String == eachMember.playerTag {
+         let dateDiscovered = eachBattleLog["dateDiscovered"] as? Date
+         let today = Date()
+         let diff = today.timeIntervalSince(dateDiscovered!)
+         newMemberBattleLogArray[count] = newDic
+         if Int(diff) < 6 {
+         newMemberBattleLogArray[count]["isNew"] = true
+         } else {
+         newMemberBattleLogArray[count]["isNew"] = false
+         }
+         found = true
+         break
+         }
+         count += 1
+         }
+         if !found {
+         var newMember = true
+         if eachMember.collectionBattlesPlayed != 0 {
+         newMember = false
+         } else {
+         newMember = true
+         }
+         var newMemberDic:[String:Any] = ["name": eachMember.name, "dateDiscovered": Date(), "tag": eachMember.playerTag, "isNew": newMember, "timeSincePlayed": newDic["timeSincePlayed"] as! Int]
+         newMemberBattleLogArray.append(newMemberDic)
+         }
+         UserDefaults.standard.set(newMemberBattleLogArray, forKey: newClan.clanTag + "members")
+         }
+         }
+         */
+        
         //dump(Array(UserDefaults.standard.dictionaryRepresentation().keys))
+        
         
 
     }

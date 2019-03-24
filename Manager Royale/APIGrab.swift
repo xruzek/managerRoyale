@@ -8,6 +8,7 @@
 
 import Foundation
 
+// This function grabs the war info and saves it to the UserDefualts
 func myAPIClanGrab (withLocation clanTag:String, completion: @escaping (String) -> ())
 {
     var didWork = "worked"
@@ -15,7 +16,7 @@ func myAPIClanGrab (withLocation clanTag:String, completion: @escaping (String) 
         "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjljYjhkMjdhLTE2OWQtNDUyOC04ZmMzLTk4MDdkMTJhNGU1MSIsImlhdCI6MTU0Nzg0OTQxNiwic3ViIjoiZGV2ZWxvcGVyLzNmMDgyYmI0LTc4OTAtMjc1Yi1lNTFiLThjODViZGRkMDc5OSIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxNzQuMTAwLjgzLjEwIl0sInR5cGUiOiJjbGllbnQifV19.Zfj86o_AG4zYWEAcbz7SsfpmpjZcveORdWMNhEDO-ix23hZSpMvnAbkHE1oS1yopr6-M7juvtF20_ZTCR6k35A",
         "Cache-Control": "no-cache",
         ]
-    
+
     let request = NSMutableURLRequest(url: NSURL(string: "http://127.0.0.1:5000/clanGrab/" + clanTag)! as URL,
                                       cachePolicy: .useProtocolCachePolicy,
                                       timeoutInterval: 10.0)
@@ -58,7 +59,7 @@ func myAPIClanGrab (withLocation clanTag:String, completion: @escaping (String) 
     dataTask.resume()
 }
 
-
+// This function grabs the war info and saves it to the UserDefualts
 func myAPIWarlogGrab (withLocation clanTag:String, completion: @escaping (String) -> ())
 {
     var didWork = "worked"
@@ -108,5 +109,116 @@ func myAPIWarlogGrab (withLocation clanTag:String, completion: @escaping (String
         }
     })
     dataTask.resume()
+}
+
+// This functions grabs the battle log and returns a Dictionary with :["name", "dateDiscovered", "tag", "timeSincePlayed"]
+func updateMemberList (withLocation member:players, completion: @escaping ([String:Any]) -> ()) {
+    var newDic: [String:Any] = ["tag": "", "timeSincePlayed": 0, "dateDiscovered": Date(), "name": member.name]
+    var newTimeSincePlayed:String = ""
+    var battleLogDoesNotShowNew = true
+    
+    let request = NSMutableURLRequest(url: NSURL(string: "http://127.0.0.1:5000/memberGrab/" + member.playerTag.replacingOccurrences(of: "#", with: ""))! as URL,
+                                      cachePolicy: .useProtocolCachePolicy,
+                                      timeoutInterval: 10.0)
+    request.httpMethod = "GET"
+    let session = URLSession.shared
+    let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+        if let data = data {  // if the data id found
+            do {  // try and serialize the data into a dictionary
+                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [[String:Any]] {
+                    // This where all those for/if let loops will go
+                    var counter = 1
+                    newTimeSincePlayed = json[0]["battleTime"] as? String ?? "not there"
+                    for match in json {
+                        if let battleTime = match["battleTime"] as? String {
+                            //print(battleTime)
+                            if let team = match["team"] as? [[String:Any]] {
+                                for item in team {
+                                    let testPlayerTag = item["tag"] as! String
+                                    if testPlayerTag == member.playerTag {
+                                        if let clan = item["clan"] as? [String:Any] {
+                                            if let clanTag = clan["tag"] as? String {
+                                                
+                                                // try and calculate when they joined the clan
+                                                if clanTag != member.clanTag {
+                                                    // check battle time - currentTime, manipulate battleLogDoesNotShowNew
+                                                    if calcTime(time: battleTime) > 3 {
+                                                        battleLogDoesNotShowNew = false
+                                                    }
+                                                }
+                                            }
+                                            counter += 1
+                                        } else {
+                                            print("Battle ", counter,"Name: ", member.name, "\nMember has no clan\nBattle Time: ", battleTime)
+                                            // check battle time - currentTime, manipulate battleLogDoesNotShowNew
+                                            if calcTime(time: battleTime) > 3 {
+                                                battleLogDoesNotShowNew = false
+                                            }
+                                            
+                                            counter += 1
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    let calculatedTimeSincePlayed = calcTime(time: newTimeSincePlayed)
+                    newDic["timeSincePlayed"] = calculatedTimeSincePlayed
+                    newDic["tag"] = member.playerTag
+                    newDic = ["name": member.name, "dateDiscovered": Date(), "tag": member.playerTag, "timeSincePlayed": calculatedTimeSincePlayed]
+                }
+            }catch {  // if it doesn't work, print the error
+                print(error.localizedDescription)
+            }
+            completion(newDic)
+        } else {
+            print("in the else")
+            completion(newDic)
+        }
+    })
+    dataTask.resume()
+}
+
+// Refreshes the data from the API
+func refreshClanInfo(clanTag: String) {
+    myAPIWarlogGrab(withLocation: clanTag) { (didWorkAswell: String) in
+        myAPIClanGrab(withLocation: clanTag) { (didWork: String) in
+            // after the clan UserDefaults is refreshed
+            var newClan = theClan()
+            newClan = loadClan(activeClan: clanTag)
+            var newTags = filterMemberList(clan: newClan)
+            
+            for member in newClan.playerArray {
+                updateMemberList(withLocation: member) { (newDic: [String:Any]) in
+                    var newMemberBattleLogArray = UserDefaults.standard.object(forKey: newClan.clanTag + "members") as! [[String:Any]]
+                    var isIn = false
+                    var arrayIndex = 0
+                    for oldMember in newMemberBattleLogArray {
+                        if oldMember["tag"] as! String == member.playerTag {
+                            isIn = true
+                            let updatingDic:[String:Any] = ["name": oldMember["name"] as! String, "dateDiscovered": oldMember["dateDiscovered"] as! Date, "tag": oldMember["tag"] as! String, "timeSincePlayed": newDic["timeSincePlayed"] as! Int]
+                            // Update that member at the array index
+                            newMemberBattleLogArray[arrayIndex] = updatingDic
+                            print("Old Member: ", oldMember["name"] as! String, ", timeSicePlayed: ", oldMember["timeSincePlayed"] as! Int, " To")
+                            print("New Member: ", member.name, newDic["timeSincePlayed"] as! Int)
+                            break
+                        }
+                        arrayIndex += 1
+                    }
+                    if !isIn {
+                        // add te new member to the array
+                        let newMemberDic:[String:Any] = ["name": newDic["name"] as! String, "dateDiscovered": newDic["dateDiscovered"] as! Date, "tag": newDic["tag"] as! String, "timeSincePlayed": newDic["timeSincePlayed"] as! Int]
+                        newMemberBattleLogArray.append(newMemberDic)
+                        print("added member: ", newMemberDic["name"] as! String)
+                    }
+                    // Update the UserDefault
+                    UserDefaults.standard.set(newMemberBattleLogArray, forKey: newClan.clanTag + "members")
+                }
+            }
+            
+            
+            
+        }
+    }
 }
 
