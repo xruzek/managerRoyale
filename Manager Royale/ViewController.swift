@@ -154,20 +154,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         var newClan = theClan()
         newClan = loadClan(activeClan: "9GCQYY0C") // need to add the new data I got from the member battle log to the members
         
-        //refreshClanInfo(clanTag: newClan.clanTag)
-        
-        for each in newClan.playerArray  {
-            print("Name:              ", each.name)
-            print("Time Since played: ", each.timeSinceLastBattle!)
-        }
-        
-        //newClan.sortArray(sortType: "byTrophies")
-        //newClan.displayClanNames()
-        
-        
-        
-        
-    
+
         // Prints the member's past wars
         /*
         var count = 1
@@ -179,45 +166,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 print("\n-------War ", count," -------\nNO PARTICIPATION")
             }
             count += 1
-        }
-         
-         // sees if member is new of not
-         for eachMember in newClan.playerArray {
-         // newMemberBattleLogArray.append(updateMemberList(member: eachMember))
-         updateMemberList(withLocation: eachMember) { (newDic: [String:Any]) in
-         var newMemberBattleLogArray = UserDefaults.standard.object(forKey: newClan.clanTag + "members") as! [[String:Any]]
-         var found = false
-         var count = 0
-         for eachBattleLog in newMemberBattleLogArray {
-         if eachBattleLog["tag"] as! String == eachMember.playerTag {
-         let dateDiscovered = eachBattleLog["dateDiscovered"] as? Date
-         let today = Date()
-         let diff = today.timeIntervalSince(dateDiscovered!)
-         newMemberBattleLogArray[count] = newDic
-         if Int(diff) < 6 {
-         newMemberBattleLogArray[count]["isNew"] = true
-         } else {
-         newMemberBattleLogArray[count]["isNew"] = false
-         }
-         found = true
-         break
-         }
-         count += 1
-         }
-         if !found {
-         var newMember = true
-         if eachMember.collectionBattlesPlayed != 0 {
-         newMember = false
-         } else {
-         newMember = true
-         }
-         var newMemberDic:[String:Any] = ["name": eachMember.name, "dateDiscovered": Date(), "tag": eachMember.playerTag, "isNew": newMember, "timeSincePlayed": newDic["timeSincePlayed"] as! Int]
-         newMemberBattleLogArray.append(newMemberDic)
-         }
-         UserDefaults.standard.set(newMemberBattleLogArray, forKey: newClan.clanTag + "members")
-         }
-         }
-         */
+        }*/
         
         //dump(Array(UserDefaults.standard.dictionaryRepresentation().keys))
         

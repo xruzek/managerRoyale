@@ -149,7 +149,6 @@ func updateMemberList (withLocation member:players, completion: @escaping ([Stri
                                             }
                                             counter += 1
                                         } else {
-                                            print("Battle ", counter,"Name: ", member.name, "\nMember has no clan\nBattle Time: ", battleTime)
                                             // check battle time - currentTime, manipulate battleLogDoesNotShowNew
                                             if calcTime(time: battleTime) > 3 {
                                                 battleLogDoesNotShowNew = false
@@ -199,14 +198,14 @@ func refreshClanInfo(clanTag: String) {
                             let updatingDic:[String:Any] = ["name": oldMember["name"] as! String, "dateDiscovered": oldMember["dateDiscovered"] as! Date, "tag": oldMember["tag"] as! String, "timeSincePlayed": newDic["timeSincePlayed"] as! Int]
                             // Update that member at the array index
                             newMemberBattleLogArray[arrayIndex] = updatingDic
-                            print("Old Member: ", oldMember["name"] as! String, ", timeSicePlayed: ", oldMember["timeSincePlayed"] as! Int, " To")
-                            print("New Member: ", member.name, newDic["timeSincePlayed"] as! Int)
+                            print("Updated: ", member.name, newDic["timeSincePlayed"] as! Int, "From: ", oldMember["timeSincePlayed"] as! Int)
                             break
                         }
                         arrayIndex += 1
                     }
                     if !isIn {
                         // add te new member to the array
+                        print("---------NEW MEMBER------------")
                         let newMemberDic:[String:Any] = ["name": newDic["name"] as! String, "dateDiscovered": newDic["dateDiscovered"] as! Date, "tag": newDic["tag"] as! String, "timeSincePlayed": newDic["timeSincePlayed"] as! Int]
                         newMemberBattleLogArray.append(newMemberDic)
                         print("added member: ", newMemberDic["name"] as! String)
@@ -215,9 +214,6 @@ func refreshClanInfo(clanTag: String) {
                     UserDefaults.standard.set(newMemberBattleLogArray, forKey: newClan.clanTag + "members")
                 }
             }
-            
-            
-            
         }
     }
 }
