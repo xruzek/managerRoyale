@@ -55,9 +55,7 @@ class myClanViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.cellName.text = activeClanTable.playerArray[indexPath.row].name
         cell.cellName.translatesAutoresizingMaskIntoConstraints = false
         
-        
         cell.cellWorth.text = String(Int(activeClanTable.playerArray[indexPath.row].Worth))
-        
         
         cell.cellCount.text = String(indexPath.row + 1)
         cell.cellCount.translatesAutoresizingMaskIntoConstraints = false

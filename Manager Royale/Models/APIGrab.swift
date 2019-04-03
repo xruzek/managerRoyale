@@ -23,6 +23,12 @@ func myAPIClanGrab (withLocation clanTag:String, completion: @escaping (String) 
     request.httpMethod = "GET"
     //request.allHTTPHeaderFields = headers
     
+    
+    
+    
+    
+    
+    
     let session = URLSession.shared
     let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
         if let data = data {  // if the data id found
@@ -114,7 +120,7 @@ func myAPIWarlogGrab (withLocation clanTag:String, completion: @escaping (String
 // This functions grabs the battle log and returns a Dictionary with :["name", "dateDiscovered", "tag", "timeSincePlayed"]
 func updateMemberList (withLocation member:players, completion: @escaping ([String:Any]) -> ()) {
     var newDic: [String:Any] = ["tag": "", "timeSincePlayed": 0, "dateDiscovered": Date(), "name": member.name]
-    var newTimeSincePlayed:String = ""
+    var newTimeSincePlayed:String = "20190326T060653.000Z"
     var battleLogDoesNotShowNew = true
     
     let request = NSMutableURLRequest(url: NSURL(string: "http://127.0.0.1:5000/memberGrab/" + member.playerTag.replacingOccurrences(of: "#", with: ""))! as URL,
@@ -128,7 +134,16 @@ func updateMemberList (withLocation member:players, completion: @escaping ([Stri
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [[String:Any]] {
                     // This where all those for/if let loops will go
                     var counter = 1
-                    newTimeSincePlayed = json[0]["battleTime"] as? String ?? "not there"
+                    
+                    if json.isEmpty {
+                        print(json)
+                        let noBatDic: [String:Any] = ["name": member.name, "dateDiscovered": Date(), "tag": member.playerTag, "timeSincePlayed": -1]
+                        completion(noBatDic)
+                    } else {
+                        newTimeSincePlayed = json[0]["battleTime"] as! String
+                    }
+                    
+                    
                     for match in json {
                         if let battleTime = match["battleTime"] as? String {
                             //print(battleTime)
@@ -179,42 +194,109 @@ func updateMemberList (withLocation member:players, completion: @escaping ([Stri
 }
 
 // Refreshes the data from the API
-func refreshClanInfo(clanTag: String) {
+func refreshClanInfo (withLocation clanTag: String, completion: @escaping (String) -> ()) {
+    // add ad here
+    
     myAPIWarlogGrab(withLocation: clanTag) { (didWorkAswell: String) in
         myAPIClanGrab(withLocation: clanTag) { (didWork: String) in
-            // after the clan UserDefaults is refreshed
+            
             var newClan = theClan()
             newClan = loadClan(activeClan: clanTag)
             var newTags = filterMemberList(clan: newClan)
             
+            var count = 0
             for member in newClan.playerArray {
                 updateMemberList(withLocation: member) { (newDic: [String:Any]) in
-                    var newMemberBattleLogArray = UserDefaults.standard.object(forKey: newClan.clanTag + "members") as! [[String:Any]]
-                    var isIn = false
-                    var arrayIndex = 0
-                    for oldMember in newMemberBattleLogArray {
-                        if oldMember["tag"] as! String == member.playerTag {
-                            isIn = true
-                            let updatingDic:[String:Any] = ["name": oldMember["name"] as! String, "dateDiscovered": oldMember["dateDiscovered"] as! Date, "tag": oldMember["tag"] as! String, "timeSincePlayed": newDic["timeSincePlayed"] as! Int]
-                            // Update that member at the array index
-                            newMemberBattleLogArray[arrayIndex] = updatingDic
-                            print("Updated: ", member.name, newDic["timeSincePlayed"] as! Int, "From: ", oldMember["timeSincePlayed"] as! Int)
-                            break
-                        }
-                        arrayIndex += 1
-                    }
-                    if !isIn {
-                        // add te new member to the array
-                        print("---------NEW MEMBER------------")
-                        let newMemberDic:[String:Any] = ["name": newDic["name"] as! String, "dateDiscovered": newDic["dateDiscovered"] as! Date, "tag": newDic["tag"] as! String, "timeSincePlayed": newDic["timeSincePlayed"] as! Int]
-                        newMemberBattleLogArray.append(newMemberDic)
-                        print("added member: ", newMemberDic["name"] as! String)
-                    }
+                    count += 1
+                    let newMemberBattleLogArray = updateMembersArray(newClan: newClan, newDic: newDic, member: member)
+                    
                     // Update the UserDefault
                     UserDefaults.standard.set(newMemberBattleLogArray, forKey: newClan.clanTag + "members")
+                    
+                    if count == newClan.totalMembers + 1 {
+                        GlobalVariables.activeClan = loadClan(activeClan: clanTag)
+                        completion(didWork)
+                    }
                 }
             }
         }
     }
 }
+
+
+// First Time adding any clan, has no clans in clansArray & activeClan does not exist
+func addNewClan (withLocation clanTag: String, completion: @escaping (String) -> ()) {
+    var completionMessage:String = "worked"
+    
+    // checks if the clan already is added
+    if alreadyHaveClan(Tag: clanTag) {
+        completion("alreadyHaveClan")
+    }
+    
+    // trys to add the clan
+    myAPIWarlogGrab(withLocation: clanTag) { (didWorkAswell: String) in
+        
+        if didWorkAswell == "wrongTag" {
+            completion("wrongTag")
+        }
+        if didWorkAswell == "serverDown" {
+            completion("serverDown")
+        }
+        if didWorkAswell != "worked"{
+            completion("anotherProblem")
+        }
+        
+        // clan grab was successful, add to the myClans array & create a clanTag + "members"
+        addToClansArray(clanTag: clanTag)
+        
+        myAPIClanGrab(withLocation: clanTag) { (didWork: String) in
+            
+            // after the clan UserDefaults is refreshed
+            var newClan = theClan()
+            newClan = loadClan(activeClan: clanTag)
+            //var newTags = filterMemberList(clan: newClan)
+            
+            var count = 0
+            for member in newClan.playerArray {
+                
+                updateMemberList(withLocation: member) { (newDic: [String:Any]) in
+                    count += 1
+                    let newMemberBattleLogArray = updateMembersArray(newClan: newClan, newDic: newDic, member: member)
+                    // Update the UserDefault
+                    UserDefaults.standard.set(newMemberBattleLogArray, forKey: newClan.clanTag + "members")
+                    
+                    if count == newClan.totalMembers + 1 {
+                        GlobalVariables.activeClan = loadClan(activeClan: clanTag)
+                        completion(completionMessage)
+                    }
+                }
+            }
+        }
+    }
+}
+
+/*
+ UserDefaults.standard.object(forKey: newClan.clanTag + "members") as! [[String:Any]]
+ var isIn = false
+ var arrayIndex = 0
+ for oldMember in newMemberBattleLogArray {
+ if oldMember["tag"] as! String == member.playerTag {
+ isIn = true
+ let updatingDic:[String:Any] = ["name": oldMember["name"] as! String, "dateDiscovered": oldMember["dateDiscovered"] as! Date, "tag": oldMember["tag"] as! String, "timeSincePlayed": newDic["timeSincePlayed"] as! Int]
+ // Update that member at the array index
+ newMemberBattleLogArray[arrayIndex] = updatingDic
+ print("Updated: ", member.name, newDic["timeSincePlayed"] as! Int, "From: ", oldMember["timeSincePlayed"] as! Int)
+ break
+ }
+ arrayIndex += 1
+ }
+ if !isIn {
+ // add te new member to the array
+ print("---------NEW MEMBER------------")
+ let newMemberDic:[String:Any] = ["name": newDic["name"] as! String, "dateDiscovered": newDic["dateDiscovered"] as! Date, "tag": newDic["tag"] as! String, "timeSincePlayed": newDic["timeSincePlayed"] as! Int]
+ newMemberBattleLogArray.append(newMemberDic)
+ print("added member: ", newMemberDic["name"] as! String)
+ }
+ */
+
 

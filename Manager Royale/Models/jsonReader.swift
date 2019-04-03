@@ -15,11 +15,13 @@ func loadClan(activeClan: String) -> theClan{
     var arrayOfWarlogArrays: [[playerWarlog]] = []
     var clanName:String = ""
     var clanWarTrophies:Int = 0
+    var clanScore:Int = 0
     var warDates = [String]() // Is used for clan Progress
     
     // makes the array of player objects
     if let clanJson = UserDefaults.standard.object(forKey: activeClan + "myClan") as? [String:Any] {
         clanName = clanJson["name"] as! String
+        clanScore = clanJson["clanScore"] as! Int
         clanWarTrophies = clanJson["clanWarTrophies"] as! Int
         if let memberList = clanJson["memberList"] as? [[String:Any]] {
             for member in memberList {
@@ -51,20 +53,21 @@ func loadClan(activeClan: String) -> theClan{
     
     // returns the clan
     let clan = theClan(clanTag: activeClan, clanName: clanName, clanWarTrophies:clanWarTrophies, playerInfo: playerInfoArray, playerWarlog: arrayOfWarlogArrays, warDates: warDates) //pass through array of dicts instead of the dates
+    clan.clanScore = clanScore
+    
+    // Filters clan before updating the clan class
+    let removedTags = filterMemberList(clan: clan)
     
     // load the battle log userDefualt here & update clan
     if let clanMemberBattleLog = UserDefaults.standard.object(forKey: clan.clanTag + "members") as? [[String:Any]] {
         for clanMember in clan.playerArray {
             for memberList in clanMemberBattleLog {
-                if memberList["tag"] as! String == clanMember.playerTag {
+                if memberList["tag"] as? String == clanMember.playerTag {
                     clanMember.timeSinceLastBattle = (memberList["timeSincePlayed"] as! Int)
                     clanMember.dateDiscovered = (memberList["dateDiscovered"] as! Date)
                 }
             }
         }
-
-        
-    
     }
   
     return clan
@@ -72,7 +75,7 @@ func loadClan(activeClan: String) -> theClan{
 
 // This function will filter out the members who are not in the clan anymore out of the member batte log userDefaults
 func filterMemberList(clan: theClan) ->[String] {
-    var newTags:[String] = []
+    var removedTags:[String] = []
     
     // Gets rid of old members that left the clan
     if var clanMemberBattleLog = UserDefaults.standard.object(forKey: clan.clanTag + "members") as? [[String:Any]] {
@@ -89,32 +92,21 @@ func filterMemberList(clan: theClan) ->[String] {
             }
             if !isIn {
                 // remove the battleLogMember, don't index cus the element was removed
-                clanMemberBattleLog[arrayIndex].removeAll()
+                removedTags.append(clanMemberBattleLog[arrayIndex]["name"] as! String)
+                clanMemberBattleLog.remove(at: arrayIndex)
             }
         }
         // Update the userDefaults
         UserDefaults.standard.set(clanMemberBattleLog, forKey: clan.clanTag + "members")
         
-        // finds new members to the clan and adds them to the array of new tags
-        for newMembers in clan.playerArray {
-            var isIn = false
-            for savedMembers in clanMemberBattleLog {
-                if savedMembers["tag"] as? String == newMembers.playerTag {
-                    isIn = true
-                    break
-                }
-            }
-            if !isIn {
-                newTags.append(newMembers.playerTag)
-            }
-        }
-        
     }
     
     
     
-    return newTags
+    return removedTags
 }
+
+
 
 // returns how many days its been since the string date
 func calcTime(time:String) -> Int {
@@ -140,7 +132,7 @@ func calcTime(time:String) -> Int {
     return Int(diff)
 }
 
-// This prints out each dictionary in the member info array
+// This prints out each dictionary in the member info array, used for testing
 func printMemberList(clanTag: String) {
     if let memberArray = UserDefaults.standard.array(forKey: clanTag + "members") as? [[String:Any]] {
         for member in memberArray {
@@ -221,44 +213,3 @@ func updateClansProgress() {
 // We can then use this information to display the progress of the clan.
 
 
-
-
-// ------------------This code use to be the the API grab for the member battle log------------------
-//newMemberBattleLogArray.append(newDic)
-
-/*// Add/Update the member in the userDefault Dictionary
- let calculatedTimeSincePlayed = calcTime(time: newTimeSincePlayed)
- newDic["timeSincePlayed"] = calculatedTimeSincePlayed
- 
- var count = 0
- var found = false
- for eachMember in newMemberBattleLogArray {
- if eachMember["tag"] as! String == member.playerTag {
- print("Each, ", eachMember["tag"] as! String, "\nMember Tag, ", member.playerTag)
- let dateDiscovered = eachMember["dateDiscovered"] as? Date
- let today = Date()
- let diff = today.timeIntervalSince(dateDiscovered!)
- if Int(diff) < 6 {
- newDic["isNew"] = true
- } else {
- newDic["isNew"] = false
- }
- 
- newMemberBattleLogArray[count] = newDic
- found = true
- break
- }
- count += 1
- }
- if !found {
- newDic["dateDiscovered"] = Date()
- newDic["tag"] = member.playerTag
- if member.collectionBattlesPlayed != 0 && battleLogDoesNotShowNew {
- newDic["isNew"] = false
- } else {
- newDic["isNew"] = true
- }
- newMemberBattleLogArray.append(newDic)
- }*/
-
-//UserDefaults.standard.set(newMemberBattleLogArray, forKey: member.clanTag + "members")

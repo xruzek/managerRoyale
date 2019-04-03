@@ -89,6 +89,7 @@ class players{
     var isNew:Bool?
     var Worth:Double
     var contributionColor:String?
+    var donationDiff: Int?
     
     
     // defualt init
@@ -174,7 +175,7 @@ class players{
     func calcWorth(averageDonations:Double) {
         var newWorth:Double = 0
         
-        newWorth += Double(self.donations - self.donationsReceived)
+        //newWorth += Double((self.donations - self.donationsReceived)/2)
         
         newWorth += Double(self.warDaysPlayed * 20)
         newWorth += (Double(self.collectionBattlesPlayed)/30) * 200
@@ -187,8 +188,8 @@ class players{
             newWorth -= Double(50 * self.warDaysNotPlayed)
         }
         self.Worth = newWorth
+        self.donationDiff = self.donations - self.donationsReceived
     }
-    
 }
 
 class theClan {
@@ -199,6 +200,7 @@ class theClan {
     var numOfDonators:Int = 0
     var totalTrophies:Int = 0
     var clanWarTrophies:Int = 0
+    var clanScore:Int = 0
     
     var totalWarDayWins:Int = 0
     var totalCardsCollected:Int = 0
@@ -267,6 +269,7 @@ class theClan {
         
     }
     
+    // displays common stats about members, just used for testing/managing my clan
     func displayClanNames(){
         print("Total Donations = ", self.totalDonations, "\n")
         print("Average Donations = ", self.totalDonations/self.numOfDonators, "\n")
@@ -280,28 +283,55 @@ class theClan {
         }
     }
     
+    func displayTimeSincePlayed() {
+        for member in self.playerArray {
+            //print()
+            print(member.name)
+            //print("War Stats Score: ", Int(member.Worth))
+            if member.timeSinceLastBattle! < 0 {
+                print("No Past Battles Available")
+            }else {
+                print("Days Inactive: ", member.timeSinceLastBattle!)
+            }
+        }
+    }
+    //"Worth", "War Days Won", "Trophies", "Cards Collected", "Days Inactive"
+    // sort the array of players
     func sortArray(sortType:String){
         if sortType == "byDonations"{
             self.playerArray = playerArray.sorted(by: {$0.donations > $1.donations})
-        }else if sortType == "byWorth"{
+        }else if sortType == "Worth"{
             self.playerArray = playerArray.sorted(by: {$0.Worth > $1.Worth})
-        }else if sortType == "byWarDaysWon"{
+        }else if sortType == "War Days Won"{
             self.playerArray = playerArray.sorted(by: {$0.warDaysWon > $1.warDaysWon})
         }else if sortType == "byWarDaysMissedInARow"{
             self.playerArray = playerArray.sorted(by: {$0.warDayMissedStreak > $1.warDayMissedStreak})
         }else if sortType == "byWarDaysNotPlayed"{
             self.playerArray = playerArray.sorted(by: {$0.warDaysNotPlayed > $1.warDaysNotPlayed})
-        }else if sortType == "byTrophies"{
+        }else if sortType == "Trophies"{
             self.playerArray = playerArray.sorted(by: {$0.trophies > $1.trophies})
-        }else if sortType == "byCardsEarned"{
+        }else if sortType == "Cards Collected"{
             self.playerArray = playerArray.sorted(by: {$0.cardsEarned > $1.cardsEarned})
-        }else if sortType == "byTimeSinceLastBattle"{
+        }else if sortType == "Days Inactive"{
             self.playerArray = playerArray.sorted(by: {$0.timeSinceLastBattle! > $1.timeSinceLastBattle!})
+        }else if sortType == "Most Generous"{
+            self.playerArray = playerArray.sorted(by: {$0.donationDiff! > $1.donationDiff!})
         }
     }
 }
 
-
+// Prints the member's past wars
+/*
+ var count = 1
+ for war in newClan.playerArray[14].warDayArray {
+ print(newClan.playerArray[14].name)
+ if war.collectionBattlesPlayed != 0 {
+ print("\n-------War ", count," -------\n", "Cards Collected: ", war.cardsCollected!, "\ncollection Days Played: ", war.collectionBattlesPlayed, "\nMissed War Day: ", war.missedTheWarDay!, "\nPlayed The War Day: ", war.playedTheWarDay!, "\nWon The War Day: ", war.wonTheWarDay!)
+ } else {
+ print("\n-------War ", count," -------\nNO PARTICIPATION")
+ }
+ count += 1
+ }*/
 
 /*func displayInTextView() -> String {
  var textForView:String = ""

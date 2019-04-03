@@ -5,7 +5,11 @@
 //  Created by Rex Ruzek on 1/17/19.
 //  Copyright © 2019 Rex Ruzek. All rights reserved.
 //
-
+/*
+ let secondviewController:UIViewController =  self.storyboard?.instantiateViewController(withIdentifier: "sec") as? SecondViewController
+ 
+ self.navigationController?.pushViewController(secondviewController, animated: true)
+ */
 import UIKit
 
 // Variables needed for the table
@@ -60,21 +64,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
         }
     }
-    
-    // checks to see if the clan already exists in the clanTag array of clans
-    func alreadyHaveClan(Tag:String) -> Bool {
-        // for each loop, if found one, set that one to active, display message, and return true
-        if let clansArray = UserDefaults.standard.array(forKey: "myClans") as? [[String: Any]] {
-            for clan in clansArray {
-                if clan["tag"] as! String == Tag {
-                    return true
-                }
-            }
-            return false
-        }else {
-            return false
-        }
-    }
+
     
     // Error Handeling
     @IBOutlet weak var errorLabel: UILabel!
@@ -110,31 +100,30 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         if let activeClan = UserDefaults.standard.object(forKey: "activeClan") as? String{
         
-            if activeClan != "none" {
-                // found a clan to display
-                var newClan = theClan()
-                newClan = loadClan(activeClan: activeClan)
-                newClan.sortArray(sortType: "byWorth")
-                
-                // display active clan in active clans
-                activeClanTag.text = newClan.clanTag
-                activeClanName.text = newClan.clanName
-                activeClanObject = newClan
-                
-                // display total clans in "myClans" (Table Stuff)
-                if let clansArray = UserDefaults.standard.array(forKey: "myClans") as? [[String: Any]] {
-                    myGlobalClansArray = clansArray
-                }
+            
+            // found a clan to display
+            var newClan = theClan()
+            newClan = loadClan(activeClan: activeClan)
+            newClan.sortArray(sortType: "byWorth")
+            
+            // display active clan in active clans
+            activeClanTag.text = newClan.clanTag
+            activeClanName.text = newClan.clanName
+            activeClanObject = newClan
+            
+            // display total clans in "myClans" (Table Stuff)
+            if let clansArray = UserDefaults.standard.array(forKey: "myClans") as? [[String: Any]] {
+                myGlobalClansArray = clansArray
             }
-                // update all clan's progress UserDefualt variables( updateClansProgress ) - or do this when they reload a selected clan
+        
+            // update all clan's progress UserDefualt variables( updateClansProgress ) - or do this when they reload a selected clan
            
          }else{
             // create UserDefaults array's ( myClans, activeClan )
             let newArray: [[String: Any]] = []
             UserDefaults.standard.set(newArray, forKey: "myClans")
             
-            let activeClan = "none"
-            UserDefaults.standard.set(activeClan, forKey: "activeClan")
+            
          }
     }
 
@@ -153,28 +142,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         var newClan = theClan()
         newClan = loadClan(activeClan: "9GCQYY0C") // need to add the new data I got from the member battle log to the members
         newClan.sortArray(sortType: "byWorth")
-        newClan.displayClanNames()
+        
+        
+        
+        
+        //newClan.displayClanNames()
 
-        // Prints the member's past wars
-        /*
-        var count = 1
-        for war in newClan.playerArray[14].warDayArray {
-            print(newClan.playerArray[14].name)
-            if war.collectionBattlesPlayed != 0 {
-                print("\n-------War ", count," -------\n", "Cards Collected: ", war.cardsCollected!, "\ncollection Days Played: ", war.collectionBattlesPlayed, "\nMissed War Day: ", war.missedTheWarDay!, "\nPlayed The War Day: ", war.playedTheWarDay!, "\nWon The War Day: ", war.wonTheWarDay!)
-            } else {
-                print("\n-------War ", count," -------\nNO PARTICIPATION")
-            }
-            count += 1
-        }*/
+        newClan.displayTimeSincePlayed()
+    
         
         //dump(Array(UserDefaults.standard.dictionaryRepresentation().keys))
-        
-        
-
     }
-    
-    
     
     //------------------------ My Clan's Table Code ------------------------\\
     

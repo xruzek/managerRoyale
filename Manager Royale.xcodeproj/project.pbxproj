@@ -7,6 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		67649EA1224ECFBB00C93A1D /* InitialClanViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67649EA0224ECFBB00C93A1D /* InitialClanViewViewController.swift */; };
+		67649EA3224ED6A300C93A1D /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67649EA2224ED6A300C93A1D /* TabViewController.swift */; };
+		67649EA8224EF46000C93A1D /* InitialClanTagTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67649EA7224EF46000C93A1D /* InitialClanTagTextField.swift */; };
+		67649EAB224EF7C300C93A1D /* TutorialForClanTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67649EAA224EF7C300C93A1D /* TutorialForClanTagView.swift */; };
+		67649EAD224EF8D900C93A1D /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67649EAC224EF8D900C93A1D /* Colors.swift */; };
+		67649EAF224EF94A00C93A1D /* SaveClanButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67649EAE224EF94A00C93A1D /* SaveClanButton.swift */; };
+		67649EB1224FDEE000C93A1D /* ClanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67649EB0224FDEE000C93A1D /* ClanViewController.swift */; };
+		67649EB4224FE19B00C93A1D /* MembersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67649EB3224FE19B00C93A1D /* MembersViewController.swift */; };
+		67649EB6224FE65300C93A1D /* ManageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67649EB5224FE65300C93A1D /* ManageViewController.swift */; };
+		67649EB8224FF27900C93A1D /* InitialViewTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67649EB7224FF27900C93A1D /* InitialViewTitleLabel.swift */; };
+		67649EBA224FF6C400C93A1D /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67649EB9224FF6C400C93A1D /* GlobalVariables.swift */; };
+		67649EBD224FFFE900C93A1D /* DescriptiveLables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67649EBC224FFFE900C93A1D /* DescriptiveLables.swift */; };
+		67649EBF2250019F00C93A1D /* ClanStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67649EBE2250019F00C93A1D /* ClanStatsView.swift */; };
+		67649EC2225035CA00C93A1D /* memberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67649EC1225035CA00C93A1D /* memberCell.swift */; };
+		67649EC4225035FD00C93A1D /* memberCellLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67649EC3225035FD00C93A1D /* memberCellLabel.swift */; };
+		67649EC622503F9000C93A1D /* DropDownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67649EC522503F9000C93A1D /* DropDownButton.swift */; };
+		67649EC82250414500C93A1D /* dropDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67649EC72250414500C93A1D /* dropDownView.swift */; };
+		67649ECA2251454300C93A1D /* memberTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67649EC92251454300C93A1D /* memberTableHeaderView.swift */; };
+		67649ECC22514E7A00C93A1D /* memberCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67649ECB22514E7A00C93A1D /* memberCellView.swift */; };
+		67649ECE2252BD8400C93A1D /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67649ECD2252BD8400C93A1D /* Protocols.swift */; };
+		67649ED02253DCAA00C93A1D /* addingNewClanFuncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67649ECF2253DCAA00C93A1D /* addingNewClanFuncs.swift */; };
+		67649ED32253FF7A00C93A1D /* rexTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67649ED22253FF7A00C93A1D /* rexTitleLabel.swift */; };
+		67649ED52253FF9500C93A1D /* manageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67649ED42253FF9500C93A1D /* manageView.swift */; };
+		67649ED72254066900C93A1D /* manageLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67649ED62254066900C93A1D /* manageLabel.swift */; };
+		67649ED92254144900C93A1D /* topMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67649ED82254144900C93A1D /* topMemberView.swift */; };
 		6768D3FA21F7AAB100651B45 /* playerWarlog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6768D3F921F7AAB100651B45 /* playerWarlog.swift */; };
 		6768D3FC21F7D93100651B45 /* TheClan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6768D3FB21F7D93100651B45 /* TheClan.swift */; };
 		6768D426220EE58F00651B45 /* jsonReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6768D425220EE58F00651B45 /* jsonReader.swift */; };
@@ -44,6 +69,31 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		67649EA0224ECFBB00C93A1D /* InitialClanViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialClanViewViewController.swift; sourceTree = "<group>"; };
+		67649EA2224ED6A300C93A1D /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
+		67649EA7224EF46000C93A1D /* InitialClanTagTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialClanTagTextField.swift; sourceTree = "<group>"; };
+		67649EAA224EF7C300C93A1D /* TutorialForClanTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialForClanTagView.swift; sourceTree = "<group>"; };
+		67649EAC224EF8D900C93A1D /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		67649EAE224EF94A00C93A1D /* SaveClanButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveClanButton.swift; sourceTree = "<group>"; };
+		67649EB0224FDEE000C93A1D /* ClanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClanViewController.swift; sourceTree = "<group>"; };
+		67649EB3224FE19B00C93A1D /* MembersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembersViewController.swift; sourceTree = "<group>"; };
+		67649EB5224FE65300C93A1D /* ManageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageViewController.swift; sourceTree = "<group>"; };
+		67649EB7224FF27900C93A1D /* InitialViewTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewTitleLabel.swift; sourceTree = "<group>"; };
+		67649EB9224FF6C400C93A1D /* GlobalVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
+		67649EBC224FFFE900C93A1D /* DescriptiveLables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptiveLables.swift; sourceTree = "<group>"; };
+		67649EBE2250019F00C93A1D /* ClanStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClanStatsView.swift; sourceTree = "<group>"; };
+		67649EC1225035CA00C93A1D /* memberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = memberCell.swift; sourceTree = "<group>"; };
+		67649EC3225035FD00C93A1D /* memberCellLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = memberCellLabel.swift; sourceTree = "<group>"; };
+		67649EC522503F9000C93A1D /* DropDownButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownButton.swift; sourceTree = "<group>"; };
+		67649EC72250414500C93A1D /* dropDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dropDownView.swift; sourceTree = "<group>"; };
+		67649EC92251454300C93A1D /* memberTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = memberTableHeaderView.swift; sourceTree = "<group>"; };
+		67649ECB22514E7A00C93A1D /* memberCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = memberCellView.swift; sourceTree = "<group>"; };
+		67649ECD2252BD8400C93A1D /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		67649ECF2253DCAA00C93A1D /* addingNewClanFuncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addingNewClanFuncs.swift; sourceTree = "<group>"; };
+		67649ED22253FF7A00C93A1D /* rexTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rexTitleLabel.swift; sourceTree = "<group>"; };
+		67649ED42253FF9500C93A1D /* manageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = manageView.swift; sourceTree = "<group>"; };
+		67649ED62254066900C93A1D /* manageLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = manageLabel.swift; sourceTree = "<group>"; };
+		67649ED82254144900C93A1D /* topMemberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = topMemberView.swift; sourceTree = "<group>"; };
 		6768D3F921F7AAB100651B45 /* playerWarlog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playerWarlog.swift; sourceTree = "<group>"; };
 		6768D3FB21F7D93100651B45 /* TheClan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheClan.swift; sourceTree = "<group>"; };
 		6768D425220EE58F00651B45 /* jsonReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = jsonReader.swift; sourceTree = "<group>"; };
@@ -94,6 +144,97 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		67649EA4224EF31E00C93A1D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				67649EA0224ECFBB00C93A1D /* InitialClanViewViewController.swift */,
+				67649EB0224FDEE000C93A1D /* ClanViewController.swift */,
+				67649EB3224FE19B00C93A1D /* MembersViewController.swift */,
+				67649EB5224FE65300C93A1D /* ManageViewController.swift */,
+				67649EA2224ED6A300C93A1D /* TabViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		67649EA5224EF3B300C93A1D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6768D3FB21F7D93100651B45 /* TheClan.swift */,
+				6768D425220EE58F00651B45 /* jsonReader.swift */,
+				6797D6D421F275A000C6B9D4 /* playerInfo.swift */,
+				6768D3F921F7AAB100651B45 /* playerWarlog.swift */,
+				6768D428221246ED00651B45 /* APIGrab.swift */,
+				67F04F60221B4DBA00CD9463 /* calculateStats.swift */,
+				67649ECF2253DCAA00C93A1D /* addingNewClanFuncs.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		67649EA6224EF42000C93A1D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				67649ED12253FE9E00C93A1D /* ManageControllerViews */,
+				67649EC02250359A00C93A1D /* MemberControllerViews */,
+				67649EBB224FFFB300C93A1D /* ClanControllerViews */,
+				67649EB2224FE10700C93A1D /* InitialControllerViews */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		67649EA9224EF4B500C93A1D /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				67649EAC224EF8D900C93A1D /* Colors.swift */,
+				67649EB9224FF6C400C93A1D /* GlobalVariables.swift */,
+				67649ECD2252BD8400C93A1D /* Protocols.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		67649EB2224FE10700C93A1D /* InitialControllerViews */ = {
+			isa = PBXGroup;
+			children = (
+				67649EB7224FF27900C93A1D /* InitialViewTitleLabel.swift */,
+				67649EA7224EF46000C93A1D /* InitialClanTagTextField.swift */,
+				67649EAE224EF94A00C93A1D /* SaveClanButton.swift */,
+				67649EAA224EF7C300C93A1D /* TutorialForClanTagView.swift */,
+			);
+			path = InitialControllerViews;
+			sourceTree = "<group>";
+		};
+		67649EBB224FFFB300C93A1D /* ClanControllerViews */ = {
+			isa = PBXGroup;
+			children = (
+				67649EBC224FFFE900C93A1D /* DescriptiveLables.swift */,
+				67649EBE2250019F00C93A1D /* ClanStatsView.swift */,
+			);
+			path = ClanControllerViews;
+			sourceTree = "<group>";
+		};
+		67649EC02250359A00C93A1D /* MemberControllerViews */ = {
+			isa = PBXGroup;
+			children = (
+				67649EC522503F9000C93A1D /* DropDownButton.swift */,
+				67649EC72250414500C93A1D /* dropDownView.swift */,
+				67649EC92251454300C93A1D /* memberTableHeaderView.swift */,
+				67649EC1225035CA00C93A1D /* memberCell.swift */,
+				67649ECB22514E7A00C93A1D /* memberCellView.swift */,
+				67649EC3225035FD00C93A1D /* memberCellLabel.swift */,
+			);
+			path = MemberControllerViews;
+			sourceTree = "<group>";
+		};
+		67649ED12253FE9E00C93A1D /* ManageControllerViews */ = {
+			isa = PBXGroup;
+			children = (
+				67649ED22253FF7A00C93A1D /* rexTitleLabel.swift */,
+				67649ED42253FF9500C93A1D /* manageView.swift */,
+				67649ED62254066900C93A1D /* manageLabel.swift */,
+				67649ED82254144900C93A1D /* topMemberView.swift */,
+			);
+			path = ManageControllerViews;
+			sourceTree = "<group>";
+		};
 		6797D69521F1228300C6B9D4 = {
 			isa = PBXGroup;
 			children = (
@@ -117,22 +258,20 @@
 		6797D6A021F1228300C6B9D4 /* Manager Royale */ = {
 			isa = PBXGroup;
 			children = (
+				67649EA6224EF42000C93A1D /* Views */,
+				67649EA5224EF3B300C93A1D /* Models */,
+				67649EA4224EF31E00C93A1D /* Controllers */,
+				67649EA9224EF4B500C93A1D /* Utilities */,
 				6768D42A2213646600651B45 /* myClanViewController.swift */,
 				67B37FCC222DCC2C006290B1 /* mostViewController.swift */,
-				6797D6A321F1228300C6B9D4 /* ViewController.swift */,
-				67F04F60221B4DBA00CD9463 /* calculateStats.swift */,
-				6797D6D421F275A000C6B9D4 /* playerInfo.swift */,
-				6768D3F921F7AAB100651B45 /* playerWarlog.swift */,
-				6768D3FB21F7D93100651B45 /* TheClan.swift */,
-				6768D425220EE58F00651B45 /* jsonReader.swift */,
-				6768D428221246ED00651B45 /* APIGrab.swift */,
-				6797D6A521F1228300C6B9D4 /* Main.storyboard */,
-				6797D6AB21F1228400C6B9D4 /* Assets.xcassets */,
 				6797D6A121F1228300C6B9D4 /* AppDelegate.swift */,
+				6797D6A321F1228300C6B9D4 /* ViewController.swift */,
+				6797D6AB21F1228400C6B9D4 /* Assets.xcassets */,
+				6797D6AD21F1228400C6B9D4 /* LaunchScreen.storyboard */,
 				6797D6B021F1228400C6B9D4 /* Info.plist */,
 				6797D6A821F1228300C6B9D4 /* Manager_Royale.xcdatamodeld */,
-				6797D6AD21F1228400C6B9D4 /* LaunchScreen.storyboard */,
 				6797D6D221F1242C00C6B9D4 /* Weather.swift */,
+				6797D6A521F1228300C6B9D4 /* Main.storyboard */,
 			);
 			path = "Manager Royale";
 			sourceTree = "<group>";
@@ -286,18 +425,43 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67649EBA224FF6C400C93A1D /* GlobalVariables.swift in Sources */,
 				6768D426220EE58F00651B45 /* jsonReader.swift in Sources */,
 				67B37FCD222DCC2C006290B1 /* mostViewController.swift in Sources */,
+				67649EB1224FDEE000C93A1D /* ClanViewController.swift in Sources */,
+				67649ED02253DCAA00C93A1D /* addingNewClanFuncs.swift in Sources */,
 				6768D429221246ED00651B45 /* APIGrab.swift in Sources */,
+				67649EAD224EF8D900C93A1D /* Colors.swift in Sources */,
+				67649EB6224FE65300C93A1D /* ManageViewController.swift in Sources */,
+				67649EC2225035CA00C93A1D /* memberCell.swift in Sources */,
+				67649EC622503F9000C93A1D /* DropDownButton.swift in Sources */,
+				67649EBF2250019F00C93A1D /* ClanStatsView.swift in Sources */,
+				67649ED32253FF7A00C93A1D /* rexTitleLabel.swift in Sources */,
+				67649ECC22514E7A00C93A1D /* memberCellView.swift in Sources */,
+				67649EBD224FFFE900C93A1D /* DescriptiveLables.swift in Sources */,
+				67649EA3224ED6A300C93A1D /* TabViewController.swift in Sources */,
 				6768D3FC21F7D93100651B45 /* TheClan.swift in Sources */,
 				6797D6D321F1242C00C6B9D4 /* Weather.swift in Sources */,
+				67649ECE2252BD8400C93A1D /* Protocols.swift in Sources */,
 				6797D6AA21F1228300C6B9D4 /* Manager_Royale.xcdatamodeld in Sources */,
+				67649EAB224EF7C300C93A1D /* TutorialForClanTagView.swift in Sources */,
+				67649ECA2251454300C93A1D /* memberTableHeaderView.swift in Sources */,
+				67649EA8224EF46000C93A1D /* InitialClanTagTextField.swift in Sources */,
 				6797D6A421F1228300C6B9D4 /* ViewController.swift in Sources */,
+				67649EB8224FF27900C93A1D /* InitialViewTitleLabel.swift in Sources */,
+				67649EB4224FE19B00C93A1D /* MembersViewController.swift in Sources */,
 				6768D42B2213646600651B45 /* myClanViewController.swift in Sources */,
+				67649EC4225035FD00C93A1D /* memberCellLabel.swift in Sources */,
 				6768D3FA21F7AAB100651B45 /* playerWarlog.swift in Sources */,
 				6797D6D521F275A000C6B9D4 /* playerInfo.swift in Sources */,
+				67649ED72254066900C93A1D /* manageLabel.swift in Sources */,
+				67649EA1224ECFBB00C93A1D /* InitialClanViewViewController.swift in Sources */,
 				6797D6A221F1228300C6B9D4 /* AppDelegate.swift in Sources */,
+				67649ED92254144900C93A1D /* topMemberView.swift in Sources */,
+				67649ED52253FF9500C93A1D /* manageView.swift in Sources */,
+				67649EAF224EF94A00C93A1D /* SaveClanButton.swift in Sources */,
 				67F04F61221B4DBA00CD9463 /* calculateStats.swift in Sources */,
+				67649EC82250414500C93A1D /* dropDownView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

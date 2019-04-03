@@ -9,14 +9,46 @@
 import UIKit
 import CoreData
 
+let firstScreen = InitialClanViewController()
+let mainScreen = TabViewController()
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        // Change the appreance of the title here, I don't think I'll need this
+        let navigationBarAppearance = UINavigationBar.appearance()
+        navigationBarAppearance.tintColor = UIColor.red
+        navigationBarAppearance.barTintColor = UIColor.darkGray
+        navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.black]
+        
+        // decide where to start the user here
+        //let firstScreen = InitialClanViewController()
+        let mainScreen = TabViewController()
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        
+        // if statment here to determin which screen to display
+        //if let activeClanTag = UserDefaults.standard.object(forKey: "activeClan") as? String {
+            
+            //GlobalVariables.activeClan = loadClan(activeClan: activeClanTag)
+            
+            //guard let clanArray = UserDefaults.standard.array(forKey: "clansArray") as? [String] else {return}
+            //GlobalVariables.clansArray = clanArray
+            
+            //window?.rootViewController = mainScreen
+            
+        //} else {
+            window?.rootViewController = firstScreen
+        //}
+        
+        
+        window?.makeKeyAndVisible()
+        
+        
         return true
     }
 
