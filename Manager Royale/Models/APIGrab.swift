@@ -8,6 +8,90 @@
 
 import Foundation
 
+
+
+
+/*// This function grabs the war info and saves it to the UserDefualts
+func myAPIClanGrab (withLocation clanTag:String, completion: @escaping (String) -> ())
+{
+    //UserDefaults.standard.removeObject( forKey: clanTag + "myClan")
+    //UserDefaults.standard.removeObject( forKey:  "activeClan")
+    //UserDefaults.standard.removeObject( forKey:  clanTag + "myWarlog")
+    
+    var didWork = "api.clashroyale.com worked"
+    let headers = [
+        "Authorization": "Bearer: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImVkNWI3MTg2LTQ1ZTMtNDQ1Zi1iNjU0LWI5ZGYyMTA3NGEwMiIsImlhdCI6MTU1NDMxMzU5OCwic3ViIjoiZGV2ZWxvcGVyLzNmMDgyYmI0LTc4OTAtMjc1Yi1lNTFiLThjODViZGRkMDc5OSIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxMzQuMjA5LjIyMi42MiJdLCJ0eXBlIjoiY2xpZW50In1dfQ.OUq5FzKrMwaJQpoe9922CMKWbYyiDuZt9IgGnnXFNXet4kyBB3cAry-OJf8Vni6dR9JZ8tuL8BBlRdxF_M5NAA",
+        "Content-Type": "application/json",
+        ]
+    
+    let request = NSMutableURLRequest(url: NSURL(string: "https://api.clashroyale.com/v1/clans/%23" + clanTag)! as URL,
+                                      cachePolicy: .useProtocolCachePolicy,
+                                      timeoutInterval: 10.0)
+    request.httpMethod = "GET"
+    request.allHTTPHeaderFields = headers
+    
+    //let session = URLSession.shared
+    let config = URLSessionConfiguration.default
+    config.requestCachePolicy = URLRequest.CachePolicy.reloadIgnoringLocalCacheData
+    config.connectionProxyDictionary = [AnyHashable: Any]()
+    config.connectionProxyDictionary?["kCFNetworkProxiesHTTPSEnable"] = 1
+    config.connectionProxyDictionary?["kCFNetworkProxiesHTTPSProxy"] = "134.209.222.62"
+    config.connectionProxyDictionary?["kCFNetworkProxiesHTTPSPort"] = 3128
+    config.connectionProxyDictionary?["kCFNetworkProxiesHTTPEnable"] = 1
+    config.connectionProxyDictionary?["kCFNetworkProxiesHTTPProxy"] = "134.209.222.62"
+    config.connectionProxyDictionary?["kCFNetworkProxiesHTTPPort"] = 3128
+    let session = URLSession.init(configuration: config, delegate: nil, delegateQueue: OperationQueue.current)
+    
+    let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+        if error != nil {
+            
+            print("Client-side error in myAPIClanGrab: \(String(describing: error))")
+            //completion(nil)
+            return
+        }
+        
+        if let data = data {  // if the data id found
+            do {  // try and serialize the data into a dictionary
+                //print(response!)
+                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:Any] {
+                    print(json)
+                    // if the program has trouble reading in from the API
+                    if let reason = json["reason"] as? String{
+                        if(reason == "accessDenied"){
+                            print("wrong API key")
+                            didWork = "wrongKey"
+                        }
+                        if(reason == "notFound"){
+                            print("The clan tag was wrong")
+                            didWork = "wrongTag"
+                            // display message for user
+                            // make it return a string that says what the error is
+                        }
+                    } else {
+                        print("Setting user defaults")
+                        UserDefaults.standard.set(json, forKey: clanTag + "myClan")
+                        UserDefaults.standard.set(clanTag, forKey: "activeClan")
+                        print(json)
+                    }
+                }
+            }catch {  // if it doesn't work, print the error
+                print(error.localizedDescription)
+                didWork = "local"
+            }
+            completion(didWork)
+        }else{
+            didWork = "serverDown"
+            completion(didWork)
+        }
+    })
+    dataTask.resume()
+}*/
+
+
+
+
+
+
 // This function grabs the war info and saves it to the UserDefualts
 func myAPIClanGrab (withLocation clanTag:String, completion: @escaping (String) -> ())
 {
@@ -21,7 +105,7 @@ func myAPIClanGrab (withLocation clanTag:String, completion: @escaping (String) 
                                       cachePolicy: .useProtocolCachePolicy,
                                       timeoutInterval: 10.0)
     request.httpMethod = "GET"
-    //request.allHTTPHeaderFields = headers
+    request.allHTTPHeaderFields = headers
     
     
     
@@ -231,43 +315,43 @@ func addNewClan (withLocation clanTag: String, completion: @escaping (String) ->
     // checks if the clan already is added
     if alreadyHaveClan(Tag: clanTag) {
         completion("alreadyHaveClan")
-    }
-    
-    // trys to add the clan
-    myAPIWarlogGrab(withLocation: clanTag) { (didWorkAswell: String) in
-        
-        if didWorkAswell == "wrongTag" {
-            completion("wrongTag")
-        }
-        if didWorkAswell == "serverDown" {
-            completion("serverDown")
-        }
-        if didWorkAswell != "worked"{
-            completion("anotherProblem")
-        }
-        
-        // clan grab was successful, add to the myClans array & create a clanTag + "members"
-        addToClansArray(clanTag: clanTag)
-        
-        myAPIClanGrab(withLocation: clanTag) { (didWork: String) in
+    } else {
+        // trys to add the clan
+        myAPIWarlogGrab(withLocation: clanTag) { (didWorkAswell: String) in
             
-            // after the clan UserDefaults is refreshed
-            var newClan = theClan()
-            newClan = loadClan(activeClan: clanTag)
-            //var newTags = filterMemberList(clan: newClan)
+            if didWorkAswell == "wrongTag" {
+                completion("wrongTag")
+            }
+            if didWorkAswell == "serverDown" {
+                completion("serverDown")
+            }
+            if didWorkAswell != "worked"{
+                completion("anotherProblem")
+            }
             
-            var count = 0
-            for member in newClan.playerArray {
+            // clan grab was successful, add to the myClans array & create a clanTag + "members"
+            addToClansArray(clanTag: clanTag)
+            
+            myAPIClanGrab(withLocation: clanTag) { (didWork: String) in
                 
-                updateMemberList(withLocation: member) { (newDic: [String:Any]) in
-                    count += 1
-                    let newMemberBattleLogArray = updateMembersArray(newClan: newClan, newDic: newDic, member: member)
-                    // Update the UserDefault
-                    UserDefaults.standard.set(newMemberBattleLogArray, forKey: newClan.clanTag + "members")
+                // after the clan UserDefaults is refreshed
+                var newClan = theClan()
+                newClan = loadClan(activeClan: clanTag)
+                //var newTags = filterMemberList(clan: newClan)
+                
+                var count = 0
+                for member in newClan.playerArray {
                     
-                    if count == newClan.totalMembers + 1 {
-                        GlobalVariables.activeClan = loadClan(activeClan: clanTag)
-                        completion(completionMessage)
+                    updateMemberList(withLocation: member) { (newDic: [String:Any]) in
+                        count += 1
+                        let newMemberBattleLogArray = updateMembersArray(newClan: newClan, newDic: newDic, member: member)
+                        // Update the UserDefault
+                        UserDefaults.standard.set(newMemberBattleLogArray, forKey: newClan.clanTag + "members")
+                        
+                        if count == newClan.totalMembers + 1 {
+                            GlobalVariables.activeClan = loadClan(activeClan: clanTag)
+                            completion(completionMessage)
+                        }
                     }
                 }
             }

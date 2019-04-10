@@ -40,6 +40,7 @@ class clanTagTextField: UITextField {
         leftViewMode          = .always
     }
     
+    // the set up for the initial view
     func setUp(view: UIView, label: UILabel) {
         self.translatesAutoresizingMaskIntoConstraints = false
         
@@ -47,5 +48,25 @@ class clanTagTextField: UITextField {
         self.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -70).isActive = true
         self.heightAnchor.constraint(equalToConstant: 60).isActive = true
         self.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 30).isActive = true
+    }
+    
+    // set up for the main view
+    func setUp(view: UIView, adjacentLabel: UIButton) {
+        let placeholder       = self.placeholder != nil ? self.placeholder! : "#000000000000"
+        let placeholderFont   = UIFont(name: Fonts.avenirNextMedium, size: 15)!
+        attributedPlaceholder = NSAttributedString(string: placeholder, attributes:
+            [NSAttributedString.Key.foregroundColor: Colors.seanDarkGrey.withAlphaComponent(0.5),
+             NSAttributedString.Key.font: placeholderFont])
+        
+        translatesAutoresizingMaskIntoConstraints = false
+        heightAnchor.constraint(equalTo: adjacentLabel.heightAnchor).isActive = true
+        rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        centerYAnchor.constraint(equalTo: adjacentLabel.centerYAnchor).isActive = true
+        widthAnchor.constraint(equalTo: adjacentLabel.widthAnchor).isActive = true
+        
+        
+        
+        
+        
     }
 }

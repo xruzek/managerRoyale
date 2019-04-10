@@ -13,7 +13,6 @@ class memberCell: UITableViewCell {
     var nameView = memberCellView()
     var warView = memberCellView()
     var donationView = memberCellView()
-   
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -26,15 +25,16 @@ class memberCell: UITableViewCell {
     
     func setUpCell(index: Int) {
        
-        
         nameView.setUpNameView(view: self, index: index)
         
         donationView.setUpDonationsView(view: self, index: index)
         
         warView.setUpWarView(view: self, index: index, leftView: nameView, rightView: donationView)
         
+        
+        self.backgroundColor = setWarColor(clan: GlobalVariables.activeClan, member: GlobalVariables.activeClan.playerArray[index])
+        
     }
-    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

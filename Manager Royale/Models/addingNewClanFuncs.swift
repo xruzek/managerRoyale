@@ -70,8 +70,16 @@ func deleteClan(clanTag: String) {
     UserDefaults.standard.removeObject(forKey: clanTag + "members")
     UserDefaults.standard.removeObject(forKey: clanTag + "myWarlog")
     UserDefaults.standard.removeObject(forKey: clanTag + "myClan")
-    UserDefaults.standard.removeObject(forKey: "myClans")
-  
+    var clanArray = UserDefaults.standard.object(forKey: "myClans") as! [String]
+    var index = 0
+    for each in clanArray {
+        if each == clanTag {
+            clanArray.remove(at: index)
+        }
+        index += 1
+    }
+  UserDefaults.standard.set(clanArray, forKey: "myClans")
+    
 }
 
 // presents the nest view when program is done loading clans

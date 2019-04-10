@@ -18,16 +18,32 @@ class InitialClanViewController: UIViewController {
     var resetButton = SaveClanButton()
     var nextButton = SaveClanButton()
     
+    let myActInd = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
+    
     override func viewWillAppear(_ animated: Bool) {
         // User's first time
         GlobalVariables.activeClan = loadClan(activeClan: "9GCQYY0C")
+        
+        
+        
+        //myAPIClanGrab(withLocation: "9GCQYY0C") { (didWork: String) in
+          //  print("didWork: ", didWork)
+        //}
+        
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Colors.rexGray
+        view.backgroundColor = UIColor.white
         self.title = "Enter Your Clan Tag Here"
        
+        view.addSubview(myActInd)
+        //myActInd.hidesWhenStopped = false
+        myActInd.center = view.center
+        
+        
+        
         view.addSubview(titleLabel)
         titleLabel.setUp(view: self.view)
         
@@ -48,13 +64,28 @@ class InitialClanViewController: UIViewController {
         nextButton.addTarget(self, action: #selector(nextView), for: .touchUpInside)
         nextButton.setTitle("Next", for: .normal)
         
+        
+        
         var newClan = theClan()
         newClan = loadClan(activeClan: "9GCQYY0C")
         
         newClan.sortArray(sortType: "Days Inactive")
         //newClan.displayClanNames()
         newClan.displayTimeSincePlayed()
-        print(newClan.totalMembers)
+        
+        print("--------------Greator than 50%--------------")
+        for each in newClan.playerArray {
+            if each.winPercent != 0 && each.winPercent! >= 50.0 {
+                print(each.name, "\n ", Int(each.winPercent!), "%\n---------------------------------------")
+            }
+        }
+        
+        print("\n--------------Less than 50%--------------")
+        for each in newClan.playerArray {
+            if each.winPercent != 0 && each.winPercent! < 50.0 {
+                print(each.name, "\n ", Int(each.winPercent!), "%\n---------------------------------------")
+            }
+        }
         
         
         //deleteClan(clanTag: "9GCQYY0C")
@@ -62,6 +93,9 @@ class InitialClanViewController: UIViewController {
     }
     
     @objc func nextView() {
+        //let memberInfo = memberInfoController()
+        //memberInfo.navigationItem.backBarButtonItem?.title = "back"
+        //present(memberInfo, animated: false, completion: nil)
         presentNextView()
     }
     
@@ -72,6 +106,8 @@ class InitialClanViewController: UIViewController {
     
     @objc func saveClan() {
         // add .remove all occurances of "#" in clabTagTF.text
+    myActInd.startAnimating()
+        
         clanTagTF.text = "9GCQYY0C"
         if clanTagTF.text! == "" {
             print("Must enter clan Tag in the Text Field")
@@ -80,6 +116,10 @@ class InitialClanViewController: UIViewController {
             addNewClan(withLocation: clanTagTF.text!) { (completionMessage: String) in
                 print(completionMessage)
                 if completionMessage == "worked" {
+                    DispatchQueue.main.async {
+                        self.myActInd.stopAnimating()
+                    }
+                    
                     presentNextView()
                     
                 }else {
@@ -105,6 +145,8 @@ class InitialClanViewController: UIViewController {
         }
         
     }
+    
+    
     
 }
 

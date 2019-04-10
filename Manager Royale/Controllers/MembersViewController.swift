@@ -9,8 +9,6 @@
 import UIKit
 
 class MembersViewController: UITableViewController, sortTableProtocol {
-    
-    
     let header = memberTableHeaderView()
     
     
@@ -21,6 +19,9 @@ class MembersViewController: UITableViewController, sortTableProtocol {
         
         //self.tableView.delegate = self
         //self.tableView.dataSource = self
+        
+        //navigationController?.setNavigationBarHidden(true, animated: false)
+        
         navigationItem.title = "Members"
         self.tableView.register(memberCell.self, forCellReuseIdentifier: "member")
         self.tableView.rowHeight = 100
@@ -54,17 +55,8 @@ class MembersViewController: UITableViewController, sortTableProtocol {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         header.displayMemberInfo(index: indexPath.row)
         
-        GlobalVariables.activeClan.sortArray(sortType: "Worth")
-        
-        var count = 0
-        for _ in GlobalVariables.activeClan.playerArray {
-            let indexPath = IndexPath(item: count, section: 0)
-            self.tableView.reloadRows(at: [indexPath], with: .none)
-            count += 1
-        }
         
     }
     

@@ -37,16 +37,16 @@ class ClanStatsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setUp(view: UIView) {
+    func setUp(view: UIView, title: UIView) {
         backgroundColor = Colors.rexGray.withAlphaComponent(0.2)
         self.translatesAutoresizingMaskIntoConstraints = false
         self.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         self.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        self.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        self.heightAnchor.constraint(equalToConstant: view.frame.size.height/1.4).isActive = true
+        self.topAnchor.constraint(equalTo: title.bottomAnchor).isActive = true
+        self.heightAnchor.constraint(equalToConstant: view.frame.size.height/1.6).isActive = true
         
-        self.viewHeight = Double(view.frame.size.height/1.4)
-        self.viewHeight -= 420
+        self.viewHeight = Double(view.frame.size.height/1.6)
+        self.viewHeight -= 300
         self.viewHeight /= 7
        
         self.viewWidth = Double(view.frame.size.width)

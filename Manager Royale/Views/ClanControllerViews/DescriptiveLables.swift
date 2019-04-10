@@ -9,6 +9,8 @@
 import UIKit
 
 class DescriptiveLables: UILabel {
+    var labelHeight:CGFloat = 50
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -23,8 +25,12 @@ class DescriptiveLables: UILabel {
     func setUpLabel(){
         //font = self.font.withSize(20)  // default is 17
         
-        //textColor = Colors.rexGold
-        //backgroundColor = Colors.rexLightBlueGray
+        textColor = .black
+        backgroundColor = Colors.rexLightBlueGray.withAlphaComponent(0.4)
+        
+        adjustsFontSizeToFitWidth = true
+        
+        
     }
     
     // sets up constraints if it is the first label & adds the text to it
@@ -35,8 +41,8 @@ class DescriptiveLables: UILabel {
         
         self.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         self.widthAnchor.constraint(equalToConstant: CGFloat(10 + width/2)).isActive = true
-        self.topAnchor.constraint(equalTo: view.topAnchor, constant: CGFloat(height + 100)).isActive = true
-        self.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        self.topAnchor.constraint(equalTo: view.topAnchor, constant: CGFloat(height)).isActive = true
+        self.heightAnchor.constraint(equalToConstant: labelHeight).isActive = true
         
         
         text = "   " + newText
@@ -51,7 +57,7 @@ class DescriptiveLables: UILabel {
         self.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         self.widthAnchor.constraint(equalToConstant: CGFloat(10 + width/2)).isActive = true
         self.topAnchor.constraint(equalTo: otherDL.bottomAnchor, constant: CGFloat(height)).isActive = true
-        self.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        self.heightAnchor.constraint(equalToConstant: labelHeight).isActive = true
         
         text = "   " + newText
     }
@@ -64,7 +70,7 @@ class DescriptiveLables: UILabel {
         self.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         self.widthAnchor.constraint(equalToConstant: CGFloat((width/2))).isActive = true
         self.centerYAnchor.constraint(equalTo: adjacentLabel.centerYAnchor).isActive = true
-        self.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        self.heightAnchor.constraint(equalToConstant: labelHeight).isActive = true
         
         text = newText
         

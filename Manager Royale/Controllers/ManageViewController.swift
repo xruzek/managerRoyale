@@ -14,15 +14,23 @@ class ManageViewController: UIViewController {
     var hurtingWarView = manageView()
     var newTopMemberView = topMemberView()
     
+    var controllerTitle = titleView()
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         //navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "Manage"
+        //navigationItem.title = "Manage"
+        
+        view.addSubview(controllerTitle)
+        controllerTitle.setUp(view: self.view, name: "Manage")
         
         view.addSubview(fullClanLabel)
         fullClanLabel.setUp(view: self.view, name: " Full Clan?")
-        fullClanLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 87).isActive = true
+        fullClanLabel.topAnchor.constraint(equalTo: controllerTitle.bottomAnchor).isActive = true
         fullClanLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         view.addSubview(inactiveMemberView)

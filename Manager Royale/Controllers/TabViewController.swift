@@ -13,16 +13,20 @@ let memberViewDelegate = MembersViewController()
 
 class TabViewController: UITabBarController {
     
+    override func viewWillAppear(_ animated: Bool) {
+        setUpTabController()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
-        setUpTabController()
     }
     
     
     func setUpTabController() {
         let tabFont = UIFont(name: Fonts.avenirNextMedium, size: 15)!
+        
         
         
         let clanView = UINavigationController(rootViewController: ClanViewController())
@@ -52,6 +56,7 @@ class TabViewController: UITabBarController {
         // need an image to chnage how it looks when selected
         
         viewControllers = [clanView, memberView, manageView]
+        
         
     }
 }

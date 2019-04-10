@@ -52,12 +52,12 @@ class memberCellView: UIView {
         // pass in index if its the war view
         // pass through index + 100 if its the donation view
         
+        
         if index > 99{  // Donation
-            
+            //index -= 100
         } else {        // War
             
         }
-        
         
         let num = Int.random(in: 0..<4)
         if num == 0 {

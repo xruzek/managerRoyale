@@ -90,7 +90,7 @@ class players{
     var Worth:Double
     var contributionColor:String?
     var donationDiff: Int?
-    
+    var winPercent: Double?
     
     // defualt init
     init() throws{
@@ -176,6 +176,18 @@ class players{
         var newWorth:Double = 0
         
         //newWorth += Double((self.donations - self.donationsReceived)/2)
+        if self.warDaysWon == 0 {
+            if self.warDaysInvolvedIn == 0 {
+                self.winPercent = 0
+            } else {
+                self.winPercent = Double(self.warDaysNotPlayed)/Double(self.warDaysInvolvedIn)
+                self.winPercent! *= -100
+            }
+            
+        } else {
+            self.winPercent = Double(self.warDaysWon)/Double(self.warDaysInvolvedIn)
+            self.winPercent! *= 100
+        }
         
         newWorth += Double(self.warDaysPlayed * 20)
         newWorth += (Double(self.collectionBattlesPlayed)/30) * 200
@@ -189,7 +201,26 @@ class players{
         }
         self.Worth = newWorth
         self.donationDiff = self.donations - self.donationsReceived
+        
     }
+    
+    // displays past 10 wars with the current clan
+    func displayPastWars() {
+        var count = 1
+        for war in self.warDayArray {
+            print("\nWar: ", count)
+            if war.collectionBattlesPlayed != 0 {
+                print("  Played War Day:            ", war.playedTheWarDay!)
+                print("  Won The War:               ", war.wonTheWarDay!)
+                print("  Collection Battels Played: ", war.collectionBattlesPlayed)
+                print("  Cards Earned:              ", war.cardsCollected!)
+            } else {
+                print("  Did not Participate")
+            }
+            count += 1
+        }
+    }
+    
 }
 
 class theClan {
@@ -279,19 +310,20 @@ class theClan {
         print("Total War Days Played = ", self.totalWarDaysPlayed, "\n")
         
         for player in self.playerArray{
-            print(player.name, "\nDonations = ", player.donations, "    Donations Recieved", player.donationsReceived, "\nWar Days not played = ", player.warDaysNotPlayed,"\nWar Days Played = ", player.warDaysPlayed, "\nWar Days Won = ", player.warDaysWon,"\nCollection Days = ", player.collectionBattlesPlayed, "\nW/L Ratio = ", player.warDaysWon, "/",player.warDaysPlayed + player.warDaysNotPlayed, "\nWar Days Missed In A Row = ", player.warDayMissedStreak,"\nCollection Battles Missed: ", player.collectionBattelsMissed, "\nWorth is: ", player.Worth, "\n" )
+            print(player.name, "\nDonations = ", player.donations, "    Donations Recieved", player.donationsReceived, "\nWar Days not played = ", player.warDaysNotPlayed,"\nWar Days Played = ", player.warDaysPlayed, "\nWar Days Won = ", player.warDaysWon,"\nCollection Days = ", player.collectionBattlesPlayed, "\nW/L Ratio = ", player.warDaysWon, "/",player.warDaysPlayed + player.warDaysNotPlayed, "\nWar Days Missed In A Row = ", player.warDayMissedStreak,"\nCollection Battles Missed: ", player.collectionBattelsMissed, "\nWorth is: ", player.Worth, "\nWinsPercent = ", player.warDaysWon , "/" , player.warDaysInvolvedIn, " :", Int(player.winPercent!), "%\n" )
+            
         }
     }
     
     func displayTimeSincePlayed() {
         for member in self.playerArray {
             //print()
-            print(member.name)
+            print(member.name, ", ", member.trophies)
             //print("War Stats Score: ", Int(member.Worth))
             if member.timeSinceLastBattle! < 0 {
                 print("No Past Battles Available")
             }else {
-                print("Days Inactive: ", member.timeSinceLastBattle!)
+                print("Days Inactive: ", member.timeSinceLastBattle!, "\n")
             }
         }
     }

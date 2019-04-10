@@ -39,7 +39,7 @@ class topMemberView: UIView {
         leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         topAnchor.constraint(equalTo: topView.bottomAnchor).isActive = true
         rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constants.tabBarHeight).isActive = true
         
         backgroundColor = UIColor.yellow.withAlphaComponent(0.2)
         
