@@ -108,7 +108,7 @@ class ClanViewController: UIViewController {
         // Clan Info Title
         scrollView.addSubview(clanInfo)
         clanInfo.setTitle()
-        clanInfo.setConstraints(topAnchor: clanTagTime.bottomAnchor, view: view, sideLeft: true, height: 70)
+        clanInfo.setConstraints(topAnchor: clanTagTime.bottomAnchor, view: view, sideLeft: true, height: labelHeight)
         clanInfo.text = "Clan Info"
         
         // Trophy Labels
@@ -141,10 +141,11 @@ class ClanViewController: UIViewController {
         /**********************
                War Info
          **********************/
+        
         // War Info Title
         scrollView.addSubview(warInfo)
         warInfo.setTitle()
-        warInfo.setConstraints(topAnchor: warTrophyLabel.bottomAnchor, view: view, sideLeft: true, height: 60)
+        warInfo.setConstraints(topAnchor: warTrophyLabel.bottomAnchor, view: view, sideLeft: true, height: labelHeight)
         warInfo.text = "War Stats"
         
         // Average Participation
@@ -179,12 +180,12 @@ class ClanViewController: UIViewController {
          **********************/
         scrollView.addSubview(topMembers)
         topMembers.setTitle()
-        topMembers.setConstraints(topAnchor: avgEarnedLabel.bottomAnchor, view: view, sideLeft: true, height: 60)
+        topMembers.setConstraints(topAnchor: avgEarnedLabel.bottomAnchor, view: view, sideLeft: true, height: labelHeight)
         topMembers.text = "Top Members"
         
         // Most War Days Won
         scrollView.addSubview(mostWarDaysLabel)
-        mostWarDaysLabel.setConstraints(topAnchor: topMembers.bottomAnchor, view: view, sideLeft: true, height: 50)
+        mostWarDaysLabel.setConstraints(topAnchor: topMembers.bottomAnchor, view: view, sideLeft: true, height: labelHeight)
         mostWarDaysLabel.font = mostWarDaysLabel.font.withSize(25)
         mostWarDaysLabel.text = "Most War Days Won"
         

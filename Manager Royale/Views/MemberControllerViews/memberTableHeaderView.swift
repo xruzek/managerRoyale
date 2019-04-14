@@ -10,39 +10,29 @@ import UIKit
 
 class memberTableHeaderView: UIView {
     // labels that change when a cell is tapped
-    var name = memberCellLabel()
-    var trophy = memberCellLabel()
-    var statusLabel = memberCellLabel()
-    var statusLevel = memberCellLabel()
-    var warDaysMissed = memberCellLabel()
-    var warDaysMissedAmount = memberCellLabel()
-    var collectionBattlesMissed = memberCellLabel()
-    var colBatMissedAmount = memberCellLabel()
-    var warDayWL = memberCellLabel()
-    var warDayRatio = memberCellLabel()
-    var clanContribution = memberCellLabel()
-    var contributionAmount = memberCellLabel()
+    var avgWarPart = RRCellLabel()
+    var warPartAmount = RRCellLabel()
+    var avgWarWins = RRCellLabel()
+    var warWinsAmount = RRCellLabel()
+    var avgDonations = RRCellLabel()
+    var donationAmount = RRCellLabel()
     
-    // labels that are alawys there
-    var warDayStatsColLabel = memberCellLabel()
-    var donationColLabel = memberCellLabel()
+    var sortTypeLabel = RRCellLabel()
     
+    var height = ((GlobalVariables.cellHeaderHeight - 25) / 3) - GlobalVariables.cellOffset
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        // views that change when a cell its tapped
-        addSubview(name)
-        addSubview(trophy)
-        addSubview(statusLabel)
-        addSubview(statusLevel)
-        addSubview(warDaysMissed)
-        addSubview(warDaysMissedAmount)
-        addSubview(collectionBattlesMissed)
-        addSubview(colBatMissedAmount)
-        addSubview(warDayWL)
-        addSubview(warDayRatio)
-        addSubview(clanContribution)
-        addSubview(contributionAmount)
+        // Add the Labels to the view
+        addSubview(avgWarPart)
+        addSubview(warPartAmount)
+        addSubview(avgWarWins)
+        addSubview(warWinsAmount)
+        addSubview(avgDonations)
+        addSubview(donationAmount)
+        
+        addSubview(sortTypeLabel)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -50,7 +40,7 @@ class memberTableHeaderView: UIView {
     }
     
     func setUpView() {
-        backgroundColor = UIColor.lightGray
+        backgroundColor = .white
         
         // Adds the DropDown Menu
         var button = DropDownButton()
@@ -58,16 +48,29 @@ class memberTableHeaderView: UIView {
         self.addSubview(button)
         button.editConstraints(view: self)
         
+        // Average War Participation
+        avgWarPart.setTopLeft(view: self, topAnchor: self.topAnchor, leftAnchor: self.leftAnchor, height: height)
+        avgWarPart.text = "Average War Participants"
+        
+        warPartAmount.setTopRight(view: self, topAnchor: self.topAnchor, leftAnchor: self.leftAnchor, height: height, isValue: true)
+        warPartAmount.text = String(GlobalVariables.activeClan.totalWarDaysInvolvedIn/10)
+        
+        // Average War Wins
+        avgWarWins.setTopLeft(view: self, topAnchor: avgWarPart.bottomAnchor, leftAnchor: self.leftAnchor, height: height)
+        avgWarWins.text = "Average War Wins"
+       
+        warWinsAmount.setTopRight(view: self, topAnchor: warPartAmount.bottomAnchor, leftAnchor: self.leftAnchor, height: height, isValue: true)
+        warWinsAmount.text = String(GlobalVariables.activeClan.totalWarDayWins/GlobalVariables.activeClan.totalParticipants)
+        
+        // Average Donations
+        avgDonations.setTopLeft(view: self, topAnchor: avgWarWins.bottomAnchor, leftAnchor: self.leftAnchor, height: height)
+        avgDonations.text = "Average Donations"
+        
+        donationAmount.setTopRight(view: self, topAnchor: warWinsAmount.bottomAnchor, leftAnchor: self.leftAnchor, height: height, isValue: true)
+        donationAmount.text = String(GlobalVariables.activeClan.totalDonations/GlobalVariables.activeClan.totalMembers)
         
     }
     
-    func displayMemberInfo(index: Int) {
-        
-        name.setUpLabel(view: self, index: index)
-        
-        
-        
-        
-    }
+   
     
 }

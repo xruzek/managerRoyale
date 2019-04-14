@@ -65,6 +65,11 @@ func loadClan(activeClan: String) -> theClan{
                 if memberList["tag"] as? String == clanMember.playerTag {
                     clanMember.timeSinceLastBattle = (memberList["timeSincePlayed"] as! Int)
                     clanMember.dateDiscovered = (memberList["dateDiscovered"] as! Date)
+                    
+                    let today = Date()
+                    clanMember.timeInClan = today.timeIntervalSince(clanMember.dateDiscovered!)
+                    clanMember.timeInClan! /= 60
+                    clanMember.timeInClan! /= 60
                 }
             }
         }
@@ -107,30 +112,6 @@ func filterMemberList(clan: theClan) ->[String] {
 }
 
 
-
-// returns how many days its been since the string date
-func calcTime(time:String) -> Int {
-    
-    let index = time.firstIndex(of: "T") ?? time.endIndex
-    var newDate = time[..<index]
-    newDate.insert("/", at: newDate.index(newDate.startIndex, offsetBy: 4))
-    newDate.insert("/", at: newDate.index(newDate.startIndex, offsetBy: 7))
-    
-    let formatter = DateFormatter()
-    //formatter.dateFormat = "dd/MM/yyyy"
-    formatter.dateFormat = "yyyy/MM/dd"
-    let theDate = formatter.date(from: String(newDate))
-    let today = Date()
-    var diff = today.timeIntervalSince(theDate!)
-    /*
-     diff /= 60
-     diff /= 60
-     diff /= 24
-     */
-    diff /= 86400
-    
-    return Int(diff)
-}
 
 // This prints out each dictionary in the member info array, used for testing
 func printMemberList(clanTag: String) {

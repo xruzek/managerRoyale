@@ -14,7 +14,7 @@ class MembersViewController: UITableViewController, sortTableProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Colors.seanDarkGrey
+        view.backgroundColor = .white
         header.setUpView()
         
         //self.tableView.delegate = self
@@ -24,12 +24,12 @@ class MembersViewController: UITableViewController, sortTableProtocol {
         
         navigationItem.title = "Members"
         self.tableView.register(memberCell.self, forCellReuseIdentifier: "member")
-        self.tableView.rowHeight = 100
+        self.tableView.rowHeight = GlobalVariables.cellHeight
         
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 150
+        return GlobalVariables.cellHeaderHeight
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -55,8 +55,9 @@ class MembersViewController: UITableViewController, sortTableProtocol {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        header.displayMemberInfo(index: indexPath.row)
-        
+        //header.displayMemberInfo(index: indexPath.row)
+        GlobalVariables.memberTapped = GlobalVariables.activeClan.playerArray[indexPath.row]
+        show(memberInfo, sender: self)
         
     }
     

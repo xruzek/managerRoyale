@@ -11,6 +11,7 @@ import CoreData
 
 let firstScreen = InitialClanViewController()
 let mainScreen = TabViewController()
+let memberInfo = memberInfoController()
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,13 +22,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Change the appreance of the title here, I don't think I'll need this
         let navigationBarAppearance = UINavigationBar.appearance()
-        navigationBarAppearance.tintColor = UIColor.red
-        navigationBarAppearance.barTintColor = UIColor.darkGray
+        navigationBarAppearance.tintColor = UIColor.black
+        //navigationBarAppearance.barTintColor = UIColor.darkGray
         navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.black]
         
         // decide where to start the user here
-        //let firstScreen = InitialClanViewController()
-        let mainScreen = TabViewController()
         
         window = UIWindow(frame: UIScreen.main.bounds)
         

@@ -107,12 +107,6 @@ func myAPIClanGrab (withLocation clanTag:String, completion: @escaping (String) 
     request.httpMethod = "GET"
     request.allHTTPHeaderFields = headers
     
-    
-    
-    
-    
-    
-    
     let session = URLSession.shared
     let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
         if let data = data {  // if the data id found

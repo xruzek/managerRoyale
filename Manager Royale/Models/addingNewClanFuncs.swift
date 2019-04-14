@@ -43,6 +43,7 @@ func updateMembersArray (newClan: theClan, newDic: [String:Any], member: players
     var arrayIndex = 0
     for oldMember in newMemberBattleLogArray {
         if oldMember["tag"] as! String == member.playerTag {
+            
             isIn = true
             let updatingDic:[String:Any] = ["name": oldMember["name"] as! String, "dateDiscovered": oldMember["dateDiscovered"] as! Date, "tag": oldMember["tag"] as! String, "timeSincePlayed": newDic["timeSincePlayed"] as! Int]
             
@@ -54,15 +55,16 @@ func updateMembersArray (newClan: theClan, newDic: [String:Any], member: players
         arrayIndex += 1
     }
     if !isIn {
-        // add te new member to the array
+        // add the new member to the array
         //print("---------NEW MEMBER------------")
         let newMemberDic:[String:Any] = ["name": newDic["name"] as! String, "dateDiscovered": newDic["dateDiscovered"] as! Date, "tag": newDic["tag"] as! String, "timeSincePlayed": newDic["timeSincePlayed"] as! Int]
         newMemberBattleLogArray.append(newMemberDic)
         print("added member: ", newMemberDic["name"] as! String)
     }
-    
     return newMemberBattleLogArray
 }
+
+
 
 // delete selected clan
 func deleteClan(clanTag: String) {
@@ -86,4 +88,28 @@ func deleteClan(clanTag: String) {
 func presentNextView() {
    
     firstScreen.present(mainScreen, animated: false, completion: nil)
+}
+
+// returns how many days its been since the string date
+func calcTime(time:String) -> Int {
+    
+    let index = time.firstIndex(of: "T") ?? time.endIndex
+    var newDate = time[..<index]
+    newDate.insert("/", at: newDate.index(newDate.startIndex, offsetBy: 4))
+    newDate.insert("/", at: newDate.index(newDate.startIndex, offsetBy: 7))
+    
+    let formatter = DateFormatter()
+    //formatter.dateFormat = "dd/MM/yyyy"
+    formatter.dateFormat = "yyyy/MM/dd"
+    let theDate = formatter.date(from: String(newDate))
+    let today = Date()
+    var diff = today.timeIntervalSince(theDate!)
+    /*
+     diff /= 60
+     diff /= 60
+     diff /= 24
+     */
+    diff /= 86400
+    
+    return Int(diff)
 }

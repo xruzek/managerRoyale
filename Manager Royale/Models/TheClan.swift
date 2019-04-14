@@ -84,16 +84,20 @@ class players{
     // Gathered from member UserDefault
     var timeSinceLastBattle:Int?
     var dateDiscovered:Date?
+    var timeInClan:Double?
     
     // Calculated from stats above when object is initilized
     var isNew:Bool?
     var Worth:Double
     var contributionColor:String?
-    var donationDiff: Int?
-    var winPercent: Double?
+    var donationDiff:Int?
+    var winPercent:Double?
+    
+    // Needed to help calculate hurting the clan
+    //var hurtingClanNum:Int?
     
     // defualt init
-    init() throws{
+    init() {
         self.name = "Albert"
         self.role = "member"
         self.trophies = 0
@@ -114,6 +118,7 @@ class players{
         self.collectionBattelsMissed = 0
         
         self.Worth = 0
+        
        // self.timeSinceLastBattle = ""
         
     }
@@ -140,6 +145,7 @@ class players{
         self.collectionBattelsMissed = 0
         
         self.Worth = 0
+        
     }
     
     // for possible having the total war days in each player object(might just have them reference the clan object) actually no, becasue some people could have not been in the clan for a war day, so it should be per player.
@@ -176,6 +182,7 @@ class players{
         var newWorth:Double = 0
         
         //newWorth += Double((self.donations - self.donationsReceived)/2)
+        
         if self.warDaysWon == 0 {
             if self.warDaysInvolvedIn == 0 {
                 self.winPercent = 0
@@ -201,6 +208,8 @@ class players{
         }
         self.Worth = newWorth
         self.donationDiff = self.donations - self.donationsReceived
+        
+        
         
     }
     
@@ -239,6 +248,7 @@ class theClan {
     var totalWarDaysPlayed:Int = 0
     var totalWarDaysInvolvedIn:Int = 0
     var totalMembers:Int = 0
+    var totalParticipants:Int = 0
     
     var warDates = [String]()
     // vvvvvvvv put that
@@ -295,6 +305,9 @@ class theClan {
             self.totalWarDaysPlayed += player.warDaysPlayed
             self.totalWarDaysInvolvedIn += player.warDaysInvolvedIn
             self.totalMembers += 1
+            if player.warDaysInvolvedIn != 0{
+                self.totalParticipants += 1
+            }
             
         }
         
@@ -315,6 +328,7 @@ class theClan {
         }
     }
     
+    //
     func displayTimeSincePlayed() {
         for member in self.playerArray {
             //print()
@@ -323,11 +337,12 @@ class theClan {
             if member.timeSinceLastBattle! < 0 {
                 print("No Past Battles Available")
             }else {
-                print("Days Inactive: ", member.timeSinceLastBattle!, "\n")
+                print("Days Inactive: ", member.timeSinceLastBattle!)
+                print("Time In Clan:  ", Int(member.timeInClan!), " hours\n")
             }
         }
     }
-    //"Worth", "War Days Won", "Trophies", "Cards Collected", "Days Inactive"
+    
     // sort the array of players
     func sortArray(sortType:String){
         if sortType == "byDonations"{
@@ -348,31 +363,12 @@ class theClan {
             self.playerArray = playerArray.sorted(by: {$0.timeSinceLastBattle! > $1.timeSinceLastBattle!})
         }else if sortType == "Most Generous"{
             self.playerArray = playerArray.sorted(by: {$0.donationDiff! > $1.donationDiff!})
-        }
+        }else if sortType == "Time In Clan"{
+            self.playerArray = playerArray.sorted(by: {$0.timeInClan! > $1.timeInClan!})
+        }/*else if sortType == "Hurting Clan"{
+            self.playerArray = playerArray.sorted(by: {$0.hurtingClanNum! > $1.hurtingClanNum!})
+        }*/
     }
 }
 
-// Prints the member's past wars
-/*
- var count = 1
- for war in newClan.playerArray[14].warDayArray {
- print(newClan.playerArray[14].name)
- if war.collectionBattlesPlayed != 0 {
- print("\n-------War ", count," -------\n", "Cards Collected: ", war.cardsCollected!, "\ncollection Days Played: ", war.collectionBattlesPlayed, "\nMissed War Day: ", war.missedTheWarDay!, "\nPlayed The War Day: ", war.playedTheWarDay!, "\nWon The War Day: ", war.wonTheWarDay!)
- } else {
- print("\n-------War ", count," -------\nNO PARTICIPATION")
- }
- count += 1
- }*/
 
-/*func displayInTextView() -> String {
- var textForView:String = ""
- for player in self.playerArray{
- 
- textForView += player.name
- textForView += "'s Worth: "
- textForView += String(player.Worth)
- textForView += "\n"
- }
- return textForView
- }*/

@@ -7,12 +7,18 @@
 //
 
 import Foundation
+import UIKit
 
 struct GlobalVariables {
     static var activeClan = theClan()
-    static var sortTypes:Int = 7
+    static var sortTypes: Int = 7
     static var clansArray = [String]()
+    static var cellHeaderHeight: CGFloat = 150
+    static var cellHeight: CGFloat = 90
+    static var cellOffset: CGFloat = 10
     
+    static var memberTapped: players = players()
+
 }
 
 // Scroll view class

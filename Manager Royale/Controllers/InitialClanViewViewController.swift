@@ -69,24 +69,28 @@ class InitialClanViewController: UIViewController {
         var newClan = theClan()
         newClan = loadClan(activeClan: "9GCQYY0C")
         
-        newClan.sortArray(sortType: "Days Inactive")
-        //newClan.displayClanNames()
-        newClan.displayTimeSincePlayed()
+        newClan.sortArray(sortType: "Worth")
         
-        print("--------------Greator than 50%--------------")
-        for each in newClan.playerArray {
-            if each.winPercent != 0 && each.winPercent! >= 50.0 {
-                print(each.name, "\n ", Int(each.winPercent!), "%\n---------------------------------------")
-            }
-        }
+        //newClan.sortArray(sortType: "byWarDaysMissedInARow")
+        //newClan.displayTimeSincePlayed()
         
-        print("\n--------------Less than 50%--------------")
-        for each in newClan.playerArray {
-            if each.winPercent != 0 && each.winPercent! < 50.0 {
-                print(each.name, "\n ", Int(each.winPercent!), "%\n---------------------------------------")
-            }
-        }
         
+        //newClan.displayTimeSincePlayed()
+        
+        
+        
+        
+        
+        /*let t = hurtingClanMembers(clan: newClan)
+        for member in t {
+            print(member.name, "  ", member.trophies)
+            print("War Days Involved: ", member.warDaysInvolvedIn)
+            print("War Days Won:      ", member.warDaysWon)
+            print("War Days Missed:   ", member.warDaysNotPlayed)
+            print("WinsPercent:       ", Int(member.winPercent!), "%")
+            print("Collection Played: ", member.collectionBattlesPlayed)
+            print("Collection Missed: ", member.collectionBattelsMissed, "\n")
+        }*/
         
         //deleteClan(clanTag: "9GCQYY0C")
         //dump(Array(UserDefaults.standard.dictionaryRepresentation().keys))
@@ -105,8 +109,34 @@ class InitialClanViewController: UIViewController {
     }
     
     @objc func saveClan() {
+        myActInd.startAnimating()
+        
+        clanTagTF.text = "9GCQYY0C"
+        if clanTagTF.text! == "" {
+            print("Must enter clan Tag in the Text Field")
+            
+        }else {
+            refreshClanInfo(withLocation: clanTagTF.text!) { (completionMessage: String) in
+                print(completionMessage)
+                if completionMessage == "worked" {
+                    DispatchQueue.main.async {
+                        self.myActInd.stopAnimating()
+                    }
+                    print("Updated")
+                    //presentNextView()
+                    
+                }else {
+                    DispatchQueue.main.async {
+                        self.displayErrorMessage(error: completionMessage)
+                    }
+                    
+                }
+            }
+        }
+        
+        /*The Add clan Function
         // add .remove all occurances of "#" in clabTagTF.text
-    myActInd.startAnimating()
+        myActInd.startAnimating()
         
         clanTagTF.text = "9GCQYY0C"
         if clanTagTF.text! == "" {
@@ -130,6 +160,7 @@ class InitialClanViewController: UIViewController {
                 }
             }
         }
+        */
     }
     
     // displays the certain error messages based on the error

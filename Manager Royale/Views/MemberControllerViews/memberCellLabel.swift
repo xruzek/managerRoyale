@@ -19,6 +19,7 @@ class memberCellLabel: UILabel {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+  
     /*********************************
      Labels for the nameView
      *********************************/
@@ -150,17 +151,7 @@ class memberCellLabel: UILabel {
         layer.cornerRadius = 10
     }
     
-    // below name label
-    func setUpLabel(view: UIView, topLabel: UILabel, name: String) {
-        
-        
-    }
-    
-    // right of the name label
-    func setUpLabel(view:UIView, adjacentLabel: UILabel, name: String) {
-        
-        
-    }
+   
     
     // Custom header label adding
     

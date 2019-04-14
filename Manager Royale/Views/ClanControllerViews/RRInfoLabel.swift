@@ -12,6 +12,10 @@ class RRInfoLabel: UILabel {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.sizeToFit()
+        
+        self.font = UIFont(name: Fonts.normalLabelFont, size: 17)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -28,7 +32,7 @@ class RRInfoLabel: UILabel {
             self.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
             self.textAlignment = .right
         }
-        self.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5, constant: -10).isActive = true
+        //self.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5, constant: -10).isActive = true
         //self.widthAnchor.constraint(equalToConstant: 50).isActive = true
         self.heightAnchor.constraint(equalToConstant: height).isActive = true
         
