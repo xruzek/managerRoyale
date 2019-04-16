@@ -56,7 +56,14 @@ func loadClan(activeClan: String) -> theClan{
     clan.clanScore = clanScore
     
     // Filters clan before updating the clan class
-    let removedTags = filterMemberList(clan: clan)
+    GlobalVariables.removedMembers = filterMemberList(clan: clan)
+    
+    // adds last Updated to the clan
+    if let newLastUpdated = UserDefaults.standard.object(forKey: clan.clanTag + "lastUpdated") as? Date {
+        clan.lastUpdated = newLastUpdated
+    } else {
+        clan.lastUpdated = Date()
+    }
     
     // load the battle log userDefualt here & update clan
     if let clanMemberBattleLog = UserDefaults.standard.object(forKey: clan.clanTag + "members") as? [[String:Any]] {
@@ -65,6 +72,7 @@ func loadClan(activeClan: String) -> theClan{
                 if memberList["tag"] as? String == clanMember.playerTag {
                     clanMember.timeSinceLastBattle = (memberList["timeSincePlayed"] as! Int)
                     clanMember.dateDiscovered = (memberList["dateDiscovered"] as! Date)
+                    clanMember.lastUpdated = (memberList["lastUpdated"] as? Date)
                     
                     let today = Date()
                     clanMember.timeInClan = today.timeIntervalSince(clanMember.dateDiscovered!)

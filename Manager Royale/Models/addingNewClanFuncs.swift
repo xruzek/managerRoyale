@@ -45,7 +45,7 @@ func updateMembersArray (newClan: theClan, newDic: [String:Any], member: players
         if oldMember["tag"] as! String == member.playerTag {
             
             isIn = true
-            let updatingDic:[String:Any] = ["name": oldMember["name"] as! String, "dateDiscovered": oldMember["dateDiscovered"] as! Date, "tag": oldMember["tag"] as! String, "timeSincePlayed": newDic["timeSincePlayed"] as! Int]
+            let updatingDic:[String:Any] = ["name": oldMember["name"] as! String, "dateDiscovered": oldMember["dateDiscovered"] as! Date, "tag": oldMember["tag"] as! String, "timeSincePlayed": newDic["timeSincePlayed"] as! Int, "lastUpdated": newDic["lastUpdated"] as! Date]
             
             // Update that member at the array index
             newMemberBattleLogArray[arrayIndex] = updatingDic
@@ -57,7 +57,8 @@ func updateMembersArray (newClan: theClan, newDic: [String:Any], member: players
     if !isIn {
         // add the new member to the array
         //print("---------NEW MEMBER------------")
-        let newMemberDic:[String:Any] = ["name": newDic["name"] as! String, "dateDiscovered": newDic["dateDiscovered"] as! Date, "tag": newDic["tag"] as! String, "timeSincePlayed": newDic["timeSincePlayed"] as! Int]
+        let newMemberDic:[String:Any] = ["name": newDic["name"] as! String, "dateDiscovered": newDic["dateDiscovered"] as! Date, "tag": newDic["tag"] as! String, "timeSincePlayed": newDic["timeSincePlayed"] as! Int, "lastUpdated": newDic["lastUpdated"] as! Date]
+        
         newMemberBattleLogArray.append(newMemberDic)
         print("added member: ", newMemberDic["name"] as! String)
     }
@@ -72,6 +73,7 @@ func deleteClan(clanTag: String) {
     UserDefaults.standard.removeObject(forKey: clanTag + "members")
     UserDefaults.standard.removeObject(forKey: clanTag + "myWarlog")
     UserDefaults.standard.removeObject(forKey: clanTag + "myClan")
+    UserDefaults.standard.removeObject(forKey: clanTag + "lastUpdated")
     var clanArray = UserDefaults.standard.object(forKey: "myClans") as! [String]
     var index = 0
     for each in clanArray {

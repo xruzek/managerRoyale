@@ -76,9 +76,13 @@ class memberCell: UITableViewCell {
         warWins.setTopRight(view: self, topAnchor: self.topAnchor, leftAnchor: self.leftAnchor, height: GlobalVariables.cellHeight/2 - GlobalVariables.cellOffset , isValue: false)
         warWins.text = "War Days Won"
         
+        globalAddLine(leftLabel: warWins, rightLabel: warWinsAmount, view: self)
+        
         // trophies
         trophies.setOtherConstraints(view: self, topAnchor: self.topAnchor, rightAnchor: warWins.leftAnchor, height: GlobalVariables.cellHeight/2 - GlobalVariables.cellOffset)
         trophies.text = String(GlobalVariables.activeClan.playerArray[index].trophies)
+        
+        globalAddLine(leftLabel: name, rightLabel: trophies, view: self)
         
         // donation label
         donationLabel.setBottomRight(view: self, bottomAnchor: self.bottomAnchor, leftAnchor: self.leftAnchor, height: GlobalVariables.cellHeight/2 - GlobalVariables.cellOffset, isValue: false)
@@ -88,6 +92,7 @@ class memberCell: UITableViewCell {
         donationAmount.setBottomRight(view: self, bottomAnchor: self.bottomAnchor, leftAnchor: indexLabel.rightAnchor, height: GlobalVariables.cellHeight/2 - GlobalVariables.cellOffset, isValue: true)
         donationAmount.text = String(GlobalVariables.activeClan.playerArray[index].donations)
         
+        globalAddLine(leftLabel: donationLabel, rightLabel: donationAmount, view: self)
         
         // set Color of the member's cell
         self.backgroundColor = setMemberColor(clan: GlobalVariables.activeClan, member: GlobalVariables.activeClan.playerArray[index]).withAlphaComponent(0.15)

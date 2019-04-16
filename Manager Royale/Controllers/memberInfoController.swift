@@ -10,35 +10,33 @@ import UIKit
 
 class memberInfoController: UIViewController {
     var memberName = RRInfoLabel()
+    var trophies = RRInfoLabel()
     var memberTag = RRInfoLabel()
     var lastBattleLabel = RRInfoLabel()
     var memberStatus = RRInfoLabel()
     var pastTenWarStats = RRInfoLabel()
-    var winsLabel = RRInfoLabel()
-    var winsAmount = RRInfoLabel()
-    var playedLabel = RRInfoLabel()
-    var playedAmount = RRInfoLabel()
-    var missedLabel = RRInfoLabel()
-    var missedAmount = RRInfoLabel()
-    var cardsLabel = RRInfoLabel()
-    var cardsAmount = RRInfoLabel()
-    var collectionMissedLabel = RRInfoLabel()
-    var collectionMissedAmount = RRInfoLabel()
+    
     var donationLabel = RRInfoLabel()
     var donationAmount = RRInfoLabel()
     var recievedLabel = RRInfoLabel()
     var recievedAmount = RRInfoLabel()
     
+    var pastTenWarsTitle = RRInfoLabel()
+    
+    var member = players()
     
     let scrollView: UIScrollView = {
         let v = UIScrollView()
         v.translatesAutoresizingMaskIntoConstraints = false
         v.backgroundColor = .white
-        v.contentSize = CGSize(width: Constants.screenWidth, height: 2000)
+        v.contentSize = CGSize(width: Constants.screenWidth, height: 2500)
         return v
     }()
     
-    var labelHeight:CGFloat = 20
+    var labelHeight:CGFloat = 33
+    
+    var memberInfoLabels = ["Wins", "Played", "Skipped", "Total Involved In", "Win Percentage", "Cards Earned", "Collection Battles Missed"]
+    var memberInfoAmount = ["","","","","","",""]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,10 +48,10 @@ class memberInfoController: UIViewController {
         
         
         
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        // Do any additional setup after loading the view.
         //navigationController?.setNavigationBarHidden(true, animated: animated)
         
         view.backgroundColor = UIColor.white
@@ -67,47 +65,131 @@ class memberInfoController: UIViewController {
         
         scrollView.addSubview(memberName)
         scrollView.addSubview(memberTag)
+        scrollView.addSubview(trophies)
         scrollView.addSubview(lastBattleLabel)
         scrollView.addSubview(memberStatus)
         scrollView.addSubview(pastTenWarStats)
-        scrollView.addSubview(winsLabel)
-        scrollView.addSubview(winsAmount)
-        scrollView.addSubview(playedLabel)
-        scrollView.addSubview(playedAmount)
-        scrollView.addSubview(missedLabel)
-        scrollView.addSubview(missedAmount)
-        scrollView.addSubview(cardsLabel)
-        scrollView.addSubview(cardsAmount)
-        scrollView.addSubview(collectionMissedLabel)
-        scrollView.addSubview(collectionMissedAmount)
+        
         scrollView.addSubview(donationLabel)
         scrollView.addSubview(donationAmount)
         scrollView.addSubview(recievedLabel)
         scrollView.addSubview(recievedAmount)
+        
+        scrollView.addSubview(pastTenWarsTitle)
         
         setUpView()
         
     }
 
     func setUpView() {
-        let member = GlobalVariables.memberTapped
+        member = GlobalVariables.memberTapped
+        navigationItem.title = member.name
+        
+        memberInfoAmount[0] = String(member.warDaysWon)
+        memberInfoAmount[1] = String(member.warDaysPlayed)
+        memberInfoAmount[2] = String(member.warDaysNotPlayed)
+        memberInfoAmount[3] = String(member.warDaysInvolvedIn)
+        memberInfoAmount[4] = String(Int(member.winPercent!)) + "%"
+        memberInfoAmount[5] = String(member.cardsEarned)
+        memberInfoAmount[6] = String(member.collectionBattelsMissed)
         
         // member name
-        memberName.setConstraints(topAnchor: scrollView.topAnchor, view: scrollView, sideLeft: true, height: labelHeight)
+        memberName.setConstraints(topAnchor: scrollView.topAnchor, view: scrollView, sideLeft: true )
         memberName.text = member.name
         
-        
         // member tag
-        memberTag.setConstraints(topAnchor: memberName.bottomAnchor, view: scrollView, sideLeft: true, height: labelHeight)
         memberTag.setSmall()
-        memberTag.text = member.playerTag
+        memberTag.setConstraints(topAnchor: memberName.bottomAnchor, view: scrollView, sideLeft: true )
+        
+        // trophies
+        trophies.setConstraints(topAnchor: scrollView.topAnchor, view: view, sideLeft: false)
+        trophies.text = String(member.trophies)
+        
+        globalAddLine(leftLabel: memberName, rightLabel: trophies, view: scrollView)
+        
+        let today = Date()
+        var amount = today.timeIntervalSince(member.lastUpdated!) // in seconds
+        amount /= 60    // in minutes
+        memberTag.text = member.playerTag + " : Updated " + String(Int(amount)) + " minutes"
+        if amount > 60 {
+            amount /= 60    // in hours
+            memberTag.text = member.playerTag + " : Updated " + String(Int(amount)) + " hours"
+        }
+        if amount > 36 {
+            amount /= 24    // in days
+            memberTag.text = member.playerTag + " : Updated " + String(Int(amount)) + " days"
+        }
+        
         
         // last battle
-        lastBattleLabel.setConstraints(topAnchor: memberTag.bottomAnchor, view: scrollView, sideLeft: true, height: labelHeight)
         lastBattleLabel.setSmall()
+        lastBattleLabel.setConstraints(topAnchor: memberTag.bottomAnchor, view: scrollView, sideLeft: true )
         lastBattleLabel.text = "Last Battle " + String(member.timeSinceLastBattle!) + " days ago"
         
-        // 
+        // status
+        memberStatus.setConstraints(topAnchor: lastBattleLabel.bottomAnchor, view: scrollView, sideLeft: true )
+        memberStatus.text = "Status"
+        
+        // Past 10 Wars title
+        pastTenWarStats.setTitle()
+        pastTenWarStats.setConstraints(topAnchor: memberStatus.bottomAnchor, view: scrollView, sideLeft: true )
+        pastTenWarStats.text = "Past 10 War Stats"
+        
+        // for loop for all the member info
+        var priviousAnchor = pastTenWarStats.bottomAnchor
+        var count = 0
+        for each in memberInfoAmount {
+            let newLabel = RRInfoLabel()
+            scrollView.addSubview(newLabel)
+            newLabel.setConstraints(topAnchor: priviousAnchor, view: scrollView, sideLeft: true )
+            newLabel.text = memberInfoLabels[count]
+            
+            let amountLabel = RRInfoLabel()
+            scrollView.addSubview(amountLabel)
+            amountLabel.setConstraints(topAnchor: priviousAnchor, view: view, sideLeft: false )
+            amountLabel.text = each
+            priviousAnchor = newLabel.bottomAnchor
+            count += 1
+            
+            globalAddLine(leftLabel: newLabel, rightLabel: amountLabel, view: scrollView)
+            
+        }
+        
+        // Donations
+        donationLabel.setConstraints(topAnchor: priviousAnchor, view: scrollView, sideLeft: true )
+        donationLabel.text = "Donations"
+        
+        donationAmount.setConstraints(topAnchor: priviousAnchor, view: view, sideLeft: false )
+        donationAmount.text = String(member.donations)
+        
+        globalAddLine(leftLabel: donationLabel, rightLabel: donationAmount, view: scrollView)
+        
+        //donations recieved
+        recievedLabel.setConstraints(topAnchor: donationLabel.bottomAnchor, view: scrollView, sideLeft: true )
+        recievedLabel.text = "Donations Recieved"
+        
+        recievedAmount.setConstraints(topAnchor: donationLabel.bottomAnchor, view: view, sideLeft: false )
+        recievedAmount.text = String(member.donationsReceived)
+        
+        globalAddLine(leftLabel: recievedLabel, rightLabel: recievedAmount, view: scrollView)
+        
+        // past 10 war days Title
+        pastTenWarsTitle.setTitle()
+        pastTenWarsTitle.setConstraints(topAnchor: recievedLabel.bottomAnchor, view: scrollView, sideLeft: true )
+        pastTenWarsTitle.text = "Past Wars In This Clan"
+        
+        // for loop for the past war days
+        let t = RRWarView()
+        
+        priviousAnchor = pastTenWarsTitle.bottomAnchor
+        count = 1
+        for war in member.warDayArray.reversed() {
+            let newView = RRWarView()
+            scrollView.addSubview(newView)
+            newView.setUp(index: count, war: war, topAnchor: priviousAnchor, view: view)
+            priviousAnchor = newView.bottomAnchor
+            count += 1
+        }
         
     }
 

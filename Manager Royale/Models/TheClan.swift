@@ -25,7 +25,7 @@ import Foundation
 class players{
     // This struct is for displaying the member's past 10 wars in the clan
     struct warDay{
-        var playedTheWarDay:Bool?
+        var playedTheWarDay:Bool
         var missedTheWarDay:Bool?
         var cardsCollected:Int?
         var collectionBattlesPlayed:Int
@@ -55,6 +55,7 @@ class players{
         // Init for when the member didn't participate in the war
         init() {
             self.collectionBattlesPlayed = 0
+            self.playedTheWarDay = false
         }
     }
     
@@ -85,6 +86,7 @@ class players{
     var timeSinceLastBattle:Int?
     var dateDiscovered:Date?
     var timeInClan:Double?
+    var lastUpdated:Date?
     
     // Calculated from stats above when object is initilized
     var isNew:Bool?
@@ -168,6 +170,8 @@ class players{
         self.collectionBattelsMissed += 3 - playerWarlog.collectionBattlesPlayed
         if playerWarlog.warDaysPlayed == 0{
             self.warDaysNotPlayed += 1
+            let warDayObject = warDay(playerWarlog: playerWarlog)
+            warDayArray.append(warDayObject)
         }else{
             let warDayObject = warDay(playerWarlog: playerWarlog)
             warDayArray.append(warDayObject)
@@ -179,10 +183,8 @@ class players{
     
     // calculates worth of member
     func calcWorth(averageDonations:Double) {
-        var newWorth:Double = 0
         
-        //newWorth += Double((self.donations - self.donationsReceived)/2)
-        
+        // Win Percent Calculation
         if self.warDaysWon == 0 {
             if self.warDaysInvolvedIn == 0 {
                 self.winPercent = 0
@@ -190,26 +192,26 @@ class players{
                 self.winPercent = Double(self.warDaysNotPlayed)/Double(self.warDaysInvolvedIn)
                 self.winPercent! *= -100
             }
-            
         } else {
             self.winPercent = Double(self.warDaysWon)/Double(self.warDaysInvolvedIn)
             self.winPercent! *= 100
         }
         
-        newWorth += Double(self.warDaysPlayed * 20)
-        newWorth += (Double(self.collectionBattlesPlayed)/30) * 200
-        newWorth += Double(30 * self.warDaysWon)
-        newWorth -= Double(self.collectionBattelsMissed*10)
-        if self.warDaysNotPlayed == 0{
-            newWorth += 100
-           
-        }else{
-            newWorth -= Double(50 * self.warDaysNotPlayed)
-        }
+        
+        // Worth Calculation
+        var newWorth:Double = 0
+        newWorth += Double((self.donations - self.donationsReceived)/10)
+        newWorth += Double(self.warDaysPlayed * 2)
+        //newWorth += Double(self.collectionBattlesPlayed/3)
+        newWorth += Double(self.cardsEarned/600)
+        newWorth += Double(10 * self.warDaysWon)
+        newWorth -= Double(self.collectionBattelsMissed/3)
+        newWorth -= Double(5 * self.warDaysNotPlayed)
         self.Worth = newWorth
+        
+        
+        // donation difference
         self.donationDiff = self.donations - self.donationsReceived
-        
-        
         
     }
     
@@ -219,7 +221,7 @@ class players{
         for war in self.warDayArray {
             print("\nWar: ", count)
             if war.collectionBattlesPlayed != 0 {
-                print("  Played War Day:            ", war.playedTheWarDay!)
+                print("  Played War Day:            ", war.playedTheWarDay)
                 print("  Won The War:               ", war.wonTheWarDay!)
                 print("  Collection Battels Played: ", war.collectionBattlesPlayed)
                 print("  Cards Earned:              ", war.cardsCollected!)
@@ -249,6 +251,8 @@ class theClan {
     var totalWarDaysInvolvedIn:Int = 0
     var totalMembers:Int = 0
     var totalParticipants:Int = 0
+    
+    var lastUpdated:Date?
     
     var warDates = [String]()
     // vvvvvvvv put that

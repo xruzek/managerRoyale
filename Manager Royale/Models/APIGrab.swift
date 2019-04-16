@@ -127,6 +127,7 @@ func myAPIClanGrab (withLocation clanTag:String, completion: @escaping (String) 
                         }
                     } else {
                         UserDefaults.standard.set(json, forKey: clanTag + "myClan")
+                        UserDefaults.standard.set(Date(), forKey: clanTag + "lastUpdated")
                         UserDefaults.standard.set(clanTag, forKey: "activeClan")
                     }
                 }
@@ -197,7 +198,7 @@ func myAPIWarlogGrab (withLocation clanTag:String, completion: @escaping (String
 
 // This functions grabs the battle log and returns a Dictionary with :["name", "dateDiscovered", "tag", "timeSincePlayed"]
 func updateMemberList (withLocation member:players, completion: @escaping ([String:Any]) -> ()) {
-    var newDic: [String:Any] = ["tag": "", "timeSincePlayed": 0, "dateDiscovered": Date(), "name": member.name]
+    var newDic: [String:Any] = ["tag": "", "timeSincePlayed": 0, "dateDiscovered": Date(), "name": member.name, "lastUpdated": Date()]
     var newTimeSincePlayed:String = "20190326T060653.000Z"
     var battleLogDoesNotShowNew = true
     
@@ -215,7 +216,7 @@ func updateMemberList (withLocation member:players, completion: @escaping ([Stri
                     
                     if json.isEmpty {
                         print(json)
-                        let noBatDic: [String:Any] = ["name": member.name, "dateDiscovered": Date(), "tag": member.playerTag, "timeSincePlayed": -1]
+                        let noBatDic: [String:Any] = ["tag": member.playerTag, "timeSincePlayed": -1, "dateDiscovered": Date(), "name": member.name, "lastUpdated": Date()]
                         completion(noBatDic)
                     } else {
                         newTimeSincePlayed = json[0]["battleTime"] as! String
@@ -224,7 +225,7 @@ func updateMemberList (withLocation member:players, completion: @escaping ([Stri
                     
                     for match in json {
                         if let battleTime = match["battleTime"] as? String {
-                            //print(battleTime)
+                            
                             if let team = match["team"] as? [[String:Any]] {
                                 for item in team {
                                     let testPlayerTag = item["tag"] as! String
@@ -257,7 +258,7 @@ func updateMemberList (withLocation member:players, completion: @escaping ([Stri
                     let calculatedTimeSincePlayed = calcTime(time: newTimeSincePlayed)
                     newDic["timeSincePlayed"] = calculatedTimeSincePlayed
                     newDic["tag"] = member.playerTag
-                    newDic = ["name": member.name, "dateDiscovered": Date(), "tag": member.playerTag, "timeSincePlayed": calculatedTimeSincePlayed]
+                    newDic = ["name": member.name, "dateDiscovered": Date(), "tag": member.playerTag, "timeSincePlayed": calculatedTimeSincePlayed, "lastUpdated": Date()]
                 }
             }catch {  // if it doesn't work, print the error
                 print(error.localizedDescription)
@@ -287,11 +288,11 @@ func refreshClanInfo (withLocation clanTag: String, completion: @escaping (Strin
                 updateMemberList(withLocation: member) { (newDic: [String:Any]) in
                     count += 1
                     let newMemberBattleLogArray = updateMembersArray(newClan: newClan, newDic: newDic, member: member)
-                    
+                   
                     // Update the UserDefault
                     UserDefaults.standard.set(newMemberBattleLogArray, forKey: newClan.clanTag + "members")
                     
-                    if count == newClan.totalMembers + 1 {
+                    if count == newClan.totalMembers {
                         GlobalVariables.activeClan = loadClan(activeClan: clanTag)
                         completion(didWork)
                     }
@@ -304,7 +305,7 @@ func refreshClanInfo (withLocation clanTag: String, completion: @escaping (Strin
 
 // First Time adding any clan, has no clans in clansArray & activeClan does not exist
 func addNewClan (withLocation clanTag: String, completion: @escaping (String) -> ()) {
-    var completionMessage:String = "worked"
+    let completionMessage:String = "worked"
     
     // checks if the clan already is added
     if alreadyHaveClan(Tag: clanTag) {
@@ -342,7 +343,7 @@ func addNewClan (withLocation clanTag: String, completion: @escaping (String) ->
                         // Update the UserDefault
                         UserDefaults.standard.set(newMemberBattleLogArray, forKey: newClan.clanTag + "members")
                         
-                        if count == newClan.totalMembers + 1 {
+                        if count == newClan.totalMembers {
                             GlobalVariables.activeClan = loadClan(activeClan: clanTag)
                             completion(completionMessage)
                         }

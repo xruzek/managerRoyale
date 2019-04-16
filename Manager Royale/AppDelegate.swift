@@ -11,7 +11,7 @@ import CoreData
 
 let firstScreen = InitialClanViewController()
 let mainScreen = TabViewController()
-let memberInfo = memberInfoController()
+var memberInfo = memberInfoController()
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

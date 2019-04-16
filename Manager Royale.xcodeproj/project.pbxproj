@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		672C85DC226646C8004AC968 /* RRInactiveWarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672C85DB226646C8004AC968 /* RRInactiveWarView.swift */; };
+		672C85DE226658CC004AC968 /* RRLabelLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672C85DD226658CC004AC968 /* RRLabelLine.swift */; };
+		672C85E022666C16004AC968 /* RRRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672C85DF22666C16004AC968 /* RRRefreshView.swift */; };
 		67649EA1224ECFBB00C93A1D /* InitialClanViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67649EA0224ECFBB00C93A1D /* InitialClanViewViewController.swift */; };
 		67649EA3224ED6A300C93A1D /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67649EA2224ED6A300C93A1D /* TabViewController.swift */; };
 		67649EA8224EF46000C93A1D /* InitialClanTagTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67649EA7224EF46000C93A1D /* InitialClanTagTextField.swift */; };
@@ -53,6 +56,8 @@
 		6797D6D521F275A000C6B9D4 /* playerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6797D6D421F275A000C6B9D4 /* playerInfo.swift */; };
 		67B37FCD222DCC2C006290B1 /* mostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B37FCC222DCC2C006290B1 /* mostViewController.swift */; };
 		67C285302256B30800F02C5E /* titleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C2852F2256B30800F02C5E /* titleView.swift */; };
+		67C7775F22651F4300684CE5 /* RRHurtingWarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C7775E22651F4300684CE5 /* RRHurtingWarView.swift */; };
+		67C7776122653B1700684CE5 /* RRWarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C7776022653B1700684CE5 /* RRWarView.swift */; };
 		67F04F61221B4DBA00CD9463 /* calculateStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F04F60221B4DBA00CD9463 /* calculateStats.swift */; };
 		67FFB594225828680036CC2B /* RRInfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FFB593225828680036CC2B /* RRInfoLabel.swift */; };
 		67FFB59622593F910036CC2B /* memberInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FFB59522593F910036CC2B /* memberInfoController.swift */; };
@@ -79,6 +84,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		672C85DB226646C8004AC968 /* RRInactiveWarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRInactiveWarView.swift; sourceTree = "<group>"; };
+		672C85DD226658CC004AC968 /* RRLabelLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRLabelLine.swift; sourceTree = "<group>"; };
+		672C85DF22666C16004AC968 /* RRRefreshView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRRefreshView.swift; sourceTree = "<group>"; };
 		67649EA0224ECFBB00C93A1D /* InitialClanViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialClanViewViewController.swift; sourceTree = "<group>"; };
 		67649EA2224ED6A300C93A1D /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		67649EA7224EF46000C93A1D /* InitialClanTagTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialClanTagTextField.swift; sourceTree = "<group>"; };
@@ -131,6 +139,8 @@
 		6797D6D421F275A000C6B9D4 /* playerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playerInfo.swift; sourceTree = "<group>"; };
 		67B37FCC222DCC2C006290B1 /* mostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mostViewController.swift; sourceTree = "<group>"; };
 		67C2852F2256B30800F02C5E /* titleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = titleView.swift; sourceTree = "<group>"; };
+		67C7775E22651F4300684CE5 /* RRHurtingWarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRHurtingWarView.swift; sourceTree = "<group>"; };
+		67C7776022653B1700684CE5 /* RRWarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRWarView.swift; sourceTree = "<group>"; };
 		67F04F60221B4DBA00CD9463 /* calculateStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = calculateStats.swift; sourceTree = "<group>"; };
 		67FFB593225828680036CC2B /* RRInfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRInfoLabel.swift; sourceTree = "<group>"; };
 		67FFB59522593F910036CC2B /* memberInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = memberInfoController.swift; sourceTree = "<group>"; };
@@ -200,6 +210,9 @@
 				67649EB2224FE10700C93A1D /* InitialControllerViews */,
 				67C2852F2256B30800F02C5E /* titleView.swift */,
 				67FFB59B22614AC30036CC2B /* RRImage.swift */,
+				67C7776022653B1700684CE5 /* RRWarView.swift */,
+				672C85DD226658CC004AC968 /* RRLabelLine.swift */,
+				672C85DF22666C16004AC968 /* RRRefreshView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -261,6 +274,8 @@
 				67649ED62254066900C93A1D /* manageLabel.swift */,
 				67649ED82254144900C93A1D /* topMemberView.swift */,
 				67FFB59D226300270036CC2B /* RRInactiveView.swift */,
+				67C7775E22651F4300684CE5 /* RRHurtingWarView.swift */,
+				672C85DB226646C8004AC968 /* RRInactiveWarView.swift */,
 			);
 			path = ManageControllerViews;
 			sourceTree = "<group>";
@@ -465,7 +480,10 @@
 				67649EB6224FE65300C93A1D /* ManageViewController.swift in Sources */,
 				67649EC2225035CA00C93A1D /* memberCell.swift in Sources */,
 				67649EC622503F9000C93A1D /* DropDownButton.swift in Sources */,
+				672C85DC226646C8004AC968 /* RRInactiveWarView.swift in Sources */,
 				67649EBF2250019F00C93A1D /* ClanStatsView.swift in Sources */,
+				67C7775F22651F4300684CE5 /* RRHurtingWarView.swift in Sources */,
+				672C85DE226658CC004AC968 /* RRLabelLine.swift in Sources */,
 				67649ED32253FF7A00C93A1D /* rexTitleLabel.swift in Sources */,
 				67649ECC22514E7A00C93A1D /* memberCellView.swift in Sources */,
 				67649EBD224FFFE900C93A1D /* DescriptiveLables.swift in Sources */,
@@ -487,6 +505,7 @@
 				67649EB8224FF27900C93A1D /* InitialViewTitleLabel.swift in Sources */,
 				67649EB4224FE19B00C93A1D /* MembersViewController.swift in Sources */,
 				6768D42B2213646600651B45 /* myClanViewController.swift in Sources */,
+				67C7776122653B1700684CE5 /* RRWarView.swift in Sources */,
 				67649EC4225035FD00C93A1D /* memberCellLabel.swift in Sources */,
 				67649EDB225656D100C93A1D /* APILoadActivityIndicator.swift in Sources */,
 				6768D3FA21F7AAB100651B45 /* playerWarlog.swift in Sources */,
@@ -499,6 +518,7 @@
 				6797D6A221F1228300C6B9D4 /* AppDelegate.swift in Sources */,
 				67649ED92254144900C93A1D /* topMemberView.swift in Sources */,
 				67649ED52253FF9500C93A1D /* manageView.swift in Sources */,
+				672C85E022666C16004AC968 /* RRRefreshView.swift in Sources */,
 				67649EAF224EF94A00C93A1D /* SaveClanButton.swift in Sources */,
 				67F04F61221B4DBA00CD9463 /* calculateStats.swift in Sources */,
 				67649EC82250414500C93A1D /* dropDownView.swift in Sources */,

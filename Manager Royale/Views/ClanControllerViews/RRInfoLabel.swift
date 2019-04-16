@@ -10,11 +10,14 @@ import UIKit
 
 class RRInfoLabel: UILabel {
 
+    var height:CGFloat = 30
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.sizeToFit()
         
         self.font = UIFont(name: Fonts.normalLabelFont, size: 17)
+        //self.backgroundColor = UIColor.blue.withAlphaComponent(0.1)
         
     }
     
@@ -22,7 +25,7 @@ class RRInfoLabel: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setConstraints(topAnchor: NSLayoutYAxisAnchor, view: UIView, sideLeft: Bool, height: CGFloat) {
+    func setConstraints(topAnchor: NSLayoutYAxisAnchor, view: UIView, sideLeft: Bool) {
         
         translatesAutoresizingMaskIntoConstraints = false
         self.topAnchor.constraint(equalTo: topAnchor).isActive = true
@@ -38,17 +41,23 @@ class RRInfoLabel: UILabel {
         
     }
     
-    func setNormal() {
+    func setNormal(text:String) {
         
+    }
+    
+    func setMedium() {
+        font = UIFont(name: Fonts.mediumBold, size: 19)
     }
     
     func setTitle() {
         font = UIFont(name: "HelveticaNeue-Bold", size: 22.0)
+        height = 55
     }
     
     func setSmall() {
         textColor = .lightGray
-        font = UIFont(name: Fonts.avenirNextMedium, size: 12)!
+        font = UIFont(name: Fonts.avenirNextMedium, size: 13)!
+        height = 15
         
     }
 }

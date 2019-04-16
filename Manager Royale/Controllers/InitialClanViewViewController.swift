@@ -24,7 +24,7 @@ class InitialClanViewController: UIViewController {
         // User's first time
         GlobalVariables.activeClan = loadClan(activeClan: "9GCQYY0C")
         
-        
+        //GlobalVariables.activeClan.displayTimeSincePlayed()
         
         //myAPIClanGrab(withLocation: "9GCQYY0C") { (didWork: String) in
           //  print("didWork: ", didWork)
@@ -66,10 +66,10 @@ class InitialClanViewController: UIViewController {
         
         
         
-        var newClan = theClan()
-        newClan = loadClan(activeClan: "9GCQYY0C")
+        //var newClan = theClan()
+        //newClan = loadClan(activeClan: "9GCQYY0C")
         
-        newClan.sortArray(sortType: "Worth")
+        //newClan.sortArray(sortType: "Worth")
         
         //newClan.sortArray(sortType: "byWarDaysMissedInARow")
         //newClan.displayTimeSincePlayed()
@@ -123,7 +123,7 @@ class InitialClanViewController: UIViewController {
                         self.myActInd.stopAnimating()
                     }
                     print("Updated")
-                    //presentNextView()
+                    presentNextView()
                     
                 }else {
                     DispatchQueue.main.async {

@@ -55,6 +55,8 @@ class memberTableHeaderView: UIView {
         warPartAmount.setTopRight(view: self, topAnchor: self.topAnchor, leftAnchor: self.leftAnchor, height: height, isValue: true)
         warPartAmount.text = String(GlobalVariables.activeClan.totalWarDaysInvolvedIn/10)
         
+        globalAddLine(leftLabel: avgWarPart, rightLabel: warPartAmount, view: self)
+        
         // Average War Wins
         avgWarWins.setTopLeft(view: self, topAnchor: avgWarPart.bottomAnchor, leftAnchor: self.leftAnchor, height: height)
         avgWarWins.text = "Average War Wins"
@@ -62,12 +64,16 @@ class memberTableHeaderView: UIView {
         warWinsAmount.setTopRight(view: self, topAnchor: warPartAmount.bottomAnchor, leftAnchor: self.leftAnchor, height: height, isValue: true)
         warWinsAmount.text = String(GlobalVariables.activeClan.totalWarDayWins/GlobalVariables.activeClan.totalParticipants)
         
+        globalAddLine(leftLabel: avgWarWins, rightLabel: warWinsAmount, view: self)
+        
         // Average Donations
         avgDonations.setTopLeft(view: self, topAnchor: avgWarWins.bottomAnchor, leftAnchor: self.leftAnchor, height: height)
         avgDonations.text = "Average Donations"
         
         donationAmount.setTopRight(view: self, topAnchor: warWinsAmount.bottomAnchor, leftAnchor: self.leftAnchor, height: height, isValue: true)
         donationAmount.text = String(GlobalVariables.activeClan.totalDonations/GlobalVariables.activeClan.totalMembers)
+        
+        globalAddLine(leftLabel: avgDonations, rightLabel: donationAmount, view: self)
         
     }
     

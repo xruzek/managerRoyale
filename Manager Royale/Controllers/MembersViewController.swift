@@ -15,6 +15,7 @@ class MembersViewController: UITableViewController, sortTableProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        GlobalVariables.activeClan.sortArray(sortType: "Trophies")
         header.setUpView()
         
         //self.tableView.delegate = self
@@ -57,6 +58,7 @@ class MembersViewController: UITableViewController, sortTableProtocol {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //header.displayMemberInfo(index: indexPath.row)
         GlobalVariables.memberTapped = GlobalVariables.activeClan.playerArray[indexPath.row]
+        memberInfo = memberInfoController()
         show(memberInfo, sender: self)
         
     }

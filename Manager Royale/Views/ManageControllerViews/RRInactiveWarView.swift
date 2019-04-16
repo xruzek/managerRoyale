@@ -1,27 +1,29 @@
 //
-//  RRInactiveView.swift
+//  RRInactiveWarView.swift
 //  Manager Royale
 //
-//  Created by Rex Ruzek on 4/14/19.
+//  Created by Rex Ruzek on 4/16/19.
 //  Copyright © 2019 Rex Ruzek. All rights reserved.
 //
 
 import UIKit
 
-class RRInactiveView: UIView {
-
+class RRInactiveWarView: UIView {
     var member = players()
     
-    var viewHeight:CGFloat = 105
+    var viewHeight:CGFloat = 130
     
     var name = RRInfoLabel()
     var trophies = RRInfoLabel()
     var role = RRInfoLabel()
     var lastUpdated = RRInfoLabel()
-    var lastPlayedLabel = RRInfoLabel()
-    var lastPlayedAmount = RRInfoLabel()
     var warLabel = RRInfoLabel()
     var warAmount = RRInfoLabel()
+    var timeInClanLabel = RRInfoLabel()
+    var timeInClanAmount = RRInfoLabel()
+    var lastPlayedLabel = RRInfoLabel()
+    var lastPlayedAmount = RRInfoLabel()
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -34,10 +36,13 @@ class RRInactiveView: UIView {
         addSubview(role)
         addSubview(trophies)
         addSubview(lastUpdated)
-        addSubview(lastPlayedLabel)
-        addSubview(lastPlayedAmount)
         addSubview(warLabel)
         addSubview(warAmount)
+        addSubview(timeInClanLabel)
+        addSubview(timeInClanAmount)
+        addSubview(lastPlayedLabel)
+        addSubview(lastPlayedAmount)
+        
         
         
     }
@@ -69,28 +74,39 @@ class RRInactiveView: UIView {
         
         globalAddLine(leftLabel: name, rightLabel: trophies, view: self)
         
-        // last played
-        lastPlayedLabel.setConstraints(topAnchor: role.bottomAnchor, view: self, sideLeft: true)
-        lastPlayedLabel.text = "Days Inactive"
-        
-        lastPlayedAmount.setConstraints(topAnchor: role.bottomAnchor, view: self, sideLeft: false)
-        lastPlayedAmount.text = String(member.timeSinceLastBattle!)
-        
-        globalAddLine(leftLabel: lastPlayedLabel, rightLabel: lastPlayedAmount, view: self)
-        
         // war participation
-        warLabel.setConstraints(topAnchor: lastPlayedLabel.bottomAnchor, view: self, sideLeft: true)
+        warLabel.setConstraints(topAnchor: role.bottomAnchor, view: self, sideLeft: true)
         warLabel.text = "Total War Days Involved In"
         
-        warAmount.setConstraints(topAnchor: lastPlayedAmount.bottomAnchor, view: self, sideLeft: false)
+        warAmount.setConstraints(topAnchor: role.bottomAnchor, view: self, sideLeft: false)
         warAmount.text = String(member.warDaysInvolvedIn)
         
         globalAddLine(leftLabel: warLabel, rightLabel: warAmount, view: self)
         
+        // Time in Clan
+        timeInClanLabel.setConstraints(topAnchor: warLabel.bottomAnchor, view: self, sideLeft: true)
+        timeInClanLabel.text = "Time In Clan"
+        
+        timeInClanAmount.setConstraints(topAnchor: warAmount.bottomAnchor, view: self, sideLeft: false)
+        if member.timeInClan! > 36 {
+            timeInClanAmount.text = String(Int(member.timeInClan!/24)) + " days"
+        } else {
+            timeInClanAmount.text = String(Int(member.timeInClan!)) + " hours"
+        }
+        
+        globalAddLine(leftLabel: timeInClanLabel, rightLabel: timeInClanAmount, view: self)
+        
+        // last played
+        lastPlayedLabel.setConstraints(topAnchor: timeInClanLabel.bottomAnchor, view: self, sideLeft: true)
+        lastPlayedLabel.text = "Days Inactive"
+        
+        lastPlayedAmount.setConstraints(topAnchor: timeInClanAmount.bottomAnchor, view: self, sideLeft: false)
+        lastPlayedAmount.text = String(member.timeSinceLastBattle!)
+        
+        globalAddLine(leftLabel: lastPlayedLabel, rightLabel: lastPlayedAmount, view: self)
+        
+        
         
     }
-    
-    
-    
-    
+
 }

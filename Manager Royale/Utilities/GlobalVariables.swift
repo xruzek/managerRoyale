@@ -18,8 +18,20 @@ struct GlobalVariables {
     static var cellOffset: CGFloat = 10
     
     static var memberTapped: players = players()
+    
+    static var removedMembers = [String]()
+    static var newMembers = [String]()
 
 }
+
+
+// Global addLine function
+func globalAddLine(leftLabel: UILabel, rightLabel: UILabel, view: UIView) {
+    let line = RRLabelLine()
+    view.addSubview(line)
+    line.setUp(leftAnchor: leftLabel.rightAnchor, rightAnchor: rightLabel.leftAnchor, centerAnchor: leftLabel.centerYAnchor)
+}
+
 
 // Scroll view class
 /*
