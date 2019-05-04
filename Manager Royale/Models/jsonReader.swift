@@ -32,7 +32,6 @@ func loadClan(activeClan: String) -> theClan{
         }
     }
     
-    
     // makes the array of arrays of warlog objects
     if let warlogJson = UserDefaults.standard.object(forKey: activeClan + "myWarlog") as? [String:Any] {
         if let allWarDayList = warlogJson["items"] as? [[String:Any]] {
@@ -53,6 +52,7 @@ func loadClan(activeClan: String) -> theClan{
     
     // returns the clan
     let clan = theClan(clanTag: activeClan, clanName: clanName, clanWarTrophies:clanWarTrophies, playerInfo: playerInfoArray, playerWarlog: arrayOfWarlogArrays, warDates: warDates) //pass through array of dicts instead of the dates
+    
     clan.clanScore = clanScore
     
     // Filters clan before updating the clan class
@@ -149,6 +149,8 @@ func printMemberLastPlayed(clan: theClan) {
         print("clan member list: NOT FOUND")
     }
 }
+
+
 
 /*
 // Updates UserDefualt files with the new progress of the clan

@@ -11,7 +11,7 @@ import UIKit
 class RRInactiveWarView: UIView {
     var member = players()
     
-    var viewHeight:CGFloat = 130
+    var viewHeight:CGFloat = 160
     
     var name = RRInfoLabel()
     var trophies = RRInfoLabel()
@@ -105,7 +105,8 @@ class RRInactiveWarView: UIView {
         
         globalAddLine(leftLabel: lastPlayedLabel, rightLabel: lastPlayedAmount, view: self)
         
-        
+        // donations
+        let memberDonations = addInfoLine(scrollView: self, view: self, topAnchor: lastPlayedLabel.bottomAnchor, title: "donations", amount: String(member.donations))
         
     }
 

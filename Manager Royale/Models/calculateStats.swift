@@ -25,10 +25,12 @@ import UIKit
  - dateDiscovered
  */
 
+
 // set color of the member
 func setMemberColor(clan: theClan, member: players) -> UIColor {
     var memberColor: UIColor = .white
-    let timeInClan = member.timeInClan! / 24
+    
+    let timeInClan = member.timeInClan! / 24  // in days
     var isHurting = false
     
     let hurtArr = hurtingClanMembers(clan: clan)
@@ -58,8 +60,6 @@ func setMemberColor(clan: theClan, member: players) -> UIColor {
     return memberColor
 }
 
-
-
 // Example of shit
 func setWarColor(clan: theClan, member: players) -> UIColor {
     var num:Int = 90
@@ -69,10 +69,8 @@ func setWarColor(clan: theClan, member: players) -> UIColor {
     for thingy in clan.playerArray {
         print(thingy.name)
     }
-    
     return color
 }
-
 
 // returns inactive members of a clan based on the days parameter
 func inactiveMembers(clan: theClan, days: Int) -> [players] {
@@ -93,6 +91,7 @@ func inactiveMembers(clan: theClan, days: Int) -> [players] {
     }
     return inactiveMembers
 }
+
 
 // returns members that don't participate in the war based on how long they've been in the clan
 func inactiveWarMembers(clan: theClan, days: Int) -> [players] {
@@ -117,17 +116,14 @@ func inactiveWarMembers(clan: theClan, days: Int) -> [players] {
     return inactiveMembers
 }
 
+
 // returns who does bad in the clan
 func hurtingClanMembers(clan: theClan) -> [players] {
     var hurtClan = [players]()
-    
     for member in clan.playerArray {
         var num:Int = 0
-        
         num += member.warDaysInvolvedIn - member.warDaysWon
-        
         if member.warDaysWon < num {
-            
             if member.warDaysInvolvedIn > 4 {  // has been in at least 5 war days
                 if member.winPercent! <= 25 {
                     hurtClan.append(member)
@@ -142,9 +138,6 @@ func hurtingClanMembers(clan: theClan) -> [players] {
             
         } // if war days won is < war days lost
     } // for loop
-    
-    
-    
     return hurtClan
 }
 

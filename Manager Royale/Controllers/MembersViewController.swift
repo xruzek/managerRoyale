@@ -65,7 +65,7 @@ class MembersViewController: UITableViewController, sortTableProtocol {
     
     func dropDownPress(sortType: String) {
         GlobalVariables.activeClan.sortArray(sortType: sortType)
-        
+        header.changeSortTypeLabel(sortType: sortType)
         var count = 0
         for _ in GlobalVariables.activeClan.playerArray {
             let indexPath = IndexPath(item: count, section: 0)

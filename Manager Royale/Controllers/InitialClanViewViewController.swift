@@ -23,13 +23,14 @@ class InitialClanViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         // User's first time
         GlobalVariables.activeClan = loadClan(activeClan: "9GCQYY0C")
+   
+        GlobalVariables.activeClan.displayTimeSincePlayed()
         
         //GlobalVariables.activeClan.displayTimeSincePlayed()
         
         //myAPIClanGrab(withLocation: "9GCQYY0C") { (didWork: String) in
           //  print("didWork: ", didWork)
         //}
-        
         
     }
     
@@ -109,6 +110,7 @@ class InitialClanViewController: UIViewController {
     }
     
     @objc func saveClan() {
+        
         myActInd.startAnimating()
         
         clanTagTF.text = "9GCQYY0C"

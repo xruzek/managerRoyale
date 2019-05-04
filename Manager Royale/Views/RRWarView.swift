@@ -65,9 +65,12 @@ class RRWarView: UIView {
             }
         }
         
+        // War Index
+        //*********Change to the date of the war*********
         warIndex.setConstraints(topAnchor: self.topAnchor, view: self, sideLeft: true )
         warIndex.setMedium()
         warIndex.text = "War " + String(index)
+        
         if war.collectionBattlesPlayed == 0 {
             noParticipation.setConstraints(topAnchor: warIndex.bottomAnchor, view: self, sideLeft: true )
         }else {

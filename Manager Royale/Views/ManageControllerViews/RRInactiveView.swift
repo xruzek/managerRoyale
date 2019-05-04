@@ -12,7 +12,7 @@ class RRInactiveView: UIView {
 
     var member = players()
     
-    var viewHeight:CGFloat = 105
+    var viewHeight:CGFloat = 135
     
     var name = RRInfoLabel()
     var trophies = RRInfoLabel()
@@ -87,6 +87,8 @@ class RRInactiveView: UIView {
         
         globalAddLine(leftLabel: warLabel, rightLabel: warAmount, view: self)
         
+        // donations
+        let memberDonaitons = addInfoLine(scrollView: self, view: self, topAnchor: warLabel.bottomAnchor, title: "Donations", amount: String(member.donations))
         
     }
     

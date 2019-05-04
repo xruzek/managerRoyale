@@ -13,6 +13,8 @@ let firstScreen = InitialClanViewController()
 let mainScreen = TabViewController()
 var memberInfo = memberInfoController()
 
+//var clanView = UINavigationController(rootViewController: ClanViewController())
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

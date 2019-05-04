@@ -17,13 +17,15 @@ struct GlobalVariables {
     static var cellHeight: CGFloat = 90
     static var cellOffset: CGFloat = 10
     
+    static var refreshClan: Bool = false
+    static var refreshMember: Bool = false
+    
     static var memberTapped: players = players()
     
     static var removedMembers = [String]()
     static var newMembers = [String]()
 
 }
-
 
 // Global addLine function
 func globalAddLine(leftLabel: UILabel, rightLabel: UILabel, view: UIView) {
@@ -32,55 +34,39 @@ func globalAddLine(leftLabel: UILabel, rightLabel: UILabel, view: UIView) {
     line.setUp(leftAnchor: leftLabel.rightAnchor, rightAnchor: rightLabel.leftAnchor, centerAnchor: leftLabel.centerYAnchor)
 }
 
+// refresh view
+func addRefeshView(topAnchor: NSLayoutYAxisAnchor, isClan: Bool, member: players? = players(), view: UIView) -> RRRefreshView {
+    let refreshView = RRRefreshView()
+    view.addSubview(refreshView)
+    refreshView.setUp(topAnchor: topAnchor, view: view, isClan: isClan, newMember: member)
+    return refreshView
+}
 
-// Scroll view class
-/*
- class MemberInfoScrollView: UIScrollView {
- override init(frame: CGRect) {
- super.init(frame: frame)
- let newView = contentView()
- 
- self.addSubview(newView)
- newView.setUp(view: self)
- }
- required init?(coder aDecoder: NSCoder) {
- fatalError("init(coder:) has not been implemented")
- }
- 
- func setUpScrollView(view: UIView) {
- 
- translatesAutoresizingMaskIntoConstraints = false
- 
- leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
- trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
- bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
- //topAnchor.constraint(equalTo: view.bottomAnchor, constant: view.frame.size.height/2.4).isActive = true
- topAnchor.constraint(equalTo: view.bottomAnchor, constant: 500).isActive = true
- 
- }
- 
- }
- 
- class contentView: UIView {
- override init(frame: CGRect) {
- super.init(frame: frame)
- 
- 
- }
- required init?(coder aDecoder: NSCoder) {
- fatalError("init(coder:) has not been implemented")
- }
- 
- func setUp(view: UIView) {
- backgroundColor = UIColor.green.withAlphaComponent(0.5)
- 
- translatesAutoresizingMaskIntoConstraints = false
- 
- leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
- trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
- bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
- topAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
- }
- 
- }
- */
+// add an InfoLabel
+func addLabel(view: UIView, topAnchor: NSLayoutYAxisAnchor, title: String, height: CGFloat? = 30) -> RRInfoLabel {
+    let newLabel = RRInfoLabel()
+    view.addSubview(newLabel)
+    newLabel.setHeight(newHeight: height!)
+    newLabel.setConstraints(topAnchor: topAnchor, view: view, sideLeft: true)
+    newLabel.text = title
+    return newLabel
+}
+
+// adds a whole line of Info Labels
+func addInfoLine(scrollView: UIView, view: UIView, topAnchor: NSLayoutYAxisAnchor, title: String, amount: String) -> RRInfoLabel {
+    let rightLabel = RRInfoLabel()
+    let leftLabel = RRInfoLabel()
+    
+    scrollView.addSubview(rightLabel)
+    scrollView.addSubview(leftLabel)
+    
+    leftLabel.setConstraints(topAnchor: topAnchor, view: view, sideLeft: true)
+    leftLabel.text = title
+    
+    if amount != "NOAMOUNT" {
+        globalAddLine(leftLabel: leftLabel, rightLabel: rightLabel, view: view)
+         rightLabel.setConstraints(topAnchor: topAnchor, view: view, sideLeft: false)
+        rightLabel.text = amount
+    }
+    return leftLabel
+}

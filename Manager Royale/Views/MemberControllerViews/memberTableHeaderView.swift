@@ -19,6 +19,8 @@ class memberTableHeaderView: UIView {
     
     var sortTypeLabel = RRCellLabel()
     
+    
+    
     var height = ((GlobalVariables.cellHeaderHeight - 25) / 3) - GlobalVariables.cellOffset
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -44,9 +46,11 @@ class memberTableHeaderView: UIView {
         
         // Adds the DropDown Menu
         var button = DropDownButton()
+        
         button = DropDownButton.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        self.addSubview(button)
+        addSubview(button)
         button.editConstraints(view: self)
+       
         
         // Average War Participation
         avgWarPart.setTopLeft(view: self, topAnchor: self.topAnchor, leftAnchor: self.leftAnchor, height: height)
@@ -75,8 +79,19 @@ class memberTableHeaderView: UIView {
         
         globalAddLine(leftLabel: avgDonations, rightLabel: donationAmount, view: self)
         
+        //sort type label
+        sortTypeLabel.topAnchor.constraint(equalTo: button.topAnchor).isActive = true
+        sortTypeLabel.leftAnchor.constraint(equalTo: button.rightAnchor, constant: 10).isActive = true
+        sortTypeLabel.widthAnchor.constraint(equalTo: button.widthAnchor).isActive = true
+        sortTypeLabel.heightAnchor.constraint(equalTo: button.heightAnchor).isActive = true
+        sortTypeLabel.text = "Trophies"
+        
     }
     
+    // changes the sort type label
+    func changeSortTypeLabel(sortType: String) {
+        sortTypeLabel.text = sortType
+    }
    
     
 }

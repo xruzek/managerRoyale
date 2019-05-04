@@ -25,6 +25,12 @@ class RRInfoLabel: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // set custom height
+    func setHeight(newHeight: CGFloat) {
+        self.height = newHeight
+    }
+    
+    // set constraints of the label
     func setConstraints(topAnchor: NSLayoutYAxisAnchor, view: UIView, sideLeft: Bool) {
         
         translatesAutoresizingMaskIntoConstraints = false

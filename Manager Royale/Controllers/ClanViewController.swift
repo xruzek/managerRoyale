@@ -25,34 +25,6 @@ class ClanViewController: UIViewController {
     
     var controllerTitle = titleView()
     
-    var clanTagTime = RRInfoLabel()
-    var clanInfo = RRInfoLabel()
-    var totalTrophies = RRInfoLabel()
-    var totalTrophiesAmount = RRInfoLabel()
-    var donationLabel = RRInfoLabel()
-    var donationAmount = RRInfoLabel()
-    var warTrophyLabel = RRInfoLabel()
-    var warTrophyAmount = RRInfoLabel()
-    
-    var warInfo = RRInfoLabel()
-    var avgPartisLabel = RRInfoLabel()
-    var avgPartisAmount = RRInfoLabel()
-    var avgWinsLabel = RRInfoLabel()
-    var avgWinsAmount = RRInfoLabel()
-    var avgEarnedLabel = RRInfoLabel()
-    var avgEarnedAmount = RRInfoLabel()
-    
-    var topMembers = RRInfoLabel()
-    var mostWarDaysLabel = RRInfoLabel()
-    var mostWarDaysMember = RRInfoLabel()
-    var mostWarDaysAmount = RRInfoLabel()
-    var mostEarnedLabel = RRInfoLabel()
-    var mostEarnedMember = RRInfoLabel()
-    var mostEarnedAmount = RRInfoLabel()
-    var mostGenerousLabel = RRInfoLabel()
-    var mostGeneroutMember = RRInfoLabel()
-    var mostGenerousAmount = RRInfoLabel()
-    
     let scrollView: UIScrollView = {
         let v = UIScrollView()
         v.translatesAutoresizingMaskIntoConstraints = false
@@ -83,196 +55,123 @@ class ClanViewController: UIViewController {
         controllerTitle.setUp(view: self.view, name: GlobalVariables.activeClan.clanName)
         
         // refresh view
-        
+        let newRefreshView = addRefeshView(topAnchor: controllerTitle.bottomAnchor, isClan: true, view: view)
         
         // Scrolling stuff
         view.addSubview(scrollView)
-        scrollView.topAnchor.constraint(equalTo: controllerTitle.bottomAnchor).isActive = true
+        scrollView.topAnchor.constraint(equalTo: newRefreshView.bottomAnchor).isActive = true
         scrollView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         scrollView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
         addLabels()
         
+        // is Hidden true/false for the refresh view
+        let today = Date()
+        var amount = today.timeIntervalSince(GlobalVariables.activeClan.lastUpdated!) // in seconds
+        amount /= 60 // in minuts
         
-        
-        
+        if amount > 10 {
+            
+        } else {
+            scrollView.topAnchor.constraint(equalTo: newRefreshView.bottomAnchor).isActive = false
+            newRefreshView.removeFromSuperview()
+            scrollView.topAnchor.constraint(equalTo: controllerTitle.bottomAnchor).isActive = true
+        }
     }
     
     func addLabels() {
-        // Tag & Last Updated
-        scrollView.addSubview(clanTagTime)
-        clanTagTime.setSmall()
-        clanTagTime.setConstraints(topAnchor: scrollView.topAnchor, view: view, sideLeft: true)
+        let clan = GlobalVariables.activeClan
+        
         let today = Date()
         var amount = today.timeIntervalSince(GlobalVariables.activeClan.lastUpdated!) // in seconds
         amount /= 60    // in minutes
-        clanTagTime.text = "#" + String(GlobalVariables.activeClan.clanTag) + " Last Updated : " + String(Int(amount)) + " minutes"
+        var message = ""
+        message = "#" + String(clan.clanTag) + " Last Updated : " + String(Int(amount)) + " minutes"
         if amount > 60 {
             amount /= 60    // in hours
-            clanTagTime.text = "#" + String(GlobalVariables.activeClan.clanTag) + " Last Updated : " + String(Int(amount)) + " hours"
+            message = "#" + String(clan.clanTag) + " Last Updated : " + String(Int(amount)) + " hours"
         }
         if amount > 36 {
             amount /= 24    // in days
-            clanTagTime.text = "#" + String(GlobalVariables.activeClan.clanTag) + " Last Updated : " + String(Int(amount)) + " days"
+            message = "#" + String(clan.clanTag) + " Last Updated : " + String(Int(amount)) + " days"
         }
         
+        // tag & Last Updated
+        let clanTagTime = addInfoLine(scrollView: scrollView, view: view, topAnchor: scrollView.topAnchor, title: message, amount: "NOAMOUNT")
+        clanTagTime.setSmall()
         
         /**********************
                Clan Info
          **********************/
         // Clan Info Title
-        scrollView.addSubview(clanInfo)
-        clanInfo.setTitle()
-        clanInfo.setConstraints(topAnchor: clanTagTime.bottomAnchor, view: view, sideLeft: true )
-        clanInfo.text = "Clan Info"
+        let clanInfoTitle = addInfoLine(scrollView: scrollView, view: view, topAnchor: clanTagTime.bottomAnchor, title: "Clan Info", amount: "NOAMOUNT")
+        clanInfoTitle.setTitle()
         
         // Trophy Labels
-        scrollView.addSubview(totalTrophies)
-        totalTrophies.setConstraints(topAnchor: clanInfo.bottomAnchor, view: view, sideLeft: true )
-        totalTrophies.text = "Total Trophies"
-        
-        scrollView.addSubview(totalTrophiesAmount)
-        totalTrophiesAmount.setConstraints(topAnchor: clanInfo.bottomAnchor, view: view, sideLeft: false )
-        totalTrophiesAmount.text = String(GlobalVariables.activeClan.totalTrophies)
-        
-        addLine(leftLabel: totalTrophies, rightLabel: totalTrophiesAmount)
+        let trophyLabel = addInfoLine(scrollView: scrollView, view: view, topAnchor: clanInfoTitle.bottomAnchor, title: "Total Trophies", amount: String(clan.totalTrophies))
         
         // Donation Labels
-        scrollView.addSubview(donationLabel)
-        donationLabel.setConstraints(topAnchor: totalTrophies.bottomAnchor, view: view, sideLeft: true )
-        donationLabel.text = "Donations/Week"
+        let donationLabel = addInfoLine(scrollView: scrollView, view: view, topAnchor: trophyLabel.bottomAnchor, title: "Donations/Week", amount: String(clan.totalDonations))
         
-        scrollView.addSubview(donationAmount)
-        donationAmount.setConstraints(topAnchor: totalTrophiesAmount.bottomAnchor, view: view, sideLeft: false )
-        donationAmount.text = String(GlobalVariables.activeClan.totalDonations)
-        
-        addLine(leftLabel: donationLabel, rightLabel: donationAmount)
         
         // War Trophy Labels
-        scrollView.addSubview(warTrophyLabel)
-        warTrophyLabel.setConstraints(topAnchor: donationLabel.bottomAnchor, view: view, sideLeft: true )
-        warTrophyLabel.text = "War Trophies"
-        
-        scrollView.addSubview(warTrophyAmount)
-        warTrophyAmount.setConstraints(topAnchor: donationAmount.bottomAnchor, view: view, sideLeft: false )
-        warTrophyAmount.text = String(GlobalVariables.activeClan.clanWarTrophies)
-        
-        addLine(leftLabel: warTrophyLabel, rightLabel: warTrophyAmount)
+        let warTrophyLabel = addInfoLine(scrollView: scrollView, view: view, topAnchor: donationLabel.bottomAnchor, title: "War Trophies", amount: String(clan.clanWarTrophies))
         
         /**********************
                War Info
          **********************/
         
         // War Info Title
-        scrollView.addSubview(warInfo)
+        let warInfo = addInfoLine(scrollView: scrollView, view: view, topAnchor: warTrophyLabel.bottomAnchor, title: "War Stats", amount: "NOAMOUNT")
         warInfo.setTitle()
-        warInfo.setConstraints(topAnchor: warTrophyLabel.bottomAnchor, view: view, sideLeft: true )
-        warInfo.text = "War Stats"
         
         // Average Participation
-        scrollView.addSubview(avgPartisLabel)
-        avgPartisLabel.setConstraints(topAnchor: warInfo.bottomAnchor, view: view, sideLeft: true )
-        avgPartisLabel.text = "Avgerage Participation"
-        
-        scrollView.addSubview(avgPartisAmount)
-        avgPartisAmount.setConstraints(topAnchor: warInfo.bottomAnchor, view: view, sideLeft: false )
-        avgPartisAmount.text = String(GlobalVariables.activeClan.totalWarDaysInvolvedIn/10)
-        
-        addLine(leftLabel: avgPartisLabel, rightLabel: avgPartisAmount)
+        let averageParticipation = addInfoLine(scrollView: scrollView, view: view, topAnchor: warInfo.bottomAnchor, title: "Average Participation", amount: String(clan.totalWarDaysInvolvedIn/10))
         
         // Average Wins
-        scrollView.addSubview(avgWinsLabel)
-        avgWinsLabel.setConstraints(topAnchor: avgPartisLabel.bottomAnchor, view: view, sideLeft: true )
-        avgWinsLabel.text = "Average Wins"
-        
-        scrollView.addSubview(avgWinsAmount)
-        avgWinsAmount.setConstraints(topAnchor: avgPartisLabel.bottomAnchor, view: view, sideLeft: false )
-        avgWinsAmount.text = String(GlobalVariables.activeClan.totalWarDayWins/10)
-        
-        addLine(leftLabel: avgWinsLabel, rightLabel: avgWinsAmount)
+        let averageWins = addInfoLine(scrollView: scrollView, view: view, topAnchor: averageParticipation.bottomAnchor, title: "Average Wins", amount: String(clan.totalWarDayWins/10))
         
         // Average Cards Earned
-        scrollView.addSubview(avgEarnedLabel)
-        avgEarnedLabel.setConstraints(topAnchor: avgWinsLabel.bottomAnchor, view: view, sideLeft: true )
-        avgEarnedLabel.text = "Average Cards Earned"
-        
-        scrollView.addSubview(avgEarnedAmount)
-        avgEarnedAmount.setConstraints(topAnchor: avgWinsAmount.bottomAnchor, view: view, sideLeft: false )
-        avgEarnedAmount.text = String(GlobalVariables.activeClan.totalCardsCollected/10)
-        
-        addLine(leftLabel: avgEarnedLabel, rightLabel: avgEarnedAmount)
+        let averageCardsEarned = addInfoLine(scrollView: scrollView, view: view, topAnchor: averageWins.bottomAnchor, title: "Average Cards Earned", amount: String(clan.totalCardsCollected/10))
         
         /**********************
               Top Members
          **********************/
-        scrollView.addSubview(topMembers)
-        topMembers.setTitle()
-        topMembers.setConstraints(topAnchor: avgEarnedLabel.bottomAnchor, view: view, sideLeft: true )
-        topMembers.text = "Top Members"
+        let topMembersTitle = addInfoLine(scrollView: scrollView, view: view, topAnchor: averageCardsEarned.bottomAnchor, title: "Top Members", amount: "NOAMOUNT")
+        topMembersTitle.setTitle()
         
         // Most War Days Won
-        GlobalVariables.activeClan.sortArray(sortType: "War Days Won")
-        scrollView.addSubview(mostWarDaysLabel)
-        mostWarDaysLabel.setConstraints(topAnchor: topMembers.bottomAnchor, view: view, sideLeft: true )
-        mostWarDaysLabel.setMedium()
-        mostWarDaysLabel.text = "Most War Days Won"
+        clan.sortArray(sortType: "War Days Won")
+        let mostWarDaysWonTitle = addInfoLine(scrollView: scrollView, view: view, topAnchor: topMembersTitle.bottomAnchor, title: "War Days Won", amount: "NOAMOUNT")
+        mostWarDaysWonTitle.setMedium()
         
-        scrollView.addSubview(mostWarDaysMember)
-        mostWarDaysMember.setConstraints(topAnchor: mostWarDaysLabel.bottomAnchor, view: view, sideLeft: true )
-        mostWarDaysMember.text = GlobalVariables.activeClan.playerArray[0].name
-        
-        scrollView.addSubview(mostWarDaysAmount)
-        mostWarDaysAmount.setConstraints(topAnchor: mostWarDaysLabel.bottomAnchor, view: view, sideLeft: false )
-        mostWarDaysAmount.text = String(GlobalVariables.activeClan.playerArray[0].warDaysWon)
-        
-        addLine(leftLabel: mostWarDaysMember, rightLabel: mostWarDaysAmount)
+        let mostWarDaysWonMember = addInfoLine(scrollView: scrollView, view: view, topAnchor: mostWarDaysWonTitle.bottomAnchor, title: clan.playerArray[0].name, amount: String(clan.playerArray[0].warDaysWon))
         
         // Most Cards Collected
-        GlobalVariables.activeClan.sortArray(sortType: "Cards Collected")
-        scrollView.addSubview(mostEarnedLabel)
-        mostEarnedLabel.setMedium()
-        mostEarnedLabel.setConstraints(topAnchor: mostWarDaysMember.bottomAnchor, view: view, sideLeft: true)
-        mostEarnedLabel.text = "Most Cards Collected"
+        clan.sortArray(sortType: "Cards Collected")
+        let mostCardsCollectedTitle = addInfoLine(scrollView: scrollView, view: view, topAnchor: mostWarDaysWonMember.bottomAnchor, title: "Most Cards Earned", amount: "NOAMOUNT")
+        mostCardsCollectedTitle.setMedium()
         
-        scrollView.addSubview(mostEarnedMember)
-        mostEarnedMember.setConstraints(topAnchor: mostEarnedLabel.bottomAnchor, view: view, sideLeft: true)
-        mostEarnedMember.text = GlobalVariables.activeClan.playerArray[0].name
-        
-        scrollView.addSubview(mostEarnedAmount)
-        mostEarnedAmount.setConstraints(topAnchor: mostEarnedLabel.bottomAnchor, view: view, sideLeft: false)
-        mostEarnedAmount.text = String(GlobalVariables.activeClan.playerArray[0].cardsEarned)
-        
-        addLine(leftLabel: mostEarnedMember, rightLabel: mostEarnedAmount)
+        let mostCardsCollectedMember = addInfoLine(scrollView: scrollView, view: view, topAnchor: mostCardsCollectedTitle.bottomAnchor, title: clan.playerArray[0].name, amount: String(clan.playerArray[0].cardsEarned))
         
         // Most Generous
-        GlobalVariables.activeClan.sortArray(sortType: "Most Generous")
-        scrollView.addSubview(mostGenerousLabel)
-        mostGenerousLabel.setConstraints(topAnchor: mostEarnedMember.bottomAnchor, view: view, sideLeft: true)
-        mostGenerousLabel.setMedium()
-        mostGenerousLabel.text = "Most Generous"
+        clan.sortArray(sortType: "Most Generous")
+        let mostGenerourTitle = addInfoLine(scrollView: scrollView, view: view, topAnchor: mostCardsCollectedMember.bottomAnchor, title: "Most Generour", amount: "NOAMOUNT")
+        mostGenerourTitle.setMedium()
         
-        scrollView.addSubview(mostGeneroutMember)
-        mostGeneroutMember.setConstraints(topAnchor: mostGenerousLabel.bottomAnchor, view: view, sideLeft: true)
-        mostGeneroutMember.text = GlobalVariables.activeClan.playerArray[0].name
+        let mostGenerousMember = addInfoLine(scrollView: scrollView, view: view, topAnchor: mostGenerourTitle.bottomAnchor, title: clan.playerArray[0].name, amount: String(clan.playerArray[0].donations))
         
-        scrollView.addSubview(mostGenerousAmount)
-        mostGenerousAmount.setConstraints(topAnchor: mostGenerousLabel.bottomAnchor, view: view, sideLeft: false)
-        mostGenerousAmount.text = String(GlobalVariables.activeClan.playerArray[0].donations)
+        // Most Trophies
+        clan.sortArray(sortType: "Trophies")
+        let mostTrophiesTitle = addInfoLine(scrollView: scrollView, view: view, topAnchor: mostGenerousMember.bottomAnchor, title: "Most Trophies", amount: "NOAMOUNT")
+        mostTrophiesTitle.setMedium()
         
-        addLine(leftLabel: mostGeneroutMember, rightLabel: mostGenerousAmount)
-        
+        let mostTrophiesMember = addInfoLine(scrollView: scrollView, view: view, topAnchor: mostTrophiesTitle.bottomAnchor, title: clan.playerArray[0].name, amount: String(clan.playerArray[0].trophies))
         
     }
-    
-    func addLine(leftLabel: RRInfoLabel, rightLabel: RRInfoLabel) {
-        let line = RRLabelLine()
-        scrollView.addSubview(line)
-        line.setUp(leftAnchor: leftLabel.rightAnchor, rightAnchor: rightLabel.leftAnchor, centerAnchor: leftLabel.centerYAnchor)
-    }
-    
-}
 
+}
 
 
 /*

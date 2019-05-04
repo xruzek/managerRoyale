@@ -222,7 +222,6 @@ func updateMemberList (withLocation member:players, completion: @escaping ([Stri
                         newTimeSincePlayed = json[0]["battleTime"] as! String
                     }
                     
-                    
                     for match in json {
                         if let battleTime = match["battleTime"] as? String {
                             

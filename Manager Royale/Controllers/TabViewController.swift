@@ -26,8 +26,7 @@ class TabViewController: UITabBarController {
     
     func setUpTabController() {
         let tabFont = UIFont(name: Fonts.avenirNextMedium, size: 15)!
-        
-        
+
         
         let clanView = UINavigationController(rootViewController: ClanViewController())
         //clanView.tabBarItem.image = UIImage(named: "clan_icon")
