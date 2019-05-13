@@ -23,14 +23,16 @@ func myAPIClanGrab (withLocation clanTag:String, completion: @escaping (String) 
         "Authorization": "Bearer: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImVkNWI3MTg2LTQ1ZTMtNDQ1Zi1iNjU0LWI5ZGYyMTA3NGEwMiIsImlhdCI6MTU1NDMxMzU5OCwic3ViIjoiZGV2ZWxvcGVyLzNmMDgyYmI0LTc4OTAtMjc1Yi1lNTFiLThjODViZGRkMDc5OSIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxMzQuMjA5LjIyMi42MiJdLCJ0eXBlIjoiY2xpZW50In1dfQ.OUq5FzKrMwaJQpoe9922CMKWbYyiDuZt9IgGnnXFNXet4kyBB3cAry-OJf8Vni6dR9JZ8tuL8BBlRdxF_M5NAA",
         "Content-Type": "application/json",
         ]
-    
-    let request = NSMutableURLRequest(url: NSURL(string: "https://api.clashroyale.com/v1/clans/%23" + clanTag)! as URL,
+    //13.58.14.82
+    //ec2-13-58-14-82.us-east-2.compute.amazonaws.com
+    let request = NSMutableURLRequest(url: NSURL(string: "http://18.224.139.7:5000/clanGrab/" + clanTag)! as URL,
                                       cachePolicy: .useProtocolCachePolicy,
                                       timeoutInterval: 10.0)
     request.httpMethod = "GET"
-    request.allHTTPHeaderFields = headers
+    //request.allHTTPHeaderFields = headers
     
-    //let session = URLSession.shared
+    let session = URLSession.shared
+    /*
     let config = URLSessionConfiguration.default
     config.requestCachePolicy = URLRequest.CachePolicy.reloadIgnoringLocalCacheData
     config.connectionProxyDictionary = [AnyHashable: Any]()
@@ -39,14 +41,14 @@ func myAPIClanGrab (withLocation clanTag:String, completion: @escaping (String) 
     config.connectionProxyDictionary?["kCFNetworkProxiesHTTPSPort"] = 3128
     config.connectionProxyDictionary?["kCFNetworkProxiesHTTPEnable"] = 1
     config.connectionProxyDictionary?["kCFNetworkProxiesHTTPProxy"] = "134.209.222.62"
-    config.connectionProxyDictionary?["kCFNetworkProxiesHTTPPort"] = 3128
-    let session = URLSession.init(configuration: config, delegate: nil, delegateQueue: OperationQueue.current)
+    config.connectionProxyDictionary?["kCFNetworkProxiesHTTPPort"] = 3128*/
+    //let session = URLSession.init(configuration: config, delegate: nil, delegateQueue: OperationQueue.current)
     
     let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
         if error != nil {
             
             print("Client-side error in myAPIClanGrab: \(String(describing: error))")
-            //completion(nil)
+            completion("ReachingServer")
             return
         }
         
@@ -101,7 +103,7 @@ func myAPIClanGrab (withLocation clanTag:String, completion: @escaping (String) 
         "Cache-Control": "no-cache",
         ]
 
-    let request = NSMutableURLRequest(url: NSURL(string: "http://127.0.0.1:5000/clanGrab/" + clanTag)! as URL,
+    let request = NSMutableURLRequest(url: NSURL(string: "http://18.224.139.7:5000/clanGrab/" + clanTag)! as URL,
                                       cachePolicy: .useProtocolCachePolicy,
                                       timeoutInterval: 10.0)
     request.httpMethod = "GET"
@@ -153,7 +155,7 @@ func myAPIWarlogGrab (withLocation clanTag:String, completion: @escaping (String
         "Cache-Control": "no-cache",
         ]
     
-    let request = NSMutableURLRequest(url: NSURL(string: "http://127.0.0.1:5000/warlogGrab/" + clanTag)! as URL,
+    let request = NSMutableURLRequest(url: NSURL(string: "http://18.224.139.7:5000/warlogGrab/" + clanTag)! as URL,
                                       cachePolicy: .useProtocolCachePolicy,
                                       timeoutInterval: 10.0)
     request.httpMethod = "GET"
@@ -202,7 +204,7 @@ func updateMemberList (withLocation member:players, completion: @escaping ([Stri
     var newTimeSincePlayed:String = "20190326T060653.000Z"
     var battleLogDoesNotShowNew = true
     
-    let request = NSMutableURLRequest(url: NSURL(string: "http://127.0.0.1:5000/memberGrab/" + member.playerTag.replacingOccurrences(of: "#", with: ""))! as URL,
+    let request = NSMutableURLRequest(url: NSURL(string: "http://18.224.139.7:5000/memberGrab/" + member.playerTag.replacingOccurrences(of: "#", with: ""))! as URL,
                                       cachePolicy: .useProtocolCachePolicy,
                                       timeoutInterval: 10.0)
     request.httpMethod = "GET"

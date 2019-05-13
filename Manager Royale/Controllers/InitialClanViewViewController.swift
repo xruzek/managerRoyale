@@ -21,10 +21,11 @@ class InitialClanViewController: UIViewController {
     let myActInd = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
     
     override func viewWillAppear(_ animated: Bool) {
+        
         // User's first time
-        GlobalVariables.activeClan = loadClan(activeClan: "9GCQYY0C")
+        //GlobalVariables.activeClan = loadClan(activeClan: "9GCQYY0C")
    
-        GlobalVariables.activeClan.displayTimeSincePlayed()
+        //GlobalVariables.activeClan.displayTimeSincePlayed()
         
         //GlobalVariables.activeClan.displayTimeSincePlayed()
         
