@@ -16,7 +16,7 @@ class memberInfoController: UIViewController {
         let v = UIScrollView()
         v.translatesAutoresizingMaskIntoConstraints = false
         v.backgroundColor = .white
-        v.contentSize = CGSize(width: Constants.screenWidth, height: 2500)
+        //v.contentSize = CGSize(width: Constants.screenWidth, height: 2500)
         return v
     }()
     
@@ -27,6 +27,11 @@ class memberInfoController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let scrollViewHeight = 3065 + Int(Constants.tabBarHeight)
+        
+        scrollView.contentSize = CGSize(width: Constants.screenWidth, height: CGFloat(scrollViewHeight))
+        
         /*let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
         navigationItem.titleView = titleLabel
         titleLabel.text = "Members"

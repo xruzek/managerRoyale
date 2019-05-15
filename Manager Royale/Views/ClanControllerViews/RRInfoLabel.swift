@@ -10,7 +10,7 @@ import UIKit
 
 class RRInfoLabel: UILabel {
 
-    var height:CGFloat = 30
+    var height:CGFloat = GlobalVariables.labelHeight
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -41,8 +41,6 @@ class RRInfoLabel: UILabel {
             self.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
             self.textAlignment = .right
         }
-        //self.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5, constant: -10).isActive = true
-        //self.widthAnchor.constraint(equalToConstant: 50).isActive = true
         self.heightAnchor.constraint(equalToConstant: height).isActive = true
         
     }
@@ -57,13 +55,13 @@ class RRInfoLabel: UILabel {
     
     func setTitle() {
         font = UIFont(name: "HelveticaNeue-Bold", size: 22.0)
-        height = 55
+        //height = 55
     }
     
     func setSmall() {
         textColor = .lightGray
         font = UIFont(name: Fonts.avenirNextMedium, size: 13)!
-        height = 15
+        //height = 15
         
     }
 }

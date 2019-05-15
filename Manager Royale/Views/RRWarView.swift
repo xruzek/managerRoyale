@@ -23,8 +23,8 @@ class RRWarView: UIView {
     var noParticipation = RRInfoLabel()
     
     
-    var viewHeight:CGFloat = 185
-    var labelHeight:CGFloat = 35
+    var viewHeight:CGFloat = 230
+    var labelHeight:CGFloat = GlobalVariables.labelHeight
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -40,6 +40,10 @@ class RRWarView: UIView {
         addSubview(cardsEarnedAmount)
         addSubview(noParticipation)
         noParticipation.text = "Member Did Not Participate"
+        
+        // give war view a black outline
+        self.layer.borderWidth = 4
+        self.layer.borderColor = UIColor.black.withAlphaComponent(0.4).cgColor
         
     }
     

@@ -9,18 +9,7 @@
 import UIKit
 
 class ClanViewController: UIViewController {
-    /*
-    var clanStatsView = ClanStatsView()
     
-    var activeClanView = UIView()
-    var myClansView = clanListView()
-    
-    var activeClan = UILabel()
-    var clanName = UILabel()
-    var clanTag = UILabel()
-    var addClan = UIButton()
-    var addClanField = clanTagTextField()
-    */
     var labelHeight:CGFloat = 40
     
     var controllerTitle = titleView()
@@ -31,6 +20,13 @@ class ClanViewController: UIViewController {
         v.backgroundColor = .white
         v.contentSize = CGSize(width: Constants.screenWidth, height: 2000)
         return v
+    }()
+    
+    let changeClanButton: UIButton = {
+        let b = UIButton()
+        b.setTitle("^", for: .normal)
+        b.setTitleColor(.black, for: .normal)
+        return b
     }()
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,6 +49,10 @@ class ClanViewController: UIViewController {
         // clan name
         view.addSubview(controllerTitle)
         controllerTitle.setUp(view: self.view, name: GlobalVariables.activeClan.clanName)
+        controllerTitle.addButton(newButton: changeClanButton)
+        
+        // Change clan view
+        
         
         // refresh view
         let newRefreshView = addRefeshView(topAnchor: controllerTitle.bottomAnchor, isClan: true, view: view)
@@ -85,7 +85,9 @@ class ClanViewController: UIViewController {
         
         let today = Date()
         var amount = today.timeIntervalSince(GlobalVariables.activeClan.lastUpdated!) // in seconds
-        amount /= 60    // in minutes
+        if amount != 0{
+            amount /= 60    // in minutes
+        }
         var message = ""
         message = "#" + String(clan.clanTag) + " Last Updated : " + String(Int(amount)) + " minutes"
         if amount > 60 {

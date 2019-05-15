@@ -23,7 +23,7 @@ class InitialClanViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         // User's first time
-        //GlobalVariables.activeClan = loadClan(activeClan: "9GCQYY0C")
+        GlobalVariables.activeClan = loadClan(activeClan: "9GCQYY0C")
    
         //GlobalVariables.activeClan.displayTimeSincePlayed()
         
@@ -112,7 +112,7 @@ class InitialClanViewController: UIViewController {
     
     @objc func saveClan() {
         
-        myActInd.startAnimating()
+        /*myActInd.startAnimating()
         
         clanTagTF.text = "9GCQYY0C"
         if clanTagTF.text! == "" {
@@ -135,9 +135,9 @@ class InitialClanViewController: UIViewController {
                     
                 }
             }
-        }
+        }*/
         
-        /*The Add clan Function
+        //The Add clan Function
         // add .remove all occurances of "#" in clabTagTF.text
         myActInd.startAnimating()
         
@@ -163,7 +163,7 @@ class InitialClanViewController: UIViewController {
                 }
             }
         }
-        */
+        
     }
     
     // displays the certain error messages based on the error

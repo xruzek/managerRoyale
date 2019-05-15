@@ -25,6 +25,8 @@ struct GlobalVariables {
     static var removedMembers = [String]()
     static var newMembers = [String]()
 
+    static var labelHeight: CGFloat = 45
+    
 }
 
 // Global addLine function

@@ -30,16 +30,27 @@ class titleView: UIView {
         backgroundColor = UIColor.gray.withAlphaComponent(0.5)
         
         addSubview(title)
+        title.sizeToFit()
         title.translatesAutoresizingMaskIntoConstraints = false
         title.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        title.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-        title.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        title.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
+        //title.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         title.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.5).isActive = true
         
         title.text = name
-        title.textAlignment = .center
+        title.textAlignment = .left
         
         
     }
 
+    func addButton (newButton: UIButton) {
+        addSubview(newButton)
+        newButton.translatesAutoresizingMaskIntoConstraints = false
+        newButton.topAnchor.constraint(equalTo: title.topAnchor).isActive = true
+        newButton.leftAnchor.constraint(equalTo: title.rightAnchor, constant: 4).isActive = true
+        newButton.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        newButton.heightAnchor.constraint(equalTo: title.heightAnchor).isActive = true
+        
+        
+    }
 }
