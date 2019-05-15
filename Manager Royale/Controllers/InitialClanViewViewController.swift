@@ -112,7 +112,7 @@ class InitialClanViewController: UIViewController {
     
     @objc func saveClan() {
         
-        /*myActInd.startAnimating()
+        myActInd.startAnimating()
         
         clanTagTF.text = "9GCQYY0C"
         if clanTagTF.text! == "" {
@@ -135,9 +135,9 @@ class InitialClanViewController: UIViewController {
                     
                 }
             }
-        }*/
+        }
         
-        //The Add clan Function
+        /*//The Add clan Function
         // add .remove all occurances of "#" in clabTagTF.text
         myActInd.startAnimating()
         
@@ -162,7 +162,7 @@ class InitialClanViewController: UIViewController {
                     
                 }
             }
-        }
+        }*/
         
     }
     

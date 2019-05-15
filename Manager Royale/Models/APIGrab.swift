@@ -90,7 +90,7 @@ func myAPIClanGrab (withLocation clanTag:String, completion: @escaping (String) 
 }*/
 
 
-
+var ipAddress = "18.191.190.8"
 
 
 
@@ -103,7 +103,7 @@ func myAPIClanGrab (withLocation clanTag:String, completion: @escaping (String) 
         "Cache-Control": "no-cache",
         ]
 
-    let request = NSMutableURLRequest(url: NSURL(string: "http://18.224.139.7:5000/clanGrab/" + clanTag)! as URL,
+    let request = NSMutableURLRequest(url: NSURL(string: "http://" + ipAddress + ":5000/clanGrab/" + clanTag)! as URL,
                                       cachePolicy: .useProtocolCachePolicy,
                                       timeoutInterval: 10.0)
     request.httpMethod = "GET"
@@ -155,7 +155,7 @@ func myAPIWarlogGrab (withLocation clanTag:String, completion: @escaping (String
         "Cache-Control": "no-cache",
         ]
     
-    let request = NSMutableURLRequest(url: NSURL(string: "http://18.224.139.7:5000/warlogGrab/" + clanTag)! as URL,
+    let request = NSMutableURLRequest(url: NSURL(string: "http://" + ipAddress + ":5000/warlogGrab/" + clanTag)! as URL,
                                       cachePolicy: .useProtocolCachePolicy,
                                       timeoutInterval: 10.0)
     request.httpMethod = "GET"
@@ -204,7 +204,7 @@ func updateMemberList (withLocation member:players, completion: @escaping ([Stri
     var newTimeSincePlayed:String = "20190326T060653.000Z"
     var battleLogDoesNotShowNew = true
     
-    let request = NSMutableURLRequest(url: NSURL(string: "http://18.224.139.7:5000/memberGrab/" + member.playerTag.replacingOccurrences(of: "#", with: ""))! as URL,
+    let request = NSMutableURLRequest(url: NSURL(string: "http://" + ipAddress + ":5000/memberGrab/" + member.playerTag.replacingOccurrences(of: "#", with: ""))! as URL,
                                       cachePolicy: .useProtocolCachePolicy,
                                       timeoutInterval: 10.0)
     request.httpMethod = "GET"
