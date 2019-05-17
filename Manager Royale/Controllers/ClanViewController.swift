@@ -159,7 +159,7 @@ class ClanViewController: UIViewController {
         
         // Most Generous
         clan.sortArray(sortType: "Most Generous")
-        let mostGenerourTitle = addInfoLine(scrollView: scrollView, view: view, topAnchor: mostCardsCollectedMember.bottomAnchor, title: "Most Generour", amount: "NOAMOUNT")
+        let mostGenerourTitle = addInfoLine(scrollView: scrollView, view: view, topAnchor: mostCardsCollectedMember.bottomAnchor, title: "Most Generous", amount: "NOAMOUNT")
         mostGenerourTitle.setMedium()
         
         let mostGenerousMember = addInfoLine(scrollView: scrollView, view: view, topAnchor: mostGenerourTitle.bottomAnchor, title: clan.playerArray[0].name, amount: String(clan.playerArray[0].donations))

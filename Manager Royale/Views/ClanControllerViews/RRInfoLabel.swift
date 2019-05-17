@@ -50,7 +50,7 @@ class RRInfoLabel: UILabel {
     }
     
     func setMedium() {
-        font = UIFont(name: Fonts.mediumBold, size: 19)
+        font = UIFont(name: "HelveticaNeue-Bold", size: 19)
     }
     
     func setTitle() {
@@ -61,7 +61,7 @@ class RRInfoLabel: UILabel {
     func setSmall() {
         textColor = .lightGray
         font = UIFont(name: Fonts.avenirNextMedium, size: 13)!
-        //height = 15
+        height = 15
         
     }
 }
