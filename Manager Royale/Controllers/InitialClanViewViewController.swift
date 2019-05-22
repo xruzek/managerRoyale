@@ -44,8 +44,6 @@ class InitialClanViewController: UIViewController {
         //myActInd.hidesWhenStopped = false
         myActInd.center = view.center
         
-        
-        
         view.addSubview(titleLabel)
         titleLabel.setUp(view: self.view)
         
@@ -65,29 +63,12 @@ class InitialClanViewController: UIViewController {
         nextButton.setUp(view: self.view, saveButton: resetButton)
         nextButton.addTarget(self, action: #selector(nextView), for: .touchUpInside)
         nextButton.setTitle("Next", for: .normal)
-        
-        
-        
-        //var newClan = theClan()
-        //newClan = loadClan(activeClan: "9GCQYY0C")
-        
-        //newClan.sortArray(sortType: "Worth")
-        
-        //newClan.sortArray(sortType: "byWarDaysMissedInARow")
-        //newClan.displayTimeSincePlayed()
-        
-        
-        //newClan.displayTimeSincePlayed()
-        
-        
+    
         //deleteClan(clanTag: "9GCQYY0C")
         //dump(Array(UserDefaults.standard.dictionaryRepresentation().keys))
     }
     
     @objc func nextView() {
-        //let memberInfo = memberInfoController()
-        //memberInfo.navigationItem.backBarButtonItem?.title = "back"
-        //present(memberInfo, animated: false, completion: nil)
         presentNextView()
     }
     
@@ -97,15 +78,15 @@ class InitialClanViewController: UIViewController {
     }
     
     @objc func saveClan() {
-        // add .remove all occurances of "#" in clabTagTF.text
+        //The Add clan Function
         myActInd.startAnimating()
-        
+
         clanTagTF.text = "9GCQYY0C"
         if clanTagTF.text! == "" {
             print("Must enter clan Tag in the Text Field")
             
         }else {
-            refreshClanInfo(withLocation: clanTagTF.text!) { (completionMessage: String) in
+            addNewClan(withLocation: clanTagTF.text!) { (completionMessage: String) in
                 print(completionMessage)
                 if completionMessage == "worked" {
                     DispatchQueue.main.async {
@@ -120,39 +101,9 @@ class InitialClanViewController: UIViewController {
                     DispatchQueue.main.async {
                         self.displayErrorMessage(error: completionMessage)
                     }
-                    
                 }
             }
         }
-        
-        /*//The Add clan Function
-        
-        myActInd.startAnimating()
-        
-        clanTagTF.text = "9GCQYY0C"
-        if clanTagTF.text! == "" {
-            print("Must enter clan Tag in the Text Field")
-            
-        }else {
-            addNewClan(withLocation: clanTagTF.text!) { (completionMessage: String) in
-                print(completionMessage)
-                if completionMessage == "worked" {
-                    DispatchQueue.main.async {
-                        GlobalVariables.activeClan = loadClan(activeClan: "9GCQYY0C")
-                        self.myActInd.stopAnimating()
-                    }
-                    
-                    presentNextView()
-                    
-                }else {
-                    DispatchQueue.main.async {
-                        self.displayErrorMessage(error: completionMessage)
-                    }
-                    
-                }
-            }
-        }*/
-        
     }
     
     // displays the certain error messages based on the error
@@ -166,10 +117,7 @@ class InitialClanViewController: UIViewController {
             
             
         }
-        
     }
-    
-    
     
 }
 

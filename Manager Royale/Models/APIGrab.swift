@@ -337,7 +337,6 @@ func addNewClan (withLocation clanTag: String, completion: @escaping (String) ->
                 
                 var count = 0
                 for member in newClan.playerArray {
-                    
                     updateMemberList(withLocation: member) { (newDic: [String:Any]) in
                         count += 1
                         let newMemberBattleLogArray = updateMembersArray(newClan: newClan, newDic: newDic, member: member)
@@ -354,6 +353,8 @@ func addNewClan (withLocation clanTag: String, completion: @escaping (String) ->
         }
     }
 }
+
+
 
 /*
  UserDefaults.standard.object(forKey: newClan.clanTag + "members") as! [[String:Any]]
