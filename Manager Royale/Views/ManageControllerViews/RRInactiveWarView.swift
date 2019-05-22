@@ -11,7 +11,7 @@ import UIKit
 class RRInactiveWarView: UIView {
     var member = players()
     
-    var viewHeight:CGFloat = 160
+    var viewHeight:CGFloat = GlobalVariables.warViews
     
     var name = RRInfoLabel()
     var trophies = RRInfoLabel()
@@ -62,6 +62,7 @@ class RRInactiveWarView: UIView {
         member = newMember
         name.setConstraints(topAnchor: self.topAnchor, view: self, sideLeft: true)
         name.text = newMember.name
+        name.textColor = name.textColor.withAlphaComponent(1)
         
         // role
         role.setSmall()

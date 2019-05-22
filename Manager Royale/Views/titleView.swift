@@ -24,23 +24,22 @@ class titleView: UIView {
     
     func setUp(view: UIView, name: String) {
         translatesAutoresizingMaskIntoConstraints = false
+        
         topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1).isActive = true
-        
-        backgroundColor = UIColor.gray.withAlphaComponent(0.5)
+        heightAnchor.constraint(equalToConstant: GlobalVariables.controllerTitleHeight).isActive = true
+        //backgroundColor = UIColor.gray.withAlphaComponent(0.5)
         
         addSubview(title)
         title.sizeToFit()
         title.translatesAutoresizingMaskIntoConstraints = false
         title.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        title.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
-        //title.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        title.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         title.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.5).isActive = true
         
         title.text = name
-        title.textAlignment = .left
+        title.font = UIFont(name: Fonts.lighterFont, size: 25)
         
         
     }

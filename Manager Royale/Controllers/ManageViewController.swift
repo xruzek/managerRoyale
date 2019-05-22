@@ -34,7 +34,7 @@ class ManageViewController: UIViewController {
     var labelHeight:CGFloat = 30
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(true, animated: animated)
+        //navigationController?.setNavigationBarHidden(true, animated: animated)
         
         
     
@@ -44,23 +44,25 @@ class ManageViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         //navigationController?.navigationBar.prefersLargeTitles = true
-        //navigationItem.title = "Manage"
+        navigationItem.title = "Manage"
         
         // Creates the arrays of needed  members fo this view
         inactiveMembersArr = inactiveMembers(clan: GlobalVariables.activeClan, days: 3)
         inactiveWarMembersArr = inactiveWarMembers(clan: GlobalVariables.activeClan, days: 4)
         hurtingWar = hurtingClanMembers(clan: GlobalVariables.activeClan)
         
-        let scrollViewHeight = 165 + inactiveMembersArr.count * 135 + hurtingWar.count * 165 + inactiveWarMembersArr.count * 160 + Int(Constants.tabBarHeight) + 200
+        let scrollViewHeight = 3 * Int(GlobalVariables.labelHeight + 15) + inactiveMembersArr.count * Int(GlobalVariables.inactiveMemberView + 15) + hurtingWar.count * Int(GlobalVariables.warViews + 15) + inactiveWarMembersArr.count * Int(GlobalVariables.warViews + 15)
         
         scrollView.contentSize = CGSize(width: Constants.screenWidth, height: CGFloat(scrollViewHeight))
         
+        /*
         view.addSubview(controllerTitle)
         controllerTitle.setUp(view: self.view, name: "Manage")
+        */
         
         // Scrolling stuff
         view.addSubview(scrollView)
-        scrollView.topAnchor.constraint(equalTo: controllerTitle.bottomAnchor).isActive = true
+        scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 84).isActive = true
         scrollView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         scrollView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true

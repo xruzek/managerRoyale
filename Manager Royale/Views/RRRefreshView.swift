@@ -38,12 +38,13 @@ class RRRefreshView: UIView {
         self.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         self.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         
+        // Label
         var message = ""
         var title = ""
         if isClan {
             message = "This Clan has not been updated in a while, would you like to update it?"
             title = "Update Clan"
-            self.topAnchor.constraint(equalTo: topAnchor).isActive = true
+            self.topAnchor.constraint(equalTo: topAnchor, constant: 84).isActive = true
             refreshButton.addTarget(self, action: #selector(refreshClan), for: .touchUpInside)
             
         } else {
@@ -55,12 +56,14 @@ class RRRefreshView: UIView {
         
         self.addSubview(refreshLabel)
         refreshLabel.text = message
+        refreshLabel.font = UIFont(name: Fonts.lighterFont, size: 15)
         
         refreshLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 15).isActive = true
         refreshLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 15).isActive = true
         refreshLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -15).isActive = true
         refreshLabel.numberOfLines = 0
         
+        // button
         self.addSubview(refreshButton)
         refreshButton.setTitle(title, for: .normal)
         refreshButton.backgroundColor = UIColor.blue.withAlphaComponent(0.8)
@@ -68,35 +71,33 @@ class RRRefreshView: UIView {
         refreshButton.layer.cornerRadius = 5
         
         refreshButton.topAnchor.constraint(equalTo: refreshLabel.bottomAnchor, constant: 15).isActive = true
-        refreshButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
-        refreshButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30).isActive = true
+        refreshButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        refreshButton.widthAnchor.constraint(equalToConstant: 195).isActive = true
         refreshButton.heightAnchor.constraint(equalToConstant: 25).isActive = true
         
-        self.bottomAnchor.constraint(equalTo: refreshButton.bottomAnchor, constant: 15).isActive = true
+        refreshButton.backgroundColor = UIColor.blue.withAlphaComponent(0.5)
+        refreshButton.setTitleColor(.black, for: .normal)
+        
+        self.bottomAnchor.constraint(equalTo: refreshButton.bottomAnchor, constant: 20).isActive = true
         
     }
     
     @objc func refreshClan() {
-        refreshLabel.isHidden = true
-        refreshButton.isHidden = true
+        //refreshLabel.isHidden = true
+        //refreshButton.isHidden = true
+        refreshButton.backgroundColor = .gray
         
-        self.addSubview(myActInd)
-        myActInd.topAnchor.constraint(equalTo: refreshButton.topAnchor).isActive = true
-        myActInd.centerXAnchor.constraint(equalTo: refreshButton.centerXAnchor).isActive = true
-        myActInd.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        myActInd.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        myActInd.startAnimating()
+        // ****** Play Add *******
         
         refreshClanInfo(withLocation: GlobalVariables.activeClan.clanTag) { (completionMessage: String) in
             print(completionMessage)
             if completionMessage == "worked" {
                 print("Updated")
                 DispatchQueue.main.async {
-                    self.myActInd.stopAnimating()
-                    // reload the view/app
+                    print("Updated")
+                    mainScreen.viewDidLoad()
+                    mainScreen.viewWillAppear(true)
                 }
-                
             }else {
                 print(completionMessage)
             }
@@ -105,23 +106,20 @@ class RRRefreshView: UIView {
     
     @objc func refreshMember() {
         // Do special refresh
-        refreshLabel.isHidden = true
-        refreshButton.isHidden = true
+        //refreshLabel.isHidden = true
+        //refreshButton.isHidden = true
+        refreshButton.backgroundColor = .gray
         
-        self.addSubview(myActInd)
-        myActInd.topAnchor.constraint(equalTo: refreshButton.topAnchor).isActive = true
-        myActInd.centerXAnchor.constraint(equalTo: refreshButton.centerXAnchor).isActive = true
-        myActInd.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        myActInd.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        // *** play ad ***
         
-        myActInd.startAnimating()
+        print("member")
+        
         
         refreshClanInfo(withLocation: GlobalVariables.activeClan.clanTag) { (completionMessage: String) in
             print(completionMessage)
             if completionMessage == "worked" {
                 print("Updated")
                 DispatchQueue.main.async {
-                    self.myActInd.stopAnimating()
                     // reload the view/app
                 }
                 

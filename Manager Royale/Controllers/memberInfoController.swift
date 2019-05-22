@@ -28,7 +28,7 @@ class memberInfoController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let scrollViewHeight = 3065 + Int(Constants.tabBarHeight)
+        let scrollViewHeight = 2 * Int(GlobalVariables.littleLabelHeight) + 15 * Int(GlobalVariables.labelHeight) + 10 * Int(GlobalVariables.memberWarView) + Int(Constants.tabBarHeight)
         
         scrollView.contentSize = CGSize(width: Constants.screenWidth, height: CGFloat(scrollViewHeight))
         
@@ -103,12 +103,20 @@ class memberInfoController: UIViewController {
             amount /= 24    // in days
             message = member.playerTag + " : Updated " + String(Int(amount)) + " days"
         }
-        let memberTag = addInfoLine(scrollView: scrollView, view: view, topAnchor: scrollView.topAnchor, title: message, amount: "NOAMOUNT")
+        //let memberTag = addInfoLine(scrollView: scrollView, view: view, topAnchor: scrollView.topAnchor, title: message, amount: "NOAMOUNT")
+        let memberTag = RRInfoLabel()
+        scrollView.addSubview(memberTag)
         memberTag.setSmall()
+        memberTag.setConstraints(topAnchor: scrollView.topAnchor, view: scrollView, sideLeft: true)
+        memberTag.text = message
         
         // last Battle
-        let lastBattleLabel = addInfoLine(scrollView: scrollView, view: view, topAnchor: memberTag.bottomAnchor, title: "Last Battle " + String(member.timeSinceLastBattle!) + " days ago", amount: "NOAMOUNT")
+        //let lastBattleLabel = addInfoLine(scrollView: scrollView, view: view, topAnchor: memberTag.bottomAnchor, title: "Last Battle " + String(member.timeSinceLastBattle!) + " days ago", amount: "NOAMOUNT")
+        let lastBattleLabel = RRInfoLabel()
+        scrollView.addSubview(lastBattleLabel)
         lastBattleLabel.setSmall()
+        lastBattleLabel.setConstraints(topAnchor: memberTag.bottomAnchor, view: scrollView, sideLeft: true)
+        lastBattleLabel.text = "Last Battle " + String(member.timeSinceLastBattle!) + " days ago"
         
         // General Info Title
         let generalInfo = addInfoLine(scrollView: scrollView, view: view, topAnchor: lastBattleLabel.bottomAnchor, title: "General Info", amount: "NOAMOUNT")

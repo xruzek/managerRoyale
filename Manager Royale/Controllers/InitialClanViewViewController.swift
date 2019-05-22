@@ -80,20 +80,6 @@ class InitialClanViewController: UIViewController {
         //newClan.displayTimeSincePlayed()
         
         
-        
-        
-        
-        /*let t = hurtingClanMembers(clan: newClan)
-        for member in t {
-            print(member.name, "  ", member.trophies)
-            print("War Days Involved: ", member.warDaysInvolvedIn)
-            print("War Days Won:      ", member.warDaysWon)
-            print("War Days Missed:   ", member.warDaysNotPlayed)
-            print("WinsPercent:       ", Int(member.winPercent!), "%")
-            print("Collection Played: ", member.collectionBattlesPlayed)
-            print("Collection Missed: ", member.collectionBattelsMissed, "\n")
-        }*/
-        
         //deleteClan(clanTag: "9GCQYY0C")
         //dump(Array(UserDefaults.standard.dictionaryRepresentation().keys))
     }
@@ -124,9 +110,10 @@ class InitialClanViewController: UIViewController {
                 if completionMessage == "worked" {
                     DispatchQueue.main.async {
                         self.myActInd.stopAnimating()
+                        print("Updated")
+                        mainScreen = TabViewController()
+                        firstScreen.show(mainScreen, sender: self)
                     }
-                    print("Updated")
-                    presentNextView()
                     
                 }else {
                     DispatchQueue.main.async {

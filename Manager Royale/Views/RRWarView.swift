@@ -23,7 +23,7 @@ class RRWarView: UIView {
     var noParticipation = RRInfoLabel()
     
     
-    var viewHeight:CGFloat = 230
+    var viewHeight:CGFloat = GlobalVariables.memberWarView
     var labelHeight:CGFloat = GlobalVariables.labelHeight
     
     override init(frame: CGRect) {

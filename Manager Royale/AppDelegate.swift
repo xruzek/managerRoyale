@@ -10,8 +10,10 @@ import UIKit
 import CoreData
 
 let firstScreen = InitialClanViewController()
-let mainScreen = TabViewController()
+//let mainScreen = TabViewController()
+var mainScreen = TabViewController()
 var memberInfo = memberInfoController()
+var settingsController = SettingsViewController()
 
 //var clanView = UINavigationController(rootViewController: ClanViewController())
 

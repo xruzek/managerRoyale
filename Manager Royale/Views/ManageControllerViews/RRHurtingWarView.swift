@@ -12,7 +12,7 @@ class RRHurtingWarView: UIView {
 
     var member = players()
     
-    var viewHeight:CGFloat = 165
+    var viewHeight:CGFloat = GlobalVariables.warViews
     
     var name = RRInfoLabel()
     var role = RRInfoLabel()
@@ -64,6 +64,7 @@ class RRHurtingWarView: UIView {
         // name
         name.setConstraints(topAnchor: self.topAnchor, view: self, sideLeft: true)
         name.text = member.name
+        name.textColor = name.textColor.withAlphaComponent(1)
         
         // trophies
         trophies.setConstraints(topAnchor: self.topAnchor, view: self, sideLeft: false)

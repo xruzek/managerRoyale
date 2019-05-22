@@ -25,8 +25,15 @@ struct GlobalVariables {
     static var removedMembers = [String]()
     static var newMembers = [String]()
 
-    static var labelHeight: CGFloat = 30
+    static var labelHeight: CGFloat = 40
+    static var littleLabelHeight: CGFloat = 17
+    static var labelFontSize: CGFloat = 20
     
+    static var controllerTitleHeight: CGFloat = 100
+    
+    static var inactiveMemberView: CGFloat = 4 * GlobalVariables.labelHeight + GlobalVariables.littleLabelHeight
+    static var warViews: CGFloat = 5 * GlobalVariables.labelHeight + GlobalVariables.littleLabelHeight
+    static var memberWarView: CGFloat = 5 * GlobalVariables.labelHeight
 }
 
 // Global addLine function
@@ -34,6 +41,13 @@ func globalAddLine(leftLabel: UILabel, rightLabel: UILabel, view: UIView) {
     let line = RRLabelLine()
     view.addSubview(line)
     line.setUp(leftAnchor: leftLabel.rightAnchor, rightAnchor: rightLabel.leftAnchor, centerAnchor: leftLabel.centerYAnchor)
+}
+
+// Better Global addLine function
+func topMemberAddLine(leftAnchor: NSLayoutXAxisAnchor, rightAnchor: NSLayoutXAxisAnchor, view: UIView, label: UILabel) {
+    let line = RRLabelLine()
+    view.addSubview(line)
+    line.setUp(leftAnchor: leftAnchor, rightAnchor: rightAnchor, centerAnchor: label.centerYAnchor)
 }
 
 // refresh view

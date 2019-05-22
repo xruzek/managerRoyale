@@ -23,6 +23,8 @@ class MembersViewController: UITableViewController, sortTableProtocol {
         
         //navigationController?.setNavigationBarHidden(true, animated: false)
         
+        //navigationController?.navigationBar.prefersLargeTitles = true
+        
         navigationItem.title = "Members"
         self.tableView.register(memberCell.self, forCellReuseIdentifier: "member")
         self.tableView.rowHeight = GlobalVariables.cellHeight

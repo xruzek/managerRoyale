@@ -20,6 +20,11 @@ struct Colors {
 
 struct Fonts {
     static let avenirNextMedium = "AvenirNext-Medium"
-    static let normalLabelFont = "LaoSangamMN"
+    
+    // Chalkboard Fonts
+    static let regularFont = "ChalkboardSE-Regular"
+    static let lighterFont = "ChalkboardSE-Light"
+    static let bolderFont = "ChalkboardSE-Bold"
+    
     static let mediumBold = "Helvetica-Oblique"
 }

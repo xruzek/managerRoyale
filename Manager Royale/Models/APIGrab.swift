@@ -90,7 +90,7 @@ func myAPIClanGrab (withLocation clanTag:String, completion: @escaping (String) 
 }*/
 
 
-var ipAddress = "18.191.190.8"
+var ipAddress = "3.17.128.230"
 
 
 
