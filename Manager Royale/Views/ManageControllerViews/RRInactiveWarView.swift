@@ -63,6 +63,7 @@ class RRInactiveWarView: UIView {
         name.setConstraints(topAnchor: self.topAnchor, view: self, sideLeft: true)
         name.text = newMember.name
         name.textColor = name.textColor.withAlphaComponent(1)
+        name.font = UIFont(name: Fonts.bolderFont, size: GlobalVariables.labelFontSize)
         
         // role
         role.setSmall()
@@ -99,10 +100,10 @@ class RRInactiveWarView: UIView {
         
         // last played
         lastPlayedLabel.setConstraints(topAnchor: timeInClanLabel.bottomAnchor, view: self, sideLeft: true)
-        lastPlayedLabel.text = "Days Inactive"
+        lastPlayedLabel.text = "Last Battle"
         
         lastPlayedAmount.setConstraints(topAnchor: timeInClanAmount.bottomAnchor, view: self, sideLeft: false)
-        lastPlayedAmount.text = String(member.timeSinceLastBattle!)
+        lastPlayedAmount.text = String(member.timeSinceLastBattle!) + " Days"
         
         globalAddLine(leftLabel: lastPlayedLabel, rightLabel: lastPlayedAmount, view: self)
         

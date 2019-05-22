@@ -97,7 +97,7 @@ class InitialClanViewController: UIViewController {
     }
     
     @objc func saveClan() {
-        
+        // add .remove all occurances of "#" in clabTagTF.text
         myActInd.startAnimating()
         
         clanTagTF.text = "9GCQYY0C"
@@ -109,6 +109,7 @@ class InitialClanViewController: UIViewController {
                 print(completionMessage)
                 if completionMessage == "worked" {
                     DispatchQueue.main.async {
+                        GlobalVariables.activeClan = loadClan(activeClan: "9GCQYY0C")
                         self.myActInd.stopAnimating()
                         print("Updated")
                         mainScreen = TabViewController()
@@ -125,7 +126,7 @@ class InitialClanViewController: UIViewController {
         }
         
         /*//The Add clan Function
-        // add .remove all occurances of "#" in clabTagTF.text
+        
         myActInd.startAnimating()
         
         clanTagTF.text = "9GCQYY0C"
@@ -137,6 +138,7 @@ class InitialClanViewController: UIViewController {
                 print(completionMessage)
                 if completionMessage == "worked" {
                     DispatchQueue.main.async {
+                        GlobalVariables.activeClan = loadClan(activeClan: "9GCQYY0C")
                         self.myActInd.stopAnimating()
                     }
                     

@@ -61,12 +61,20 @@ class memberTableHeaderView: UIView {
         
         globalAddLine(leftLabel: avgWarPart, rightLabel: warPartAmount, view: self)
         
-        // Average War Wins
+        // Average War Win Percentage
         avgWarWins.setTopLeft(view: self, topAnchor: avgWarPart.bottomAnchor, leftAnchor: self.leftAnchor, height: height)
-        avgWarWins.text = "Average War Wins"
+        avgWarWins.text = "Average Win Percentage"
        
         warWinsAmount.setTopRight(view: self, topAnchor: warPartAmount.bottomAnchor, leftAnchor: self.leftAnchor, height: height, isValue: true)
-        warWinsAmount.text = String(GlobalVariables.activeClan.totalWarDayWins/GlobalVariables.activeClan.totalParticipants)
+        var winPercent:Double = 0
+        var amount:Double = 0
+        for member in GlobalVariables.activeClan.playerArray {
+            if member.winPercent != 0 {
+                winPercent += member.winPercent!
+                amount += 1
+            }
+        }
+        warWinsAmount.text = String(Int(winPercent/amount)) + " %"
         
         globalAddLine(leftLabel: avgWarWins, rightLabel: warWinsAmount, view: self)
         

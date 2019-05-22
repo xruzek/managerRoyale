@@ -16,8 +16,8 @@ class RRInfoLabel: UILabel {
         super.init(frame: frame)
         self.sizeToFit()
         
-        self.font = UIFont(name: Fonts.regularFont, size: GlobalVariables.labelFontSize)
-        self.textColor = self.textColor.withAlphaComponent(0.7)
+        self.font = UIFont(name: Fonts.lighterFont, size: GlobalVariables.labelFontSize)
+        //self.textColor = self.textColor.withAlphaComponent(0.5)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -39,6 +39,7 @@ class RRInfoLabel: UILabel {
         } else {
             self.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
             self.textAlignment = .right
+            self.font = UIFont(name: Fonts.bolderFont, size: GlobalVariables.labelFontSize)
             self.textColor = self.textColor.withAlphaComponent(1)
         }
         self.heightAnchor.constraint(equalToConstant: height).isActive = true

@@ -9,21 +9,16 @@
 import UIKit
 
 class memberCell: UITableViewCell {
-    /*var nameLabel = memberCellLabel()
-    var nameView = memberCellView()
-    var warView = memberCellView()
-    var donationView = memberCellView()*/
     
-    var indexLabel = RRCellLabel()
-    var name = RRCellLabel()
-    var warWins = RRCellLabel()
-    var warWinsAmount = RRCellLabel()
-    var trophies = RRCellLabel()
-    var donationLabel = RRCellLabel()
-    var donationAmount = RRCellLabel()
-    var roleLabel = RRCellLabel()
+    //var indexLabel = RRCellLabel()
+    var name = RRInfoLabel()
+    var warWins = RRInfoLabel()
+    var warWinsAmount = RRInfoLabel()
+    var trophies = RRInfoLabel()
+    var donationLabel = RRInfoLabel()
+    var donationAmount = RRInfoLabel()
+    var roleLabel = RRInfoLabel()
     var CCDescription = RRCellLabel()
-    
     
     var offset:CGFloat = GlobalVariables.cellOffset
     
@@ -32,11 +27,7 @@ class memberCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        /*self.addSubview(nameView)
-        self.addSubview(warView)
-        self.addSubview(donationView)*/
-        
-        self.addSubview(indexLabel)
+        //self.addSubview(indexLabel)
         self.addSubview(name)
         self.addSubview(warWins)
         self.addSubview(warWinsAmount)
@@ -44,53 +35,48 @@ class memberCell: UITableViewCell {
         self.addSubview(donationLabel)
         self.addSubview(donationAmount)
         self.addSubview(roleLabel)
-        self.addSubview(CCDescription)
+        
     }
     
     func setUpCell(index: Int) {
+        let member = GlobalVariables.activeClan.playerArray[index]
        
         // cell index
-        indexLabel.setTopLeft(view: self, topAnchor: self.topAnchor , leftAnchor: self.leftAnchor, height: GlobalVariables.cellHeight)
+        /*indexLabel.setTopLeft(view: self, topAnchor: self.topAnchor , leftAnchor: self.leftAnchor, height: GlobalVariables.cellHeight)
         indexLabel.text = String(index + 1)
         indexLabel.font = indexLabel.font.withSize(12)
+        */
         
-        // member name
-        name.setTopLeft(view: self, topAnchor: self.topAnchor, leftAnchor: indexLabel.rightAnchor, height: GlobalVariables.cellHeight/2 - GlobalVariables.cellOffset)
-        name.text = GlobalVariables.activeClan.playerArray[index].name
+        // member name & trophies
+        name.setConstraints(topAnchor: self.topAnchor, view: self, sideLeft: true)
+        name.text = member.name
         
-        // Role & CC
-        roleLabel.setTopLeftOther(view: self, topAnchor: name.bottomAnchor, leftAnchor: indexLabel.rightAnchor, height: labelHeight/4 - 10)
-        roleLabel.font = roleLabel.font.withSize(12)
-        roleLabel.text = GlobalVariables.activeClan.playerArray[index].role + " : " + String(Int(GlobalVariables.activeClan.playerArray[index].Worth)) + " CC"
-        
-        // Description of CC
-        CCDescription.setTopLeft(view: self, topAnchor: roleLabel.bottomAnchor, leftAnchor: indexLabel.rightAnchor, height: labelHeight/4 - 10)
-        CCDescription.font = CCDescription.font.withSize(11)
-        CCDescription.text = "(Clan Contrubution)"
-        
-        // amount of war days won
-        warWinsAmount.setTopRight(view: self, topAnchor: self.topAnchor, leftAnchor: self.leftAnchor, height: GlobalVariables.cellHeight/2 - GlobalVariables.cellOffset, isValue: true)
-        warWinsAmount.text = String(GlobalVariables.activeClan.playerArray[index].warDaysWon)
-        
-        // war days won label
-        warWins.setTopRight(view: self, topAnchor: self.topAnchor, leftAnchor: self.leftAnchor, height: GlobalVariables.cellHeight/2 - GlobalVariables.cellOffset , isValue: false)
-        warWins.text = "War Days Won"
-        
-        globalAddLine(leftLabel: warWins, rightLabel: warWinsAmount, view: self)
-        
-        // trophies
-        trophies.setOtherConstraints(view: self, topAnchor: self.topAnchor, rightAnchor: warWins.leftAnchor, height: GlobalVariables.cellHeight/2 - GlobalVariables.cellOffset)
-        trophies.text = String(GlobalVariables.activeClan.playerArray[index].trophies)
+        trophies.setConstraints(topAnchor: self.topAnchor, view: self, sideLeft: false)
+        trophies.text = String(member.trophies)
         
         globalAddLine(leftLabel: name, rightLabel: trophies, view: self)
         
+        // role
+        roleLabel.setSmall()
+        roleLabel.setConstraints(topAnchor: name.bottomAnchor, view: self, sideLeft: true)
+        roleLabel.text = member.role
+        
+        // amount of war days won
+        warWins.setConstraints(topAnchor: roleLabel.bottomAnchor, view: self, sideLeft: true)
+        warWins.text = "War Days Won"
+        
+        warWinsAmount.setConstraints(topAnchor: roleLabel.bottomAnchor, view: self, sideLeft: false)
+        warWinsAmount.text = String(member.warDaysWon)
+        
+        globalAddLine(leftLabel: warWins, rightLabel: warWinsAmount, view: self)
+        
         // donation label
-        donationLabel.setBottomRight(view: self, bottomAnchor: self.bottomAnchor, leftAnchor: self.leftAnchor, height: GlobalVariables.cellHeight/2 - GlobalVariables.cellOffset, isValue: false)
+        donationLabel.setConstraints(topAnchor: warWinsAmount.bottomAnchor, view: self, sideLeft: true)
         donationLabel.text = "Donations"
         
         // donation amount
-        donationAmount.setBottomRight(view: self, bottomAnchor: self.bottomAnchor, leftAnchor: indexLabel.rightAnchor, height: GlobalVariables.cellHeight/2 - GlobalVariables.cellOffset, isValue: true)
-        donationAmount.text = String(GlobalVariables.activeClan.playerArray[index].donations)
+        donationAmount.setConstraints(topAnchor: warWinsAmount.bottomAnchor, view: self, sideLeft: false)
+        donationAmount.text = String(member.donations)
         
         globalAddLine(leftLabel: donationLabel, rightLabel: donationAmount, view: self)
         

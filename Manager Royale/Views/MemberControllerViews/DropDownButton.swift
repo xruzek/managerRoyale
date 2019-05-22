@@ -17,7 +17,9 @@ class DropDownButton: UIButton, dismissSortTabelProtocol {
     override init(frame: CGRect) {
         super.init(frame: frame)
         layer.cornerRadius = 5
-        self.backgroundColor = .gray
+        /*self.backgroundColor = .gray
+        self.setTitleColor(.black, for: .normal)*/
+        self.backgroundColor = UIColor.blue.withAlphaComponent(0.2)
         self.setTitleColor(.black, for: .normal)
         setTitle("Sorted by: ", for: .normal)
         titleLabel?.font = .systemFont(ofSize: 14)
@@ -97,7 +99,7 @@ class DropDownButton: UIButton, dismissSortTabelProtocol {
         translatesAutoresizingMaskIntoConstraints = false
         
         leftAnchor.constraint(equalTo: view.leftAnchor, constant: 4).isActive = true
-        bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -4).isActive = true
+        bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         widthAnchor.constraint(equalToConstant: 150).isActive = true
         heightAnchor.constraint(equalToConstant: 25).isActive = true
     }

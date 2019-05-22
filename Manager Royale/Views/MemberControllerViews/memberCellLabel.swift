@@ -12,7 +12,8 @@ import UIKit
 class memberCellLabel: UILabel {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        //backgroundColor = Colors.rexGold.withAlphaComponent(0.35)
+        self.font = UIFont(name: Fonts.regularFont, size: 13)
+        self.textColor = self.textColor.withAlphaComponent(0.7)
         
     }
     
@@ -31,7 +32,7 @@ class memberCellLabel: UILabel {
         self.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         self.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
-        font = font.withSize(13)
+        //font = font.withSize(13)
         text = GlobalVariables.activeClan.playerArray[index].name
         layer.masksToBounds = true
         layer.cornerRadius = 10

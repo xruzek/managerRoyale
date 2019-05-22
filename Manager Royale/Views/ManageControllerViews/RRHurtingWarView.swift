@@ -65,6 +65,7 @@ class RRHurtingWarView: UIView {
         name.setConstraints(topAnchor: self.topAnchor, view: self, sideLeft: true)
         name.text = member.name
         name.textColor = name.textColor.withAlphaComponent(1)
+        name.font = UIFont(name: Fonts.bolderFont, size: GlobalVariables.labelFontSize)
         
         // trophies
         trophies.setConstraints(topAnchor: self.topAnchor, view: self, sideLeft: false)

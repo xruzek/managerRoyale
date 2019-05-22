@@ -9,7 +9,7 @@
 import UIKit
 
 class dropDownView: UIView, UITableViewDelegate, UITableViewDataSource {
-    var dropDownOptions = ["Worth", "War Days Won", "Trophies", "Cards Collected", "Days Inactive"]
+    var dropDownOptions = ["Worth", "War Days Won", "Trophies", "Cards Collected", "Last Battle"]
     var rowCount:Int = 5
     
     var delegate : sortTableProtocol!
@@ -20,8 +20,8 @@ class dropDownView: UIView, UITableViewDelegate, UITableViewDataSource {
     override init(frame: CGRect) {
         
         super.init(frame: frame)
-        dropDownTableView.backgroundColor = .darkGray
-        self.backgroundColor = .darkGray
+        //dropDownTableView.backgroundColor = .darkGray
+        //self.backgroundColor = .darkGray
         dropDownTableView.rowHeight = 25
         
         dropDownTableView.delegate = self
@@ -48,8 +48,10 @@ class dropDownView: UIView, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
-        cell.textLabel?.textColor = UIColor.white
-        cell.backgroundColor = UIColor.darkGray
+        /*cell.textLabel?.textColor = UIColor.white
+        cell.backgroundColor = UIColor.darkGray*/
+        cell.backgroundColor = UIColor.blue.withAlphaComponent(0.2)
+        cell.textLabel?.textColor = .black
         cell.textLabel?.font = .systemFont(ofSize: 14)
         cell.textLabel?.text = dropDownOptions[indexPath.row]
         

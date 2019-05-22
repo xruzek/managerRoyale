@@ -106,27 +106,9 @@ class RRRefreshView: UIView {
     
     @objc func refreshMember() {
         // Do special refresh
-        //refreshLabel.isHidden = true
-        //refreshButton.isHidden = true
         refreshButton.backgroundColor = .gray
         
-        // *** play ad ***
         
-        print("member")
-        
-        
-        refreshClanInfo(withLocation: GlobalVariables.activeClan.clanTag) { (completionMessage: String) in
-            print(completionMessage)
-            if completionMessage == "worked" {
-                print("Updated")
-                DispatchQueue.main.async {
-                    // reload the view/app
-                }
-                
-            }else {
-                print(completionMessage)
-            }
-        }
     }
     
 }

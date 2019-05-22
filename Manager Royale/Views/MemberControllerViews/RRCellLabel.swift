@@ -12,10 +12,11 @@ class RRCellLabel: UILabel {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        //backgroundColor = Colors.rexGold.withAlphaComponent(0.35)
+        
         self.sizeToFit()
         translatesAutoresizingMaskIntoConstraints = false
-       // backgroundColor = .white
+        self.font = UIFont(name: Fonts.regularFont, size: GlobalVariables.labelFontSize)
+        self.textColor = self.textColor.withAlphaComponent(0.7)
     }
     
     required init?(coder aDecoder: NSCoder) {

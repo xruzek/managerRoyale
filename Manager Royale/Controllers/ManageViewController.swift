@@ -47,8 +47,8 @@ class ManageViewController: UIViewController {
         navigationItem.title = "Manage"
         
         // Creates the arrays of needed  members fo this view
-        inactiveMembersArr = inactiveMembers(clan: GlobalVariables.activeClan, days: 3)
-        inactiveWarMembersArr = inactiveWarMembers(clan: GlobalVariables.activeClan, days: 4)
+        inactiveMembersArr = inactiveMembers(clan: GlobalVariables.activeClan, days: 7)
+        inactiveWarMembersArr = inactiveWarMembers(clan: GlobalVariables.activeClan, days: 7)
         hurtingWar = hurtingClanMembers(clan: GlobalVariables.activeClan)
         
         let scrollViewHeight = 3 * Int(GlobalVariables.labelHeight + 15) + inactiveMembersArr.count * Int(GlobalVariables.inactiveMemberView + 15) + hurtingWar.count * Int(GlobalVariables.warViews + 15) + inactiveWarMembersArr.count * Int(GlobalVariables.warViews + 15)

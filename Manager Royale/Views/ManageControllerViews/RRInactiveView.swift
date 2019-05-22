@@ -58,6 +58,7 @@ class RRInactiveView: UIView {
         name.setConstraints(topAnchor: self.topAnchor, view: self, sideLeft: true)
         name.text = newMember.name
         name.textColor = name.textColor.withAlphaComponent(1)
+        name.font = UIFont(name: Fonts.bolderFont, size: GlobalVariables.labelFontSize)
         
         // role
         role.setSmall()
@@ -72,10 +73,10 @@ class RRInactiveView: UIView {
         
         // last played
         lastPlayedLabel.setConstraints(topAnchor: role.bottomAnchor, view: self, sideLeft: true)
-        lastPlayedLabel.text = "Days Inactive"
+        lastPlayedLabel.text = "Last Battle"
         
         lastPlayedAmount.setConstraints(topAnchor: role.bottomAnchor, view: self, sideLeft: false)
-        lastPlayedAmount.text = String(member.timeSinceLastBattle!)
+        lastPlayedAmount.text = String(member.timeSinceLastBattle!) + " Days"
         
         globalAddLine(leftLabel: lastPlayedLabel, rightLabel: lastPlayedAmount, view: self)
         

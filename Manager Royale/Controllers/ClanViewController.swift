@@ -21,21 +21,30 @@ class ClanViewController: UIViewController {
         return v
     }()
     
-    let changeClanButton: UIButton = {
+    let settingsButton: UIButton = {
         let b = UIButton()
-        b.setTitle("^", for: .normal)
+        b.setTitle("Settings", for: .normal)
         b.setTitleColor(.black, for: .normal)
+        b.backgroundColor = .white
         return b
     }()
     
     override func viewWillAppear(_ animated: Bool) {
-        
+        //var newView = titleView()
+        //newView.setUp(view: self.view, name: GlobalVariables.activeClan.clanName)
+        //navigationItem.titleView = newView
         //navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = GlobalVariables.activeClan.clanName
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(displaySettings))
+        
         
         //navigationController?.setNavigationBarHidden(true, animated: animated)
         
         
+    }
+    
+    @objc func displaySettings() {
+        show(settingsController, sender: self)
     }
     
     override func viewDidLoad() {
@@ -194,5 +203,6 @@ class ClanViewController: UIViewController {
     }
 
 }
+
 
 

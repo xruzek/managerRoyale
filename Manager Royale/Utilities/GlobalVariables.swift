@@ -11,10 +11,14 @@ import UIKit
 
 struct GlobalVariables {
     static var activeClan = theClan()
+    static var labelHeight: CGFloat = 40
+    static var littleLabelHeight: CGFloat = 17
+    static var labelFontSize: CGFloat = 20
+    
     static var sortTypes: Int = 7
     static var clansArray = [String]()
     static var cellHeaderHeight: CGFloat = 150
-    static var cellHeight: CGFloat = 90
+    static var cellHeight: CGFloat = labelHeight * 3 + littleLabelHeight
     static var cellOffset: CGFloat = 10
     
     static var refreshClan: Bool = false
@@ -24,10 +28,6 @@ struct GlobalVariables {
     
     static var removedMembers = [String]()
     static var newMembers = [String]()
-
-    static var labelHeight: CGFloat = 40
-    static var littleLabelHeight: CGFloat = 17
-    static var labelFontSize: CGFloat = 20
     
     static var controllerTitleHeight: CGFloat = 100
     

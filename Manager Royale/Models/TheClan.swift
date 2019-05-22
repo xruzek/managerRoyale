@@ -186,12 +186,7 @@ class players{
         
         // Win Percent Calculation
         if self.warDaysWon == 0 {
-            if self.warDaysInvolvedIn == 0 {
-                self.winPercent = 0
-            } else {
-                self.winPercent = Double(self.warDaysNotPlayed)/Double(self.warDaysInvolvedIn)
-                self.winPercent! *= -100
-            }
+            self.winPercent = 0
         } else {
             self.winPercent = Double(self.warDaysWon)/Double(self.warDaysInvolvedIn)
             self.winPercent! *= 100
@@ -363,7 +358,7 @@ class theClan {
             self.playerArray = playerArray.sorted(by: {$0.trophies > $1.trophies})
         }else if sortType == "Cards Collected"{
             self.playerArray = playerArray.sorted(by: {$0.cardsEarned > $1.cardsEarned})
-        }else if sortType == "Days Inactive"{
+        }else if sortType == "Last Battle"{
             self.playerArray = playerArray.sorted(by: {$0.timeSinceLastBattle! > $1.timeSinceLastBattle!})
         }else if sortType == "Most Generous"{
             self.playerArray = playerArray.sorted(by: {$0.donationDiff! > $1.donationDiff!})
