@@ -18,5 +18,7 @@ protocol dismissSortTabelProtocol {
     func dismissDropDown()
 }
 
-
+protocol showMemberInfo {
+    func showMember(member: players)
+}
 

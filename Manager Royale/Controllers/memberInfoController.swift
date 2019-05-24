@@ -46,6 +46,8 @@ class memberInfoController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         //navigationController?.setNavigationBarHidden(true, animated: animated)
         
+      
+        
         view.backgroundColor = UIColor.white
         
         // refresh Button

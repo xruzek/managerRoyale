@@ -12,7 +12,7 @@ class ClanViewController: UIViewController {
     
     var labelHeight:CGFloat = 40
     
-    var controllerTitle = titleView()
+    //var controllerTitle = titleView()
     
     let scrollView: UIScrollView = {
         let v = UIScrollView()
@@ -35,6 +35,7 @@ class ClanViewController: UIViewController {
         //navigationItem.titleView = newView
         //navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = GlobalVariables.activeClan.clanName
+        navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: Fonts.regularFont, size: 20)!]
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(displaySettings))
         
         
@@ -83,7 +84,7 @@ class ClanViewController: UIViewController {
         } else {
             scrollView.topAnchor.constraint(equalTo: newRefreshView.bottomAnchor).isActive = false
             newRefreshView.removeFromSuperview()
-            scrollView.topAnchor.constraint(equalTo: controllerTitle.bottomAnchor).isActive = true
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 84).isActive = true
         }
     }
     

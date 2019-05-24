@@ -61,6 +61,11 @@ class RRHurtingWarView: UIView {
         
         member = newMember
         
+        let gesture:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showMember))
+        gesture.numberOfTapsRequired = 1
+        self.isUserInteractionEnabled = true
+        self.addGestureRecognizer(gesture)
+        
         // name
         name.setConstraints(topAnchor: self.topAnchor, view: self, sideLeft: true)
         name.text = member.name
@@ -113,6 +118,11 @@ class RRHurtingWarView: UIView {
         winPercentAmount.text = String(Int(member.winPercent!)) + "%"
         
         globalAddLine(leftLabel: winPercentLabel, rightLabel: winPercentAmount, view: self)
+        
+    }
+    
+    @objc func showMember() {
+        manageViewDelegate.showMember(member: member)
         
     }
     

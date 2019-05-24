@@ -12,11 +12,16 @@ class MembersViewController: UITableViewController, sortTableProtocol {
     let header = memberTableHeaderView()
     
     
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         GlobalVariables.activeClan.sortArray(sortType: "Trophies")
         header.setUpView()
+        
+        
         
         //self.tableView.delegate = self
         //self.tableView.dataSource = self
@@ -26,6 +31,7 @@ class MembersViewController: UITableViewController, sortTableProtocol {
         //navigationController?.navigationBar.prefersLargeTitles = true
         
         navigationItem.title = "Members"
+        navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: Fonts.regularFont, size: 20)!]
         self.tableView.register(memberCell.self, forCellReuseIdentifier: "member")
         self.tableView.rowHeight = GlobalVariables.cellHeight
         
@@ -58,7 +64,6 @@ class MembersViewController: UITableViewController, sortTableProtocol {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //header.displayMemberInfo(index: indexPath.row)
         GlobalVariables.memberTapped = GlobalVariables.activeClan.playerArray[indexPath.row]
         memberInfo = memberInfoController()
         show(memberInfo, sender: self)

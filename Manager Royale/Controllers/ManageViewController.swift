@@ -8,13 +8,20 @@
 
 import UIKit
 
-class ManageViewController: UIViewController {
+class ManageViewController: UIViewController, showMemberInfo {
+    
+    func showMember(member: players) {
+        GlobalVariables.memberTapped = member
+        memberInfo = memberInfoController()
+        self.show(memberInfo, sender: self)
+    }
+    
     /*var fullClanLabel = rexTitleLabel()
     var inactiveMemberView = manageView()
     var hurtingWarView = manageView()
     var newTopMemberView = topMemberView()*/
     
-    var controllerTitle = titleView()
+    //var controllerTitle = titleView()
     var inactiveMembersTitle = RRInfoLabel()
     var hurtingWarTitle = RRInfoLabel()
     var inactiveWarTitle = RRInfoLabel()
@@ -45,6 +52,9 @@ class ManageViewController: UIViewController {
         view.backgroundColor = .white
         //navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "Manage"
+        navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: Fonts.regularFont, size: 20)!]
+        
+        
         
         // Creates the arrays of needed  members fo this view
         inactiveMembersArr = inactiveMembers(clan: GlobalVariables.activeClan, days: 7)

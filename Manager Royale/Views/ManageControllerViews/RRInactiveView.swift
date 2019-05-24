@@ -48,13 +48,19 @@ class RRInactiveView: UIView {
     }
     
     func setUp(newMember: players, topAnchor: NSLayoutYAxisAnchor, view: UIView) {
+        member = newMember
+        
         self.topAnchor.constraint(equalTo: topAnchor, constant: 15).isActive = true
         self.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
         self.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
         self.heightAnchor.constraint(equalToConstant: viewHeight).isActive = true
         
+        let gesture:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showMember))
+        gesture.numberOfTapsRequired = 1
+        self.isUserInteractionEnabled = true
+        self.addGestureRecognizer(gesture)
+        
         // name
-        member = newMember
         name.setConstraints(topAnchor: self.topAnchor, view: self, sideLeft: true)
         name.text = newMember.name
         name.textColor = name.textColor.withAlphaComponent(1)
@@ -94,6 +100,10 @@ class RRInactiveView: UIView {
         
     }
     
+    @objc func showMember() {
+        manageViewDelegate.showMember(member: member)
+        
+    }
     
     
     
