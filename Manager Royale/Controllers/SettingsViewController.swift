@@ -49,6 +49,7 @@ class SettingsViewController: UIViewController {
         changeButton.addTarget(self, action: #selector(changeClan), for: .touchUpInside)
         
         //let tagLabel = addInfoLine(scrollView: view, view: view, topAnchor: changeLabel.bottomAnchor, title: "Tag ", amount: "NOAMOUNT")
+        
     }
     
     

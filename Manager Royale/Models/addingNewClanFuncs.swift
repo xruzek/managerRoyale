@@ -10,6 +10,7 @@ import Foundation
 
 // checks to see if the clan already exists in the clanTag array of clans
 func alreadyHaveClan(Tag:String) -> Bool {
+    return false
     // for each loop, if found one, set that one to active, display message, and return true
     if let clansArray = UserDefaults.standard.array(forKey: "myClans") as? [String] {
         for clan in clansArray {

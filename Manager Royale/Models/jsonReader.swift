@@ -73,7 +73,6 @@ func loadClan(activeClan: String) -> theClan{
                     clanMember.timeSinceLastBattle = (memberList["timeSincePlayed"] as! Int)
                     clanMember.dateDiscovered = (memberList["dateDiscovered"] as! Date)
                     clanMember.lastUpdated = (memberList["lastUpdated"] as? Date)
-                    
                     let today = Date()
                     clanMember.timeInClan = today.timeIntervalSince(clanMember.dateDiscovered!)
                     clanMember.timeInClan! /= 60

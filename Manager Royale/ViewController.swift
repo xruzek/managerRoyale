@@ -97,7 +97,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     // Loads in the clan array of all the clans they have
     override func viewWillAppear(_ animated: Bool) {
-        
+       /*
         if let activeClan = UserDefaults.standard.object(forKey: "activeClan") as? String{
         
             
@@ -124,7 +124,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             UserDefaults.standard.set(newArray, forKey: "myClans")
             
             
-         }
+         }*/
     }
 
     // Use for debuging and building the table

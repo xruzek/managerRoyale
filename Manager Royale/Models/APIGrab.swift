@@ -90,7 +90,7 @@ func myAPIClanGrab (withLocation clanTag:String, completion: @escaping (String) 
 }*/
 
 
-var ipAddress = "18.221.127.91"
+var ipAddress = "3.14.126.108"
 
 
 
@@ -217,7 +217,6 @@ func updateMemberList (withLocation member:players, completion: @escaping ([Stri
                     var counter = 1
                     
                     if json.isEmpty {
-                        print(json)
                         let noBatDic: [String:Any] = ["tag": member.playerTag, "timeSincePlayed": -1, "dateDiscovered": Date(), "name": member.name, "lastUpdated": Date()]
                         completion(noBatDic)
                     } else {

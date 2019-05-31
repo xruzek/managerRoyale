@@ -31,8 +31,6 @@ func calcAverages () {
 func calcWarWinPercent()
 {
     let clan = GlobalVariables.activeClan
-    
-    
     var totalWarWins = 0.0
     var totalMembers = 0
     
@@ -41,6 +39,7 @@ func calcWarWinPercent()
         if member.warDaysInvolvedIn != 0 {
             totalWarWins += member.winPercent!
             totalMembers += 1
+            
         }
         
     }

@@ -21,10 +21,11 @@ class InitialClanViewController: UIViewController {
     let myActInd = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
     
     override func viewWillAppear(_ animated: Bool) {
-        
         // User's first time
-        GlobalVariables.activeClan = loadClan(activeClan: "9GCQYY0C")
-   
+        if let activeClan = UserDefaults.standard.object(forKey: "activeClan") as? String{
+            GlobalVariables.activeClan = loadClan(activeClan: activeClan)
+        }
+    
         //GlobalVariables.activeClan.displayTimeSincePlayed()
         
         //GlobalVariables.activeClan.displayTimeSincePlayed()
@@ -65,7 +66,7 @@ class InitialClanViewController: UIViewController {
         nextButton.setTitle("Next", for: .normal)
     
         //deleteClan(clanTag: "9GCQYY0C")
-        //dump(Array(UserDefaults.standard.dictionaryRepresentation().keys))
+        dump(Array(UserDefaults.standard.dictionaryRepresentation().keys))
     }
     
     @objc func nextView() {

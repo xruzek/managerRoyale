@@ -77,8 +77,11 @@ class memberTableHeaderView: UIView {
                 amount += 1
             }
         }
-        warWinsAmount.text = String(Int(winPercent/amount)) + " %"
-        
+        if winPercent == 0 {
+            warWinsAmount.text = "0 %"
+        } else {
+            warWinsAmount.text = String(Int(winPercent/amount)) + " %"
+        }
         globalAddLine(leftLabel: avgWarWins, rightLabel: warWinsAmount, view: self)
         
         // Average Donations

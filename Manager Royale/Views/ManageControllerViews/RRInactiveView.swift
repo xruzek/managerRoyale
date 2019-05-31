@@ -102,7 +102,6 @@ class RRInactiveView: UIView {
     
     @objc func showMember() {
         manageViewDelegate.showMember(member: member)
-        
     }
     
     

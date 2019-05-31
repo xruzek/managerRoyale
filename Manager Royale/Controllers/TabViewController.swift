@@ -9,13 +9,18 @@
 import UIKit
 
 
-let memberViewDelegate = MembersViewController()
-let manageViewDelegate = ManageViewController()
+var memberViewDelegate = MembersViewController()
+var manageViewDelegate = ManageViewController()
 
 class TabViewController: UITabBarController, UITabBarControllerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
+        if let activeClan = UserDefaults.standard.object(forKey: "activeClan") as? String{
+            GlobalVariables.activeClan = loadClan(activeClan: activeClan)
+        }
         setUpTabController()
+        //memberViewDelegate = MembersViewController()
+        //manageViewDelegate = ManageViewController()
     }
     
     override func viewDidLoad() {

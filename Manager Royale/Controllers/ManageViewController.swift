@@ -16,12 +16,6 @@ class ManageViewController: UIViewController, showMemberInfo {
         self.show(memberInfo, sender: self)
     }
     
-    /*var fullClanLabel = rexTitleLabel()
-    var inactiveMemberView = manageView()
-    var hurtingWarView = manageView()
-    var newTopMemberView = topMemberView()*/
-    
-    //var controllerTitle = titleView()
     var inactiveMembersTitle = RRInfoLabel()
     var hurtingWarTitle = RRInfoLabel()
     var inactiveWarTitle = RRInfoLabel()
@@ -97,38 +91,40 @@ class ManageViewController: UIViewController, showMemberInfo {
             priviousAnchor = newView.bottomAnchor
         }
         
-        // hurting war Title
-        scrollView.addSubview(hurtingWarTitle)
-        hurtingWarTitle.setTitle()
-        hurtingWarTitle.setConstraints(topAnchor: priviousAnchor, view: scrollView, sideLeft: true)
-        hurtingWarTitle.text = "Hurting the Clan War"
-        
-        // for loop for members hurting the war
-        priviousAnchor = hurtingWarTitle.bottomAnchor
-        for each in hurtingWar {
-            let newView = RRHurtingWarView()
-            scrollView.addSubview(newView)
-            newView.setUp(newMember: each, topAnchor: priviousAnchor, view: view)
-            priviousAnchor = newView.bottomAnchor
+        if GlobalVariables.activeClan.totalWarDaysInvolvedIn != 0 {
             
+            // hurting war Title
+            scrollView.addSubview(hurtingWarTitle)
+            hurtingWarTitle.setTitle()
+            hurtingWarTitle.setConstraints(topAnchor: priviousAnchor, view: scrollView, sideLeft: true)
+            hurtingWarTitle.text = "Hurting the Clan War"
+            
+            // for loop for members hurting the war
+            priviousAnchor = hurtingWarTitle.bottomAnchor
+            for each in hurtingWar {
+                let newView = RRHurtingWarView()
+                scrollView.addSubview(newView)
+                newView.setUp(newMember: each, topAnchor: priviousAnchor, view: view)
+                priviousAnchor = newView.bottomAnchor
+                
+            }
+            
+            // Inactive War Member Title
+            scrollView.addSubview(inactiveWarTitle)
+            inactiveWarTitle.setTitle()
+            inactiveWarTitle.setConstraints(topAnchor: priviousAnchor, view: view, sideLeft: true)
+            inactiveWarTitle.text = "Inactive War Members"
+            
+            // for loop for the inactive war members
+            priviousAnchor = inactiveWarTitle.bottomAnchor
+            for each in inactiveWarMembersArr {
+                let newView = RRInactiveWarView()
+                scrollView.addSubview(newView)
+                newView.setUp(newMember: each, topAnchor: priviousAnchor, view: view)
+                priviousAnchor = newView.bottomAnchor
+            }
+        
         }
-        
-        // Inactive War Member Title
-        scrollView.addSubview(inactiveWarTitle)
-        inactiveWarTitle.setTitle()
-        inactiveWarTitle.setConstraints(topAnchor: priviousAnchor, view: view, sideLeft: true)
-        inactiveWarTitle.text = "Inactive War Members"
-        
-        // for loop for the inactive war members
-        priviousAnchor = inactiveWarTitle.bottomAnchor
-        for each in inactiveWarMembersArr {
-            let newView = RRInactiveWarView()
-            scrollView.addSubview(newView)
-            newView.setUp(newMember: each, topAnchor: priviousAnchor, view: view)
-            priviousAnchor = newView.bottomAnchor
-        }
-        
-        
         
     }
     

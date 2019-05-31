@@ -96,6 +96,7 @@ func setWarColor(clan: theClan, member: players) -> UIColor {
 func inactiveMembers(clan: theClan, days: Int) -> [players] {
     var inactiveMembers = [players]()
     for member in clan.playerArray {
+        print("----", member.name)
         if member.timeSinceLastBattle! > days {
             inactiveMembers.append(member)
         }
