@@ -85,7 +85,7 @@ class memberCell: UITableViewCell {
         
         // give member cell a white border
         self.layer.borderWidth = 4
-        self.layer.borderColor = UIColor.white.cgColor
+        self.layer.borderColor = UIColor.black.cgColor
         
     }
     // setWarColor(clan: GlobalVariables.activeClan, member: GlobalVariables.activeClan.playerArray[index])

@@ -20,7 +20,7 @@ class MembersViewController: UITableViewController, sortTableProtocol {
         view.backgroundColor = .white
         GlobalVariables.activeClan.sortArray(sortType: "Trophies")
         header.setUpView()
-        
+        calcAverages()
         
         
         //self.tableView.delegate = self
@@ -31,7 +31,7 @@ class MembersViewController: UITableViewController, sortTableProtocol {
         //navigationController?.navigationBar.prefersLargeTitles = true
         
         navigationItem.title = "Members"
-        navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: Fonts.regularFont, size: 20)!]
+        //navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: Fonts.regularFont, size: 20)!]
         self.tableView.register(memberCell.self, forCellReuseIdentifier: "member")
         self.tableView.rowHeight = GlobalVariables.cellHeight
         

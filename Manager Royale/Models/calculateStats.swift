@@ -25,7 +25,7 @@ import UIKit
  - dateDiscovered
  */
 
-
+/*
 // set color of the member
 func setMemberColor(clan: theClan, member: players) -> UIColor {
     var memberColor: UIColor = .white
@@ -58,6 +58,24 @@ func setMemberColor(clan: theClan, member: players) -> UIColor {
         memberColor = .white
     }
     return memberColor
+}*/
+
+func setMemberColor(clan: theClan, member: players) -> UIColor {
+    var newColor = UIColor.yellow
+    
+    let upperSD = 0.5 * mathVariables.SDWarWin + mathVariables.avgWarWin
+    
+    let lowerSD = 0.5 * mathVariables.SDWarWin - mathVariables.avgWarWin
+    
+    if member.winPercent! > upperSD {
+        newColor = .green
+    } else if member.winPercent! < lowerSD {
+        newColor = .red
+    }
+    
+    
+    
+    return newColor
 }
 
 // Example of shit
@@ -68,7 +86,9 @@ func setWarColor(clan: theClan, member: players) -> UIColor {
     
     for thingy in clan.playerArray {
         print(thingy.name)
+        
     }
+    
     return color
 }
 
@@ -89,6 +109,9 @@ func inactiveMembers(clan: theClan, days: Int) -> [players] {
         print("Days Inactive:   ", each.timeSinceLastBattle!)
         print()
     }
+    
+    inactiveMembers = inactiveMembers.sorted(by: {$0.timeSinceLastBattle! > $1.timeSinceLastBattle!})
+    
     return inactiveMembers
 }
 
@@ -113,6 +136,9 @@ func inactiveWarMembers(clan: theClan, days: Int) -> [players] {
         print("Days Inactive:   ", each.timeSinceLastBattle!)
         print()
     }
+    
+    inactiveMembers = inactiveMembers.sorted(by: {$0.timeSinceLastBattle! > $1.timeSinceLastBattle!})
+    
     return inactiveMembers
 }
 
@@ -138,6 +164,9 @@ func hurtingClanMembers(clan: theClan) -> [players] {
             
         } // if war days won is < war days lost
     } // for loop
+    
+    hurtClan = hurtClan.sorted(by: {$0.winPercent! < $1.winPercent!})
+    
     return hurtClan
 }
 

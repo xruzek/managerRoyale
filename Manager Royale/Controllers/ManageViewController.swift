@@ -52,7 +52,7 @@ class ManageViewController: UIViewController, showMemberInfo {
         view.backgroundColor = .white
         //navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "Manage"
-        navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: Fonts.regularFont, size: 20)!]
+        //navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: Fonts.regularFont, size: 20)!]
         
         
         

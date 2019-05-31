@@ -42,7 +42,7 @@ class TabViewController: UITabBarController, UITabBarControllerDelegate {
         //clanView.tabBarItem.selectedImage = the selected image
         clanView.tabBarItem.title = "Clan"
         clanView.tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -20)
-        clanView.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: tabFont], for: .normal)
+        clanView.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: tabFont], for: .normal)
         
         
         let memberView = UINavigationController(rootViewController: memberViewDelegate)
@@ -50,7 +50,7 @@ class TabViewController: UITabBarController, UITabBarControllerDelegate {
         //memberView.tabBarItem.selectedImage = the selected image
         memberView.tabBarItem.title = "Members"
         memberView.tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -20)
-        memberView.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: tabFont], for: .normal)
+        memberView.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: tabFont], for: .normal)
         
         
         let manageView = UINavigationController(rootViewController: manageViewDelegate)
@@ -58,9 +58,9 @@ class TabViewController: UITabBarController, UITabBarControllerDelegate {
         //manageView.tabBarItem.selectedImage = the selected image
         manageView.tabBarItem.title = "Manage"
         manageView.tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -20)
-        manageView.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: tabFont], for: .normal)
+        manageView.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: tabFont], for: .normal)
         
-        tabBar.barTintColor = UIColor.lightGray
+        tabBar.barTintColor = UIColor.black
         // need an image to chnage how it looks when selected
         
         viewControllers = [clanView, memberView, manageView]

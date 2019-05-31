@@ -36,6 +36,9 @@ struct GlobalVariables {
     static var memberWarView: CGFloat = 5 * GlobalVariables.labelHeight
     
     static var isShowing = false
+
+    
+    
 }
 
 // Global addLine function

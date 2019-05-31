@@ -35,7 +35,8 @@ class ClanViewController: UIViewController {
         //navigationItem.titleView = newView
         //navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = GlobalVariables.activeClan.clanName
-        navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: Fonts.regularFont, size: 20)!]
+        
+        //navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont(name: Fonts.regularFont, size: 20)!]
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(displaySettings))
         
         

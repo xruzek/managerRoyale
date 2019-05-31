@@ -29,7 +29,7 @@ class RRHurtingWarView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.backgroundColor = Colors.rexGold.withAlphaComponent(0.05)
+        self.backgroundColor = UIColor.gray.withAlphaComponent(0.1)
         self.layer.masksToBounds = true
         self.layer.cornerRadius = 5
         

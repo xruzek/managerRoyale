@@ -43,6 +43,9 @@ class memberTableHeaderView: UIView {
     
     func setUpView() {
         backgroundColor = .white
+        // give member cell a white border
+        //self.layer.borderWidth = 4
+        //self.layer.borderColor = UIColor.black.cgColor
         
         // Adds the DropDown Menu
         var button = DropDownButton()

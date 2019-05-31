@@ -12,6 +12,7 @@
 		672C85E022666C16004AC968 /* RRRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672C85DF22666C16004AC968 /* RRRefreshView.swift */; };
 		67374C27228C84490058082F /* RRChangeClanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67374C26228C84490058082F /* RRChangeClanView.swift */; };
 		67374C29229495A50058082F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67374C28229495A50058082F /* SettingsViewController.swift */; };
+		67374C2B22A07AFE0058082F /* math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67374C2A22A07AFE0058082F /* math.swift */; };
 		67649EA1224ECFBB00C93A1D /* InitialClanViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67649EA0224ECFBB00C93A1D /* InitialClanViewViewController.swift */; };
 		67649EA3224ED6A300C93A1D /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67649EA2224ED6A300C93A1D /* TabViewController.swift */; };
 		67649EA8224EF46000C93A1D /* InitialClanTagTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67649EA7224EF46000C93A1D /* InitialClanTagTextField.swift */; };
@@ -91,6 +92,7 @@
 		672C85DF22666C16004AC968 /* RRRefreshView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRRefreshView.swift; sourceTree = "<group>"; };
 		67374C26228C84490058082F /* RRChangeClanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRChangeClanView.swift; sourceTree = "<group>"; };
 		67374C28229495A50058082F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		67374C2A22A07AFE0058082F /* math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = math.swift; sourceTree = "<group>"; };
 		67649EA0224ECFBB00C93A1D /* InitialClanViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialClanViewViewController.swift; sourceTree = "<group>"; };
 		67649EA2224ED6A300C93A1D /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		67649EA7224EF46000C93A1D /* InitialClanTagTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialClanTagTextField.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 				67649ECD2252BD8400C93A1D /* Protocols.swift */,
 				67649EDA225656D100C93A1D /* APILoadActivityIndicator.swift */,
 				67649EE022569C5E00C93A1D /* Constants.swift */,
+				67374C2A22A07AFE0058082F /* math.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -516,6 +519,7 @@
 				67649EC4225035FD00C93A1D /* memberCellLabel.swift in Sources */,
 				67649EDB225656D100C93A1D /* APILoadActivityIndicator.swift in Sources */,
 				6768D3FA21F7AAB100651B45 /* playerWarlog.swift in Sources */,
+				67374C2B22A07AFE0058082F /* math.swift in Sources */,
 				6797D6D521F275A000C6B9D4 /* playerInfo.swift in Sources */,
 				67649ED72254066900C93A1D /* manageLabel.swift in Sources */,
 				67FFB59A225F99950036CC2B /* RRCellLabel.swift in Sources */,

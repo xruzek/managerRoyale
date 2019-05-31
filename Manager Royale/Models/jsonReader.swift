@@ -83,6 +83,7 @@ func loadClan(activeClan: String) -> theClan{
         }
     }
   
+    
     return clan
 }
 
